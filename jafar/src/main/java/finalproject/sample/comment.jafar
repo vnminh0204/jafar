@@ -1,0 +1,24 @@
+program comment;
+// comment test
+int x;
+{
+    {
+        // comment test
+        // comment test
+        int y;
+        {
+            int z;
+            x := 1;
+            // comment test
+            // comment test
+            {
+                x := y;
+                // comment test
+                z := x;
+                // comment test
+            }
+            // comment test
+        }
+    }
+    // comment test
+}

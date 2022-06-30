@@ -1,0 +1,10 @@
+Program sampleif;
+
+bool x;
+
+{
+    x := true;
+    while x: {
+       x := false;
+    }
+}

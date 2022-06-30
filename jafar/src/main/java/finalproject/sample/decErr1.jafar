@@ -1,0 +1,7 @@
+Program decErr1;
+
+int x;
+int x;
+{
+    x:=1;
+}

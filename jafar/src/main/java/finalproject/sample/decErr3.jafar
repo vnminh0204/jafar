@@ -1,0 +1,6 @@
+Program decErr3;
+
+int x;
+{
+    x:=y;
+}

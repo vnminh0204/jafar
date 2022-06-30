@@ -1,0 +1,21 @@
+program scope2;
+
+int x,a;
+{
+    {
+        int y;
+        {
+            int z,b,c;
+            x := 1;
+            {
+                a := y;
+                c := x;
+                b := 1;
+            }
+        }
+        {
+            bool b;
+            b := true;
+        }
+    }
+}

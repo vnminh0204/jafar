@@ -1,0 +1,8 @@
+Program typeErr3;
+
+int x;
+bool y;
+{
+    y := True;
+    x := y;
+}

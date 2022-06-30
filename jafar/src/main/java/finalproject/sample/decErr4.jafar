@@ -1,0 +1,10 @@
+Program decErr4;
+
+int x;
+{
+    {
+        int y;
+        y := 0;
+    }
+    x:=y;
+}
