@@ -196,7 +196,6 @@ public class HaskellFileGenerator {
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         PrintStream writer = new PrintStream(process.getOutputStream());
         writer.println("main");
-        writer.println(":q");
         writer.flush();
         writer.close();
         String line;
