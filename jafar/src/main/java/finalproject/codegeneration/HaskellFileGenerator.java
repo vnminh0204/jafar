@@ -196,11 +196,13 @@ public class HaskellFileGenerator {
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         PrintStream writer = new PrintStream(process.getOutputStream());
         writer.println("main");
+        writer.println(":q");
         writer.flush();
         writer.close();
         String line;
         StringBuilder sb = new StringBuilder();
         while ((line = reader.readLine()) != null) {
+//            System.out.println(line);
             if (line.contains("Sprockell") && line.contains("says")) {
                 if (line.contains("Main")) {
                     line = line.substring(7);
@@ -223,7 +225,7 @@ public class HaskellFileGenerator {
      */
     public static void main(String[] args) throws IOException, ParseException {
         HaskellFileGenerator hs = new HaskellFileGenerator();
-        System.out.println(hs.buildAndRunJafar("basic2"));
+        System.out.println(hs.buildAndRunJafar("printShared"));
     }
 
 }

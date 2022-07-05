@@ -1,0 +1,11 @@
+program printShared;
+shared int a;
+int b;
+
+{
+    a := 11;
+    print(b);
+    print(a);
+    b := 12;
+    print(b);
+}

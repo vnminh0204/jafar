@@ -410,9 +410,26 @@ public class Generator extends JAFARBaseVisitor<Op> {
 				}
 			}
 		} else {
-			visit(ctx.expr());
-			emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA));
-			emit(pCtx, OpCode.WriteInstr, new Reg(Reg.Type.regA), new Address(Address.Type.numberIO, -1));
+//			JAFARParser.ExprContext exprContext = ctx.expr();
+			if (ctx.expr() instanceof JAFARParser.IdExprContext) {
+				JAFARParser.IdExprContext idExpr = (JAFARParser.IdExprContext) ctx.expr();
+				String id = idExpr.ID().getText();
+				if (checkResult.isShared(id)) {
+					visit(ctx.expr());
+					emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA));
+					int offset = checkResult.getSharedOffset(id);
+					emit(pCtx, OpCode.ReadInstr, new Address(Address.Type.DirAddr, offset));
+					emit(pCtx, OpCode.Receive, new Reg(Reg.Type.regA));
+					emit(pCtx, OpCode.WriteInstr, new Reg(Reg.Type.regA), new Address(Address.Type.numberIO, -1));
+
+				} else {
+					visit(ctx.expr());
+					emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA));
+					emit(pCtx, OpCode.WriteInstr, new Reg(Reg.Type.regA), new Address(Address.Type.numberIO, -1));
+					return null;
+				}
+			}
+
 		}
 		return null;
 	}
