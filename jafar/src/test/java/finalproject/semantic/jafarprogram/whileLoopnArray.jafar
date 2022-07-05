@@ -1,0 +1,15 @@
+Program arr6;
+
+int[4] x;
+
+{
+    int i,sum;
+    x:= [1,3,4,7];
+    i:= 0;
+    sum:=0;
+    while (i < 4): {
+        sum:= sum+x[i];
+        i:=i+1;
+    }
+    print(sum); //expected sum = 15;
+}
