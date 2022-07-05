@@ -40,15 +40,15 @@ This first generates parsers for any grammars in `src/main/antlr4`. Then it comp
 In a terminal, run:
 
 ```
-mvn exec:java -Dexec.mainClass="Main"
+mvn exec:java
 ```
 
-This runs the `main` method of the class `Main`, located in the `ut.pp` package.
+This runs the `main` method of the class `Main`, located in the `src/main/java/finalproject/main`.
 
 Note: `exec` does not invoke `compile`, so if changes were made to the code, `compile` needs to be invoked before `exec`. These commands can also be combined:
 
 ```
-mvn compile exec:java -Dexec.mainClass="Main"
+mvn compile exec:java
 ```
 
 `mvn exec:java` is part of the maven-exec plugin. For more information about e.g. passing arguments to the main class, we refer you to the plugin documentation.
@@ -61,7 +61,7 @@ In a terminal, run:
 mvn test
 ```
 
-This will run all test classes in the `src/test/java` directory which have names starting with "Test".
+This will run all test classes in the `src/test/java` directory which have names ending with "Test".
 
 ## Intellij Integration
 

@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Main {
-    // run command    mvn exec:java -Dexec.mainClass="Main"
+    // run command    mvn exec:java
     public static void main(String[] args) throws ParseException, IOException {
         System.out.println("Hello, Programming Paradigms");
         String BASE_DIR = "src/main/java/finalproject/sample";
@@ -19,7 +19,8 @@ public class Main {
         Compiler compiler = Compiler.instance();
         HaskellFileGenerator haskell = HaskellFileGenerator.instance();
         //files are inside src/main/java/finalproject/sample
-        String filename = "printShared";  //TODO add the name of file you want to run Ex: "fibFunc" without.jafar
+        String filename = "fibFunc";  //TODO add the name of file you want to run Ex: "fibFunc" without.jafar
+
         if (filename.length() != 0) {
             //Compile file src/main/java/finalproject/sample/[filename].jafar
             ParseTree tree = compiler.parse(new File(BASE_DIR, filename + EXT));
@@ -29,8 +30,8 @@ public class Main {
             String progInHaskell = haskell.generateHaskellContent(prog);
             //  uncomment the line below if you want to see program in haskell and SPRIL
             //  Or you can see the file at directory src/main/java/finalproject/sprockell/src/[filename].hs
-
-            //  System.out.println(progInHaskell);
+            System.out.println("HERRE");
+            System.out.println(progInHaskell);
             String result = haskell.buildAndRunJafar(filename);
             System.out.println("RESULT: \n" +result);
         } else if (args.length == 0) {
@@ -45,7 +46,6 @@ public class Main {
             //  Or you can see the file at directory src/main/java/finalproject/sprockell/src/main.hs
 
             //  System.out.println(progInHaskell);
-            System.out.println(progInHaskell);
             String result = haskell.buildAndRunJafar("main");
             System.out.println("RESULT: \n" +result);
         } else {
