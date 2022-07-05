@@ -1,4 +1,4 @@
-package finalproject.checker_generator_compiler;
+package finalproject.codegeneration;
 
 import finalproject.exception.ErrorListener;
 import finalproject.exception.ParseException;
@@ -12,14 +12,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class JafarCompiler {
+public class Compiler {
 	/** The singleton instance of this class. */
-	private final static JafarCompiler instance = new JafarCompiler();
+	private final static Compiler instance = new Compiler();
 	/** Debug flag. */
 	private final static boolean SHOW = true;
 
 	/** Returns the singleton instance of this class. */
-	public static JafarCompiler instance() {
+	public static Compiler instance() {
 		return instance;
 	}
 
@@ -29,23 +29,23 @@ public class JafarCompiler {
 	/** The fixed generator of this compiler. {@link Generator}*/
 	private final Generator generator;
 
-	private JafarCompiler() {
+	private Compiler() {
 		this.checker = new Checker();
 		this.generator = new Generator();
 	}
 
 	/** Typechecks a given Jafar string. */
-	public Result check(String text) throws ParseException {
+	public CheckerResult check(String text) throws ParseException {
 		return check(parse(text));
 	}
 
 	/** Typechecks a given Jafar file. */
-	public Result check(File file) throws ParseException, IOException {
+	public CheckerResult check(File file) throws ParseException, IOException {
 		return check(parse(file));
 	}
 
 	/** Typechecks a given Jafar parse tree. */
-	public Result check(ParseTree tree) throws ParseException {
+	public CheckerResult check(ParseTree tree) throws ParseException {
 		return this.checker.check(tree);
 	}
 
@@ -61,7 +61,7 @@ public class JafarCompiler {
 
 	/** Compiles a given Jafar parse tree into an SPRIL program. */
 	public Program compile(ParseTree tree) throws ParseException {
-		Result checkResult = this.checker.check(tree);
+		CheckerResult checkResult = this.checker.check(tree);
 		return this.generator.generate(tree, checkResult);
 	}
 
@@ -82,7 +82,7 @@ public class JafarCompiler {
 
 	/** Compile a given Jafar parse tree to an SPRIL program with multiple prog instance */
 	public ArrayList<Program> compileMultiple(ParseTree tree) throws ParseException {
-		Result checkResult = this.checker.check(tree);
+		CheckerResult checkResult = this.checker.check(tree);
 		return this.generator.gen(tree, checkResult);
 	}
 
@@ -100,4 +100,5 @@ public class JafarCompiler {
 		listener.throwException();
 		return result;
 	}
+
 }

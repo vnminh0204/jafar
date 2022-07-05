@@ -1,4 +1,4 @@
-package finalproject.checker_generator_compiler;
+package finalproject.codegeneration;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /** Class holding the results of the Simple Jafar checker. */
-public class Result {
+public class CheckerResult {
 	/** Mapping from function to parameter. */
 	private final HashMap<String,Integer> numParams = new HashMap<>();
 	/** Mapping from function to hashmap of parameter and local data offset. */
@@ -49,7 +49,7 @@ public class Result {
 	}
 
 	/** Constructor for Result with initilized start shared memory offset and number of threads */
-	public Result() {
+	public CheckerResult() {
 		this.noThreads = 0;
 		this.sharedAddress = 17;
 	}

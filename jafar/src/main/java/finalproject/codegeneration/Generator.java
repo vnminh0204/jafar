@@ -1,4 +1,4 @@
-package finalproject.checker_generator_compiler;
+package finalproject.codegeneration;
 
 import finalproject.grammar.JAFARBaseVisitor;
 import finalproject.grammar.JAFARLexer;
@@ -28,7 +28,7 @@ public class Generator extends JAFARBaseVisitor<Op> {
 	public static HashMap<String, Integer> funcToStartLine = new HashMap<>();
 
 	/** The outcome of the checker phase. */
-	protected Result checkResult;
+	protected CheckerResult checkResult;
 
 
 	/** Association of statement nodes to labels. */
@@ -54,7 +54,7 @@ public class Generator extends JAFARBaseVisitor<Op> {
 	/** Generates SPRIL code for a given parse tree,
 	 * given a pre-computed checker result.
 	 */
-	public Program generate(ParseTree tree, Result checkResult) {
+	public Program generate(ParseTree tree, CheckerResult checkResult) {
 		this.init(tree, checkResult);
 		return this.prog;
 	}
@@ -65,7 +65,7 @@ public class Generator extends JAFARBaseVisitor<Op> {
 	 * @param checkResult : given pre-computed checker result
 	 * @return : list of program instance.
 	 */
-	public ArrayList<Program> gen(ParseTree tree, Result checkResult) {
+	public ArrayList<Program> gen(ParseTree tree, CheckerResult checkResult) {
 		this.init(tree, checkResult);
 		return this.programs;
 	}
@@ -75,7 +75,7 @@ public class Generator extends JAFARBaseVisitor<Op> {
 	 * @param tree given parse tree
 	 * @param checkResult given check result
 	 */
-	public void init(ParseTree tree, Result checkResult) {
+	public void init(ParseTree tree, CheckerResult checkResult) {
 		this.programs = new ArrayList<>();
 		for (int i = 0; i <= checkResult.getNoThreads(); i ++) {
 			Program p = new Program(i);

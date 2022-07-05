@@ -1,4 +1,4 @@
-package finalproject.checker_generator_compiler;
+package finalproject.codegeneration;
 
 import finalproject.exception.ParseException;
 import finalproject.grammar.JAFARBaseListener;
@@ -17,8 +17,8 @@ import java.util.List;
 
 /** Class to type check and calculate flow entries and variable offsets. */
 public class Checker extends JAFARBaseListener {
-	/** Result of the latest call of {@link Result}. */
-	private Result result;
+	/** Result of the latest call of {@link CheckerResult}. */
+	private CheckerResult result;
 	/** Variable scope for the latest call of {@link SymbolTable}. */
 	private SymbolTable symbolTable;
 	/** List of errors collected in the latest call of {@link #check}. */
@@ -28,9 +28,9 @@ public class Checker extends JAFARBaseListener {
 	 * and returns the checker result.
 	 * @throws ParseException if an error was found during checking.
 	 */
-	public Result check(ParseTree tree) throws ParseException {
+	public CheckerResult check(ParseTree tree) throws ParseException {
 		this.symbolTable = new SymbolTable();
-		this.result = new Result();
+		this.result = new CheckerResult();
 		this.errors = new ArrayList<>();
 		new ParseTreeWalker().walk(this, tree);
 		if (hasErrors()) {

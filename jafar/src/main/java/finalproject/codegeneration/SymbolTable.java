@@ -1,4 +1,4 @@
-package finalproject.checker_generator_compiler;
+package finalproject.codegeneration;
 
 import java.util.*;
 

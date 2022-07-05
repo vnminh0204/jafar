@@ -1,8 +1,8 @@
 package finalproject.tests;
 
-import finalproject.checker_generator_compiler.JafarCompiler;
-import finalproject.checker_generator_compiler.Result;
-import finalproject.checker_generator_compiler.Type;
+import finalproject.codegeneration.Compiler;
+import finalproject.codegeneration.CheckerResult;
+import finalproject.codegeneration.Type;
 import finalproject.exception.ParseException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
@@ -16,9 +16,9 @@ import static org.junit.Assert.fail;
 
 @SuppressWarnings("javadoc")
 public class CheckerTest {
-	private final static String BASE_DIR = "src/finalproject/sample";
+	private final static String BASE_DIR = "src/main/java/finalproject/sample";
 	private final static String EXT = ".jafar";
-	private final JafarCompiler compiler = JafarCompiler.instance();
+	private final Compiler compiler = Compiler.instance();
 
 	@Test
 	public void testProcedure() throws IOException, ParseException {
@@ -42,7 +42,7 @@ public class CheckerTest {
 	@Test
 	public void testBasicTypes() throws IOException, ParseException {
 		ParseTree tree = parse("basic");
-		Result result = check(tree);
+		CheckerResult result = check(tree);
 		ParseTree body = tree.getChild(3).getChild(1);
 		ParseTree assX = body.getChild(1);
 		assertEquals(Type.INT, result.getType(assX.getChild(0)));
@@ -52,7 +52,7 @@ public class CheckerTest {
 	@Test
 	public void testArrayTypes() throws IOException, ParseException {
 		ParseTree tree = parse("arr1");
-		Result result = check(tree);
+		CheckerResult result = check(tree);
 		ParseTree body = tree.getChild(3).getChild(1);
 		Type xType = result.getType(body.getChild(2).getChild(0));
 		Type yType = result.getType(body.getChild(3).getChild(0));
@@ -61,7 +61,7 @@ public class CheckerTest {
 		Type expectedYType = new Type.Array(1, Type.INT);
 		assertEquals(expectedYType, yType);
 		ParseTree tree2 = parse("arr2");
-		Result result2 = check(tree2);
+		CheckerResult result2 = check(tree2);
 		ParseTree body2 = tree2.getChild(3).getChild(1);
 		Type yType2 = result2.getType(body2.getChild(3).getChild(0));
 		assertEquals(Type.INT, yType2);
@@ -76,7 +76,7 @@ public class CheckerTest {
 	@Test
 	public void testFuncInfo() throws IOException, ParseException {
 		ParseTree tree = parse("funcInfo");
-		Result result = check(tree);
+		CheckerResult result = check(tree);
 		LinkedHashMap<String, Integer> actual = result.getFuncOffSetData("fib");
 		LinkedHashMap<String, Integer> expected = new LinkedHashMap<>();
 		expected.put("n", 1);
@@ -92,7 +92,7 @@ public class CheckerTest {
 	@Test
 	public void testBasicOffsetsInScope() throws IOException, ParseException {
 		ParseTree tree = parse("basic");
-		Result result = check(tree);
+		CheckerResult result = check(tree);
 		ParseTree body = tree.getChild(3).getChild(1);
 		ParseTree assX = body.getChild(1);
 		assertEquals(1, result.getOffset(assX.getChild(0)));
@@ -103,7 +103,7 @@ public class CheckerTest {
 	@Test
 	public void testNestedScopeOffsets() throws IOException, ParseException {
 		ParseTree tree = parse("scope2");
-		Result result = check(tree);
+		CheckerResult result = check(tree);
 		ParseTree body = tree.getChild(3).getChild(1);
 		ParseTree assX = body.getChild(1).getChild(0).getChild(2).getChild(0).getChild(2);
 		ParseTree assA = body.getChild(1).getChild(0).getChild(2).getChild(0).getChild(3).getChild(0).getChild(1);
@@ -163,7 +163,7 @@ public class CheckerTest {
 		return this.compiler.parse(new File(BASE_DIR, filename + EXT));
 	}
 
-	private Result check(ParseTree tree) throws ParseException {
+	private CheckerResult check(ParseTree tree) throws ParseException {
 		return this.compiler.check(tree);
 	}
 }

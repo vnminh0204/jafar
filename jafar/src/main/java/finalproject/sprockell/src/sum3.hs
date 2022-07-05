@@ -1,5 +1,3 @@
-module Main where
-
 import Sprockell
 
 
@@ -8,9 +6,9 @@ prog0 = [
     Load (ImmValue 2) regF 
     , Jump (Abs 81) 
     , Nop 
-    , Load (ImmValue (-1)) regB 
-    , Compute Add regF regB regB 
-    , Load (IndAddr regB) regA 
+    , Load (ImmValue (-1)) regA 
+    , Compute Add regF regA regA 
+    , Load (IndAddr regA) regA 
     , Push regA 
     , Load (ImmValue 1) regA 
     , Push regA 
@@ -27,20 +25,20 @@ prog0 = [
     , Load (ImmValue 1) regA 
     , Push regA 
     , Pop regA 
-    , Pop regE 
-    , Store regA (IndAddr regE) 
+    , Pop regD 
+    , Store regA (IndAddr regD) 
     , Jump (Abs 68) 
     , Nop 
     , Load (ImmValue 0) regA 
     , Compute Add regF regA regA 
     , Push regA 
-    , Load (ImmValue (-1)) regB 
-    , Compute Add regF regB regB 
-    , Load (IndAddr regB) regA 
+    , Load (ImmValue (-1)) regA 
+    , Compute Add regF regA regA 
+    , Load (IndAddr regA) regA 
     , Push regA 
-    , Load (ImmValue (-1)) regB 
-    , Compute Add regF regB regB 
-    , Load (IndAddr regB) regA 
+    , Load (ImmValue (-1)) regA 
+    , Compute Add regF regA regA 
+    , Load (IndAddr regA) regA 
     , Push regA 
     , Load (ImmValue 1) regA 
     , Push regA 
@@ -71,12 +69,12 @@ prog0 = [
     , Compute Add regA regB regA 
     , Push regA 
     , Pop regA 
-    , Pop regE 
-    , Store regA (IndAddr regE) 
+    , Pop regD 
+    , Store regA (IndAddr regD) 
     , Nop 
-    , Load (ImmValue 0) regB 
-    , Compute Add regF regB regB 
-    , Load (IndAddr regB) regA 
+    , Load (ImmValue 0) regA 
+    , Compute Add regF regA regA 
+    , Load (IndAddr regA) regA 
     , Push regA 
     , Load (ImmValue (-3)) regC 
     , Compute Add regF regC regC 
@@ -110,8 +108,8 @@ prog0 = [
     , Load (ImmValue (-4)) regB 
     , Compute Add regF regB regF 
     , Pop regA 
-    , Pop regE 
-    , Store regA (IndAddr regE) 
+    , Pop regD 
+    , Store regA (IndAddr regD) 
     , Load (DirAddr 2) regA 
     , Push regA 
     , Pop regA 
@@ -119,5 +117,5 @@ prog0 = [
     , EndProg 
     ]
 
-main = runWithDebugger (debuggerSimplePrint myShow) [prog0]
+main = run [prog0]
 

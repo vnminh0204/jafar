@@ -1,5 +1,3 @@
-module Main where
-
 import Sprockell
 
 
@@ -143,5 +141,5 @@ prog0 = [
     , EndProg 
     ]
 
-main = runWithDebugger (debuggerSimplePrint myShow) [prog0]
+main = run [prog0]
 

@@ -1,6 +1,6 @@
 package finalproject.tests;
 
-import finalproject.checker_generator_compiler.JafarCompiler;
+import finalproject.codegeneration.Compiler;
 import finalproject.exception.ParseException;
 import finalproject.model.Instr;
 import finalproject.model.Program;
@@ -14,7 +14,7 @@ import java.io.IOException;
 public class GeneratorTest {
 	private final static String BASE_DIR = "src/finalproject/sample";
 	private final static String EXT = ".jafar";
-	private final JafarCompiler compiler = JafarCompiler.instance();
+	private final Compiler compiler = Compiler.instance();
 
 	@Test
 	public void testGCD() throws IOException, ParseException {
