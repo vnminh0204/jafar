@@ -1,6 +1,6 @@
-Program vectorSum;
+Program arrEq3;
 
-int[3] res;
+
 
 func vectorSum(int[3] x,y): int[3] {
     int[3] sum;
@@ -14,9 +14,11 @@ func vectorSum(int[3] x,y): int[3] {
 }
 
 {
-    int [3] a,b;
+    int [3] a,b,res;
+    int [1][3] expected;
     a:= [9,3,5];
     b:= [2,4,6];
     res := vectorSum(a,b);
-    print(res);
+    expected := [[18,12,30]];
+    print(res == expected[0]);
 }

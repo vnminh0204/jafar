@@ -1,6 +1,6 @@
 Program fib;
 
-int result;
+bool result;
 
 func fib(int n): int {
     int res1;
@@ -13,6 +13,12 @@ func fib(int n): int {
 }
 
 {
-    result := fib(5);
+    int i;
+    i := 2;
+    result := true;
+    while (i <= 7) :{
+        result := result and (fib(i)== fib(i-1)+ fib(i-2));
+        i := i+1;
+    }
     print(result);
 }

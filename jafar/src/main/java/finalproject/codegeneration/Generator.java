@@ -380,11 +380,40 @@ public class Generator extends JAFARBaseVisitor<Op> {
 	}
 
 	@Override public Op visitOutStat(JAFARParser.OutStatContext ctx) {
-//		TODO out stat for array
 		Program pCtx = getProgramByNode(ctx);
-		visit(ctx.expr());
-		emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA));
-		emit(pCtx, OpCode.WriteInstr, new Reg(Reg.Type.regA), new Address(Address.Type.numberIO, -1));
+		Type exprType = this.checkResult.getType(ctx.expr());
+		if (exprType instanceof Type.Array)
+		{
+			JAFARParser.ExprContext exprContext = ctx.expr();
+			boolean isOffsetCase = (exprContext instanceof JAFARParser.IndexExprContext)    || (exprContext instanceof JAFARParser.IdExprContext);
+			boolean isStackCase = (exprContext instanceof JAFARParser.ArrayExprContext) || (exprContext instanceof JAFARParser.FuncExprContext);
+			if (isOffsetCase) {
+				visit(ctx.expr());
+				emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA)); //regA is offset at the start of array
+				for (int i = 0; i < exprType.size(); i++) {
+					emit(pCtx, OpCode.Load, new Address(Address.Type.IndAddr, new Reg(Reg.Type.regA)), new Reg(Reg.Type.regB)); //regD will store array value at offset (regA)
+					emit(pCtx, OpCode.WriteInstr, new Reg(Reg.Type.regB), new Address(Address.Type.numberIO, -1));
+					emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, 1), new Reg(Reg.Type.regB));
+					emit(pCtx, OpCode.Compute, new Operator(Add), new Reg(Reg.Type.regA), new Reg(Reg.Type.regB), new Reg(Reg.Type.regA)); // update A offset based on inter value
+				}
+			} else if (isStackCase) {
+				for (int i = 0; i < exprType.size(); i++) {
+					// sp + size-1 -> c : location of first elem of array
+					emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, exprType.size()-1), new Reg(Reg.Type.regA)); // calculate stack pointer of opposite array value
+					emit(pCtx, OpCode.Compute, new Operator(Add), new Reg(Reg.Type.regA), new Reg(Reg.Type.regSP), new Reg(Reg.Type.regA));
+					// rb: value
+					emit(pCtx, OpCode.Load, new Address(Address.Type.IndAddr, new Reg(Reg.Type.regA)), new Reg(Reg.Type.regA)); //get opposite array value
+					// sp = sp +1;
+				}
+				for (int i = 0; i < exprType.size(); i++) {
+					emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA));
+				}
+			}
+		} else {
+			visit(ctx.expr());
+			emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA));
+			emit(pCtx, OpCode.WriteInstr, new Reg(Reg.Type.regA), new Address(Address.Type.numberIO, -1));
+		}
 		return null;
 	}
 

@@ -18,10 +18,10 @@ public class Main {
 
         Compiler compiler = Compiler.instance();
         HaskellFileGenerator haskell = HaskellFileGenerator.instance();
-
-        String filename = "sum3";  //TODO add the name of file you want to run Ex: "fib" without.jafar
+        //files are inside src/main/java/finalproject/sample
+        String filename = "arrEq3";  //TODO add the name of file you want to run Ex: "fibFunc" without.jafar
         if (filename.length() != 0) {
-            //Compile file src/main/java/finalproject/sample/fib.jafar
+            //Compile file src/main/java/finalproject/sample/[filename].jafar
             ParseTree tree = compiler.parse(new File(BASE_DIR, filename + EXT));
             //prog: list of SPRIL instructions
             Program prog = compiler.compile(tree);
@@ -49,8 +49,8 @@ public class Main {
             String result = haskell.buildAndRunJafar("main");
             System.out.println("RESULT: \n" +result);
         } else {
-            filename = args[0];//Ex: filename "fib" in sample
-            //Compile file src/main/java/finalproject/sample/fib.jafar
+            filename = args[0];//Ex: filename "fibFunc" in sample
+            //Compile file src/main/java/finalproject/sample/fibFunc.jafar
             ParseTree tree = compiler.parse(new File(BASE_DIR, filename + EXT));
             //prog: list of SPRIL instructions
             Program prog = compiler.compile(tree);

@@ -61,6 +61,7 @@ public class Compiler {
 
 	/** Compiles a given Jafar parse tree into an SPRIL program. */
 	public Program compile(ParseTree tree) throws ParseException {
+
 		CheckerResult checkResult = this.checker.check(tree);
 		return this.generator.generate(tree, checkResult);
 	}

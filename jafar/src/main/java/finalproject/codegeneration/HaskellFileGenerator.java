@@ -126,7 +126,6 @@ public class HaskellFileGenerator {
     public String generateMultiProgHaskellContent (String filename) throws IOException, ParseException {
         ArrayList<Program> ps = this.compileMultiple(filename);
         StringBuilder builder = new StringBuilder();
-//        builder.append("module Main where\n\n");
         builder.append("import Sprockell\n\n\n");
         for (int i = 0; i < ps.size(); i++) {
             Program p = ps.get(i);

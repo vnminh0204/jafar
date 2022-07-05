@@ -420,9 +420,9 @@ public class Checker extends JAFARBaseListener {
 	@Override
 	public void exitCompExpr(CompExprContext ctx) {
 		// case NE and EQ is for all type
+		Type leftType = getType(ctx.expr(0));
+		Type rightType = getType(ctx.expr(1));
 		if ((ctx.compOp().getStart().getType() == JAFARLexer.EQ) || (ctx.compOp().getStart().getType() == JAFARLexer.NE)) {
-			Type leftType = getType(ctx.expr(0));
-			Type rightType = getType(ctx.expr(1));
 			if ((leftType instanceof Type.Array) && (rightType instanceof Type.Array)) {
 				while (((Type.Array) leftType).getElemType() instanceof  Type.Array) {
 					leftType = ((Type.Array) leftType).getElemType();
@@ -434,8 +434,12 @@ public class Checker extends JAFARBaseListener {
 					addError(ctx, "Array of "+ leftType+" cannot compare with Array of" + rightType);
 				}
 			} else {
-				if (!leftType.equals(rightType)) {
+				if ((leftType == null) || (rightType == null)) {
 					addError(ctx, leftType+" cannot compare with " + rightType);
+				} else{
+					if (!leftType.equals(rightType)) {
+						addError(ctx, leftType+" cannot compare with " + rightType);
+					}
 				}
 			}
 		} else { // other compOp only available for INT type
@@ -517,10 +521,8 @@ public class Checker extends JAFARBaseListener {
 		if (actual == null) {
 			return;
 		}
-
 		if (!actual.equals(expected)) {
-			addError(node, "Expected type '%s' but found '%s'", expected,
-					actual);
+			addError(node, "Expected type '%s' but found '%s'", expected, actual);
 		}
 	}
 

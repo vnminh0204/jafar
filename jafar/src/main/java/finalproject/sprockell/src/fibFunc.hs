@@ -3,7 +3,7 @@ import Sprockell
 
 prog0 :: [Instruction]
 prog0 = [
-    Load (ImmValue 2) regF 
+    Load (ImmValue 3) regF 
     , Jump (Abs 105) 
     , Nop 
     , Load (ImmValue (-1)) regA 
@@ -109,9 +109,27 @@ prog0 = [
     , Load (IndAddr regB) regB 
     , Jump (Ind regB) 
     , Nop 
+    , Load (ImmValue 3) regA 
+    , Push regA 
+    , Load (ImmValue 2) regA 
+    , Push regA 
+    , Pop regA 
+    , Pop regD 
+    , Store regA (IndAddr regD) 
     , Load (ImmValue 1) regA 
     , Push regA 
-    , Load (ImmValue 7) regA 
+    , Load (ImmValue 1) regA 
+    , Push regA 
+    , Pop regA 
+    , Pop regD 
+    , Store regA (IndAddr regD) 
+    , Jump (Abs 226) 
+    , Nop 
+    , Load (ImmValue 1) regA 
+    , Push regA 
+    , Load (DirAddr 1) regA 
+    , Push regA 
+    , Load (DirAddr 3) regA 
     , Push regA 
     , Load (ImmValue 3) regB 
     , Compute Add regF regB regB 
@@ -119,7 +137,7 @@ prog0 = [
     , Store regA (IndAddr regB) 
     , Load (ImmValue 4) regB 
     , Compute Add regF regB regF 
-    , Load (ImmValue 121) regA 
+    , Load (ImmValue 139) regA 
     , Load (ImmValue (-2)) regB 
     , Compute Add regF regB regB 
     , Store regA (IndAddr regB) 
@@ -131,9 +149,99 @@ prog0 = [
     , Push regA 
     , Load (ImmValue (-4)) regB 
     , Compute Add regF regB regF 
+    , Load (DirAddr 3) regA 
+    , Push regA 
+    , Load (ImmValue 1) regA 
+    , Push regA 
+    , Pop regB 
+    , Pop regA 
+    , Compute Sub regA regB regA 
+    , Push regA 
+    , Load (ImmValue 3) regB 
+    , Compute Add regF regB regB 
+    , Pop regA 
+    , Store regA (IndAddr regB) 
+    , Load (ImmValue 4) regB 
+    , Compute Add regF regB regF 
+    , Load (ImmValue 165) regA 
+    , Load (ImmValue (-2)) regB 
+    , Compute Add regF regB regB 
+    , Store regA (IndAddr regB) 
+    , Jump (Abs 2) 
+    , Nop 
+    , Load (ImmValue (-3)) regB 
+    , Compute Add regF regB regB 
+    , Load (IndAddr regB) regA 
+    , Push regA 
+    , Load (ImmValue (-4)) regB 
+    , Compute Add regF regB regF 
+    , Load (DirAddr 3) regA 
+    , Push regA 
+    , Load (ImmValue 2) regA 
+    , Push regA 
+    , Pop regB 
+    , Pop regA 
+    , Compute Sub regA regB regA 
+    , Push regA 
+    , Load (ImmValue 3) regB 
+    , Compute Add regF regB regB 
+    , Pop regA 
+    , Store regA (IndAddr regB) 
+    , Load (ImmValue 4) regB 
+    , Compute Add regF regB regF 
+    , Load (ImmValue 191) regA 
+    , Load (ImmValue (-2)) regB 
+    , Compute Add regF regB regB 
+    , Store regA (IndAddr regB) 
+    , Jump (Abs 2) 
+    , Nop 
+    , Load (ImmValue (-3)) regB 
+    , Compute Add regF regB regB 
+    , Load (IndAddr regB) regA 
+    , Push regA 
+    , Load (ImmValue (-4)) regB 
+    , Compute Add regF regB regF 
+    , Pop regB 
+    , Pop regA 
+    , Compute Add regA regB regA 
+    , Push regA 
+    , Pop regB 
+    , Pop regA 
+    , Compute Equal regA regB regA 
+    , Push regA 
+    , Pop regB 
+    , Pop regA 
+    , Compute And regA regB regA 
+    , Push regA 
     , Pop regA 
     , Pop regD 
     , Store regA (IndAddr regD) 
+    , Load (ImmValue 3) regA 
+    , Push regA 
+    , Load (DirAddr 3) regA 
+    , Push regA 
+    , Load (ImmValue 1) regA 
+    , Push regA 
+    , Pop regB 
+    , Pop regA 
+    , Compute Add regA regB regA 
+    , Push regA 
+    , Pop regA 
+    , Pop regD 
+    , Store regA (IndAddr regD) 
+    , Nop 
+    , Load (DirAddr 3) regA 
+    , Push regA 
+    , Load (ImmValue 10) regA 
+    , Push regA 
+    , Pop regB 
+    , Pop regA 
+    , Compute LtE regA regB regA 
+    , Push regA 
+    , Pop regA 
+    , Load (ImmValue 1) regB 
+    , Compute Equal regA regB regA 
+    , Branch regA (Abs 121) 
     , Load (DirAddr 1) regA 
     , Push regA 
     , Pop regA 
