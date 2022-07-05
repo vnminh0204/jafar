@@ -23,6 +23,8 @@
         </dependency>
     </dependencies>
 
+
+
     <build>
         <plugins>
             <plugin>
@@ -58,6 +60,9 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
+                <configuration>
+                    <mainClass>finalproject.main.Main</mainClass>
+                </configuration>
 	    </plugin>
         </plugins>
     </build>
