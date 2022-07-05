@@ -1,0 +1,32 @@
+Program sampleThread;
+
+shared int a;
+shared int b;
+shared int c;
+{
+    a := 67;
+    b := 89;
+    parbegin:
+    {
+        parbegin:
+        {
+            lock();
+            a := a + 1;
+            b := b + 1;
+            unlock();
+        }
+        {
+            lock();
+            a := a + 12;
+            b := b + 16;
+            unlock();
+
+        }
+
+        parend;
+    }
+    {
+        c := 19;
+    }
+    parend;
+}

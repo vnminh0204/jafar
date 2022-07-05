@@ -12,20 +12,29 @@ import java.io.IOException;
 
 @SuppressWarnings("javadoc")
 public class GeneratorTest {
-	private final static String BASE_DIR = "src/main/java/finalproject/sample";
+	private final static String BASE_DIR = "src/finalproject/sample";
 	private final static String EXT = ".jafar";
 	private final JafarCompiler compiler = JafarCompiler.instance();
 
-//	@Test
-//	public void testGCD() throws IOException, ParseException {
-//		Program prog = compile("gcd");
-////		System.out.println(prog.prettyPrint());
-//	}
-//
-//	@Test
-//	public void testPrime() throws IOException, ParseException {
-//		Program prog = compile("prime");
-//	}
+	@Test
+	public void testGCD() throws IOException, ParseException {
+		Program prog = compile("gcd");
+	}
+
+	@Test
+	public void testSum() throws IOException, ParseException {
+		Program prog = compile("sum");
+		int lineCount = 1;
+		for (Instr i: prog.getInstr()) {
+			System.out.println("Line " + lineCount + ": " + i.toString());
+			lineCount++;
+		}
+	}
+
+	@Test
+	public void testFib() throws IOException, ParseException {
+		Program prog = compile("fib");
+	}
 
 	@Test
 	public void testBasic2() throws IOException, ParseException {

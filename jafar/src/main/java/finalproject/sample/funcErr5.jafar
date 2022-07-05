@@ -1,0 +1,11 @@
+Program funcErr4;
+
+int x, a;
+
+func add(int x,y; bool check):int {
+    return check;
+}
+//function NOT VOID is expected to be assigned
+{
+    add(x,(1+1), False);
+}

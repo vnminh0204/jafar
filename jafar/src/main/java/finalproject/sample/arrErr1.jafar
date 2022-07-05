@@ -1,0 +1,9 @@
+Program arrErr1;
+
+int[2][1] x;
+
+{
+    int[1] y;
+    x:= [[True],[False]]; //assign boolean to int array
+    y:= x[0];
+}

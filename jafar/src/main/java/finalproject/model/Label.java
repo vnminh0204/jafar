@@ -3,9 +3,16 @@ package finalproject.model;
 /** Label operand.
  */
 public class Label extends Operand {
-	Integer lineNumber;
+	/** line number corresponding to the label */
+	private Integer lineNumber;
 
-	/** Constructs a label object with a given label text. */
+	/** String representation of label */
+	private final String value;
+
+	/** Constructs a label object with a given label text.
+	 * @param value : Label string value
+	 * @param line : Line counter corresponding to label
+	 * */
 	public Label(String value, int line) {
 		super(Type.LABEL);
 		this.value = value;
@@ -17,10 +24,11 @@ public class Label extends Operand {
 		return this.value;
 	}
 
+	/** Return current line numer. */
 	public Integer getLineNumber() {
 		return this.lineNumber;
 	}
-	private final String value;
+
 
 	@Override
 	public String toString() {
@@ -47,23 +55,4 @@ public class Label extends Operand {
 		return true;
 	}
 
-	/** Tests if a string value is a well-formed label. */
-	private boolean wellformed(String value) {
-		if (value == null) {
-			return false;
-		}
-		if (value.isEmpty()) {
-			return false;
-		}
-		if (!Character.isLetter(value.charAt(0))) {
-			return false;
-		}
-		for (int i = 1; i < value.length(); i++) {
-			char c = value.charAt(i);
-			if (!(Character.isLetterOrDigit(c) || c == '-' || c == '_')) {
-				return false;
-			}
-		}
-		return true;
-	}
 }

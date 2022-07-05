@@ -1,5 +1,7 @@
 package finalproject.model;
 
+/** Target operand
+ */
 public class Target extends Operand {
     public enum TargetType {
         /**
@@ -17,23 +19,26 @@ public class Target extends Operand {
          */
         Abs;
     }
-
+    /** Type of target */
     private final TargetType type;
+    /** Register value of Ind target */
     private final Reg register;
+    /** Numeric value of Rel/Abs target */
     private final int value;
+    /** String label of target */
     private final String label;
     /**
      * target is ind
      * @param r : register storing pc
      */
-    public Target(Reg r) {
+    public Target(TargetType tt, Reg r) {
         super(Type.TARGET);
-        this.type = TargetType.Ind;
+        this.type = tt;
         register = r;
         value = -1;
         this.label = null;
     }
-    
+
 
     /**
      * target is abs or rel
@@ -48,6 +53,11 @@ public class Target extends Operand {
         this.register = null;
     }
 
+    /**
+     * target is NOP in case of label
+     * @param tt : any type
+     * @param lb : corresponding label.
+     */
     public Target(TargetType tt, String lb) {
         super(Type.TARGET);
         this.type = tt;
@@ -57,31 +67,34 @@ public class Target extends Operand {
     }
 
     /**
-     *
-     * @return this register
+     * @return target's register value in case of Ind type
      */
     public Reg getRegister() {
         return register;
     }
 
     /**
-     *
-     * @return this value
+     * @return target's numeric value in case of Rel/Abs type
      */
     public int getValue() {
         return value;
     }
 
+    /**
+     * @return target's type
+     */
     public TargetType getTType() {
         return type;
     }
 
+    /**
+     * @return target's label
+     */
     public String getLabel() {
         return this.label;
     }
 
     /**
-     *
      * @return string representation of the object
      */
     @Override
@@ -90,6 +103,7 @@ public class Target extends Operand {
         switch (this.getTType()) {
             case Ind:
                 res = "(" + this.getTType() + " " + register + ")";
+                break;
             default:
                 res = "(" + this.getTType() + " " + value + ")";
         }

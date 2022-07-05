@@ -82,17 +82,6 @@ public abstract class Instr implements Iterable<Op> {
 		}
 	}
 
-//	/** Returns a string of the form
-//	 * {@code label? opCode sources (arrow targets)? comment?}
-//	 * where the widths of the label, sources and targets parts
-//	 * are predetermined.
-//	 * @param labelSize width of the {@code label} part
-//	 * @param sourceSize width of the {@code sources} part
-//	 * @param targetSize width of the {@code targets} part
-//	 */
-//	abstract public String prettyPrint(int labelSize, int sourceSize,
-//			int targetSize);
-
 	@Override
 	public int hashCode() {
 		return (this.label == null) ? 0 : this.label.hashCode();

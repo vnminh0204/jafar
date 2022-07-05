@@ -1,0 +1,17 @@
+Program procErr2;
+
+int sum;
+
+func add(int x,y; bool check):void {
+    sum := x+y;
+    return sum;
+}
+
+func add():void {
+    return;
+}
+
+//return expr is not matched
+{
+    add(5,(1+1), False);
+}

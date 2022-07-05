@@ -1,0 +1,12 @@
+Program funcErr4;
+
+int x, a;
+
+func add(int x,y; bool check):int {
+    return check;
+}
+//return Type is not matched
+{
+    x:= 5;
+    a:= add(x,(1+1), False);
+}

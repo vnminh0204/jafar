@@ -15,13 +15,20 @@ public class Address extends Operand {
         /**
          * register contain address
          */
-        IndAddr;
+        IndAddr,
+        /**
+         * IO output
+         */
+        numberIO;
     }
 
+    /** Address Type */
     private Type type;
 
+    /** Register value in case of IndAddr type */
     private Reg register;
 
+    /** Numeric value in case of DirAddr/ImmValue type */
     private int value;
 
     /**
@@ -49,7 +56,6 @@ public class Address extends Operand {
     }
 
     /**
-     *
      * @return string representation of all attributes of address obj
      */
     @Override
@@ -58,10 +64,17 @@ public class Address extends Operand {
         switch (type) {
             case ImmValue:
             case DirAddr:
-                res = "(" + type + " " + value + ")";
+                if (value >= 0) {
+                    res = "(" + type + " " + value + ")";
+                } else {
+                    res = "(" + type + " (" + value + "))";
+                }
                 break;
             case IndAddr:
                 res = "(" + type + " " + register + ")";
+                break;
+            case numberIO:
+                res = "numberIO";
                 break;
             default:
                 res = "ERR: Null Address Type";
@@ -76,12 +89,4 @@ public class Address extends Operand {
     public int getValue() {
         return value;
     }
-
-//    /**
-//     *
-//     * @return
-//     */
-//    public AddressType getType() {
-//        return this.type;
-//    }
 }

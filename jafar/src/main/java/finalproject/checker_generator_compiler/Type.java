@@ -1,12 +1,15 @@
 package finalproject.checker_generator_compiler;
 
-/** Pascal data type. */
+/** Jafar data type. */
 abstract public class Type {
 	/** The singleton instance of the {@link Bool} type. */
 	public static final Type BOOL = new Bool();
 	/** The singleton instance of the {@link Int} type. */
 	public static final Type INT = new Int();
+	/** The singleton instance of the {@link Void} type. */
+	public static final Type VOID = new Void();
 	public static final int INT_SIZE = 1;
+	public static final int VOID_SIZE = 0;
 	private final TypeKind kind;
 
 	/** Constructor for subclasses. */
@@ -22,7 +25,24 @@ abstract public class Type {
 	/** returns the size (in bytes) of a value of this type. */
 	abstract public int size();
 
-	/** Representation of the Pascal Boolean type. */
+	/** Representation of the Jafar Void type. */
+	static public class Void extends Type {
+		private Void() {
+			super(TypeKind.VOID);
+		}
+
+		@Override
+		public int size() {
+			return VOID_SIZE;
+		}
+
+		@Override
+		public String toString() {
+			return "Void";
+		}
+	}
+
+	/** Representation of the Jafar Boolean type. */
 	static public class Bool extends Type {
 		private Bool() {
 			super(TypeKind.BOOL);
@@ -39,7 +59,7 @@ abstract public class Type {
 		}
 	}
 
-	/** Representation of the Pascal Integer type. */
+	/** Representation of the Jafar Integer type. */
 	static public class Int extends Type {
 		private Int() {
 			super(TypeKind.INT);
@@ -56,18 +76,27 @@ abstract public class Type {
 		}
 	}
 
-	/** Representation of Pascal Array types. */
+	/** Representation of Jafar Array types. */
 	static public class Array extends Type {
 		private final int lower;
 		private final int upper;
+		private final int numElems;
 		private final Type elemType;
+		private int numDimens;
 
-		private Array(int lower, int upper, Type elemType) {
+		public Array(int numElems, Type elemType) {
 			super(TypeKind.ARRAY);
-			assert upper >= lower;
-			this.lower = lower;
-			this.upper = upper;
+			assert numElems >= 0;
+			this.upper = numElems-1;
+			this.lower = 0;
+			this.numElems = numElems;
 			this.elemType = elemType;
+			this.numDimens = 1;
+			Type temp = elemType;
+			while (temp instanceof Type.Array) {
+				numDimens++;
+				temp = ((Array) temp).elemType;
+			}
 		}
 
 		/** Returns the lower bound of this array type. */
@@ -80,6 +109,16 @@ abstract public class Type {
 			return this.upper;
 		}
 
+		/** Return the size of this array type. */
+		public int getNumDimens() {
+			return this.numDimens;
+		}
+
+		/** Return the size of this array type. */
+		public int getNumElems() {
+			return this.numElems;
+		}
+
 		/** Returns the element bound of this array type. */
 		public Type getElemType() {
 			return this.elemType;
@@ -87,12 +126,12 @@ abstract public class Type {
 
 		@Override
 		public int size() {
-			return (getUpper() - getLower() + 1) * this.elemType.size();
+			return this.numElems*this.elemType.size();
 		}
 
 		@Override
 		public String toString() {
-			return "Array [" + this.lower + ".." + this.upper + "] of "
+			return "[" + this.size() + "]"
 					+ this.elemType;
 		}
 

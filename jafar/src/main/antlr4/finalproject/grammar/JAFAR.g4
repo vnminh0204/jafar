@@ -7,12 +7,21 @@ program
 
 /** Body of a program. */
 body
-    : decl* block
+    : sharedDecl* decl* func* block
     ;
 
 /** Variable declaration block. */
 decl: (var SEMI)+                  #varDecl //int x,y; bool check;
     ;
+
+sharedDecl: SHARED type ID SEMI
+    ;
+/** Function declaration. */
+func: FUNC ID LPAR (params)? RPAR COLON type BEGIN (decl)* (stat)* RETURN (expr)? SEMI END #funcDecl // func add(int x,y):int {return (x+y);}
+    ;                                                                                             // fun justPrint():void {print(x); return;}
+
+params: var (SEMI var)* #paramsDecl
+      ;
 
 /** Variable declaration. */
 var : type ID (COMMA ID)* //int x,y
@@ -23,19 +32,25 @@ block
     : BEGIN (decl)* (stat)+ END //{ a:=b; x:= x+1;}
     ;
 
+threadBlock
+    : block
+    ;
 /** Statement. */
-stat: target ASS expr SEMI                #assStat // x:= 1;
-    | IF expr COLON block (ELSE block)? #ifStat // if (a == b): {thenpart} else {elsepart}
-    | WHILE expr COLON block             #whileStat // while (a == b): {}
-    | block                          #blockStat
-    | PARBEGIN COLON (block)+ PAREND SEMI      #threadStat
+stat: target ASS expr SEMI                  #assStat // x:= 1;
+    | IF expr COLON block (ELSE block)?     #ifStat // if (a == b): {thenpart} else {elsepart}
+    | WHILE expr COLON block                #whileStat // while (a == b): {}
+    | block                                 #blockStat //{@block content}
+    | PARBEGIN COLON (threadBlock)+ PAREND SEMI      #threadStat // parbegin: {@thread1block} {@thread2block} parend;
     | LOCK LPAR RPAR SEMI           #lockStat
     | UNLOCK LPAR RPAR SEMI         #unlockStat
+    | PRINT LPAR expr RPAR SEMI             #outStat // print(x);
+    | ID LPAR (expr (COMMA expr)*)? RPAR SEMI #funcStat // funcname(x,1,True);
     ;
 
 /** Target of an assignment. */
 target
     : ID               #idTarget
+    | arrayID (LSQ expr RSQ)+ #arrayTarget // a[0][1] := x;
     ;
 
 /** Expression. */
@@ -49,7 +64,12 @@ expr: prfOp expr        #prfExpr
     | NUM               #numExpr
     | TRUE              #trueExpr
     | FALSE             #falseExpr
+    | LSQ (expr (COMMA expr)*)? RSQ  #arrayExpr // [1,2,3] // [[1,2],[2,3]]
+    | arrayID (LSQ expr RSQ)+   #indexExpr // a[1][2][3][4] given int [5][5][5][5]
+    | ID LPAR (expr (COMMA expr)*)? RPAR #funcExpr
     ;
+
+arrayID: ID;
 
 /** Prefix operator. */
 prfOp: MINUS | NOT;
@@ -67,20 +87,26 @@ boolOp: AND | OR;
 compOp: LE | LT | GE | GT | EQ | NE;
 
 /** Data type. */
-type: INTEGER  #intType
+type: INTEGER (LSQ NUM RSQ)+    #integerArrayType // int [4][2]
+    | BOOLEAN (LSQ NUM RSQ)+    #booleanArrayType // bool [2][3]
+    | INTEGER  #intType
     | BOOLEAN  #boolType
+    | VOID     #voidType
     ;
-
 // Keywords
+
 AND:     A N D;
 BEGIN:   LBRACE;
 BOOLEAN: B O O L;
 INTEGER: I N T;
+VOID: V O I D;
+SHARED: S H A R E D;
 ELSE:    E L S E ;
 END:     RBRACE;
 EXIT:    E X I T ;
 FALSE:   F A L S E ;
-FUNC:    F U N C T I O N ;
+FUNC:    F U N C;
+RETURN:  R E T U R N;
 IF:      I F ;
 INPUT:   I N P U T;
 NOT:     EXPLNMARK;
@@ -114,6 +140,8 @@ RPAR:   ')';
 SEMI:   ';';
 SLASH:  '/';
 STAR:   '*';
+LSQ:    '[';
+RSQ:    ']';
 EXPLNMARK: '!';
 
 // Content-bearing token types

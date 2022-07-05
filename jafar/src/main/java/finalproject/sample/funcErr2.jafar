@@ -1,0 +1,13 @@
+Program funcErr2;
+
+int x,
+bool a;
+
+func add(int x,y; bool check):int {
+    return ;
+}
+//expected return value
+{
+    x:= 5;
+    a:= add(x,(1+1), False);
+}

@@ -1,0 +1,19 @@
+Program sum;
+
+int[3] sum,x;
+
+func add(int[3] x,y):void {
+    int i;
+    i:= 0;
+    while (i < 3): {
+        sum[i]:= sum[i]+x[i]*y[i];
+        i:=i+1;
+    }
+    return;
+}
+
+{
+    x:= [1,3,5];
+    add(x, [2,4,6]);
+    //print(sum);
+}

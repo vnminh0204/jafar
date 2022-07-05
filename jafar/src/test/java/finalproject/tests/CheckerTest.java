@@ -9,16 +9,35 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-
 @SuppressWarnings("javadoc")
 public class CheckerTest {
-	private final static String BASE_DIR = "src/main/java/finalproject/sample";
+	private final static String BASE_DIR = "src/finalproject/sample";
 	private final static String EXT = ".jafar";
 	private final JafarCompiler compiler = JafarCompiler.instance();
+
+	@Test
+	public void testProcedure() throws IOException, ParseException {
+		checkFail("procErr1");
+		checkFail("procErr2");
+		checkFail("procErr3");
+		check(parse("sum"));
+	}
+
+	@Test
+	public void testFunction() throws IOException, ParseException {
+		checkFail("funcErr1");
+		checkFail("funcErr3");
+		checkFail("funcErr2");
+		checkFail("funcErr4");
+		checkFail("funcErr5");
+		checkFail("funcErr6");
+		check(parse("fib"));
+	}
 
 	@Test
 	public void testBasicTypes() throws IOException, ParseException {
@@ -31,17 +50,47 @@ public class CheckerTest {
 	}
 
 	@Test
-	public void testBasicEntries() throws IOException, ParseException {
-		ParseTree tree = parse("basic");
+	public void testArrayTypes() throws IOException, ParseException {
+		ParseTree tree = parse("arr1");
 		Result result = check(tree);
 		ParseTree body = tree.getChild(3).getChild(1);
-		ParseTree assX = body.getChild(1);
-		assertEquals(assX.getChild(2), result.getEntry(assX));
-		assertEquals(assX.getChild(2), result.getEntry(body));
+		Type xType = result.getType(body.getChild(2).getChild(0));
+		Type yType = result.getType(body.getChild(3).getChild(0));
+		Type expectedXType = new Type.Array(2, new Type.Array(1, Type.INT));
+		assertEquals(expectedXType, xType);
+		Type expectedYType = new Type.Array(1, Type.INT);
+		assertEquals(expectedYType, yType);
+		ParseTree tree2 = parse("arr2");
+		Result result2 = check(tree2);
+		ParseTree body2 = tree2.getChild(3).getChild(1);
+		Type yType2 = result2.getType(body2.getChild(3).getChild(0));
+		assertEquals(Type.INT, yType2);
+		checkFail("arrErr1");
+		checkFail("arrErr2");
+		checkFail("arrErr3");
+		checkFail("arrErr4");
+		checkFail("arrErr5");
+		checkFail("arrErr6");
 	}
 
 	@Test
-	public void testBasicOffsets() throws IOException, ParseException {
+	public void testFuncInfo() throws IOException, ParseException {
+		ParseTree tree = parse("funcInfo");
+		Result result = check(tree);
+		LinkedHashMap<String, Integer> actual = result.getFuncOffSetData("fib");
+		LinkedHashMap<String, Integer> expected = new LinkedHashMap<>();
+		expected.put("n", 1);
+		expected.put("res", 2);
+		assertEquals(actual, expected);
+		LinkedHashMap<String, Integer> actual2 = result.getFuncOffSetData("sum");
+		LinkedHashMap<String, Integer> expected2 = new LinkedHashMap<>();
+		expected2.put("a", 1);
+		expected2.put("b", 2);
+		assertEquals(actual2, expected2);
+	}
+
+	@Test
+	public void testBasicOffsetsInScope() throws IOException, ParseException {
 		ParseTree tree = parse("basic");
 		Result result = check(tree);
 		ParseTree body = tree.getChild(3).getChild(1);
@@ -73,11 +122,6 @@ public class CheckerTest {
 	@Test
 	public void testGCD() throws IOException, ParseException {
 		check(parse("gcd"));
-	}
-
-	@Test
-	public void testPrime() throws IOException, ParseException {
-		check(parse("prime"));
 	}
 
 	@Test

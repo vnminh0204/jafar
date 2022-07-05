@@ -15,4 +15,5 @@ int x, y,ans;
     }
     //expected result will be 12
     ans := x;
+    print(ans);
 }

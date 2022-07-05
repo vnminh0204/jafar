@@ -1,0 +1,9 @@
+Program arrErr3;
+
+int[2][2] x;
+
+{
+    int y;
+    x:= [[1,3],[True,False]]; //Array is declared with elem not of the same type
+    y:= x[0][1];
+}

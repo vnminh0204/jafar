@@ -1,0 +1,21 @@
+Program vectorSum;
+
+int[3] res;
+
+func vectorSum(int[3] x,y): int[3] {
+    int[3] sum;
+    int i;
+    i:= 0;
+    while (i < 3): {
+        sum[i]:= sum[i]+x[i]*y[i];
+        i:=i+1;
+    }
+    return sum;
+}
+
+{
+    int [3] a,b;
+    a:= [9,3,5];
+    b:= [2,4,6];
+    res := vectorSum(a,b);
+}

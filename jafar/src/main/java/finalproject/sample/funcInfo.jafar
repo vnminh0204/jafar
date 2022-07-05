@@ -1,0 +1,29 @@
+Program funcInfo;
+
+int arg, result;
+
+func fib(int n): int {
+    int res;
+    res := 0;
+    if (n <= 1): {
+        res := 1;
+    } else {
+         res := fib(n-2) + fib(n-1);
+    }
+    return res;
+}
+
+func sum():void {
+    int a,b;
+    a:=1;
+    b:=7;
+    result:=a+b;
+    return;
+}
+
+{
+    bool zen;
+    arg:=11;
+    result := fib(arg);
+    print(result);
+}

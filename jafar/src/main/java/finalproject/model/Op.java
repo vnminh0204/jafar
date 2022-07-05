@@ -5,14 +5,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import finalproject.model.Operand.Type;
-
 /**
  * SPRIL operation
  */
 public class Op extends Instr {
-	/** Comment separator. */
-	private final static String COMMENT_SEP = "// ";
 	/** Operand separator. */
 	private final static String OP_SEP = " ";
 
@@ -23,6 +19,7 @@ public class Op extends Instr {
 	/** The optional comment for this operation. */
 	private String comment;
 
+	/** The string representation of label */
 	private String sLabel;
 
 	/** Constructs an unlabelled operation with a given opcode and arguments. */
@@ -44,13 +41,13 @@ public class Op extends Instr {
 
 	/** Constructs a labelled operation with a given opcode and arguments.
 	 * @throws IllegalArgumentException if one of the arguments
-	 * is not of the expected type 
+	 * is not of the expected type
 	 */
-
-	private int line;
 	public String getsLabel() {
 		return this.sLabel;
 	}
+
+	/** Constructs a labelled operation with a given label, opcode and arguments. */
 	public Op(String sLabel, OpCode opCode, List<Operand> args) {
 		this.sLabel = sLabel;
 		this.opCode = opCode;
@@ -62,7 +59,7 @@ public class Op extends Instr {
 		}
 		for (int i = 0; i < argsCount; i++) {
 			Operand arg = args.get(i);
-			Type expected = opCode.getSig().get(i);
+			Operand.Type expected = opCode.getSig().get(i);
 			if (arg.getType() != expected) {
 				throw new IllegalArgumentException(
 						String.format(
@@ -72,6 +69,8 @@ public class Op extends Instr {
 		}
 		this.args = new ArrayList<>(args);
 	}
+
+	/** Constructs a labelled operation with a given label, opcode and arguments. */
 	public Op(Label label, OpCode opCode, List<Operand> args)
 			throws IllegalArgumentException {
 		if (label != null) {
@@ -86,7 +85,7 @@ public class Op extends Instr {
 		}
 		for (int i = 0; i < argsCount; i++) {
 			Operand arg = args.get(i);
-			Type expected = opCode.getSig().get(i);
+			Operand.Type expected = opCode.getSig().get(i);
 			if (arg.getType() != expected) {
 				throw new IllegalArgumentException(
 						String.format(
@@ -142,39 +141,6 @@ public class Op extends Instr {
 		return Collections.singleton(this).iterator();
 	}
 
-//	@Override
-//	public String prettyPrint(int labelSize, int sourceSize, int targetSize) {
-//		StringBuilder result = new StringBuilder();
-//		if (labelSize > 0) {
-//			result.append(String
-//					.format("%-" + labelSize + "s", toLabelString()));
-//		}
-//		int arrowSize = 4;
-//		if (getClaz() == COMMENT) {
-//			result.append(toCommentString());
-//		}
-//		if (getOpCode() == OpCode.out) {
-//			int size = sourceSize + targetSize + arrowSize;
-//			result.append(String.format("%-8s", getOpCode().name()));
-//			result.append(String.format("%-" + size + "s ", toSourceString()));
-//			result.append(toCommentString());
-//		} else {
-//			result.append(String.format("%-8s", getOpCode().name()));
-//			if (sourceSize > 0) {
-//				result.append(String.format("%-" + sourceSize + "s",
-//						toSourceString()));
-//			}
-//			result.append(String
-//					.format("%-" + arrowSize + "s", toArrowString()));
-//			if (targetSize > 0) {
-//				result.append(String.format("%-" + targetSize + "s ",
-//						toTargetString()));
-//			}
-//			result.append(toCommentString());
-//		}
-//		result.append('\n');
-//		return result.toString();
-//	}
 
 	@Override
 	public String toString() {
@@ -193,17 +159,9 @@ public class Op extends Instr {
 		return result.toString();
 	}
 
-	/** Returns the string representation of the optional comment. */
-	String toCommentString() {
-		if (hasComment()) {
-			return COMMENT_SEP + getComment();
-		} else {
-			return "";
-		}
-	}
 
-	/** Returns the string representation of the source operands. */
-	String toSourceString() {
+	/** @return the string representation of the source operands. */
+	public String toSourceString() {
 		StringBuilder result = new StringBuilder();
 		boolean first = true;
 		for (int i = 0; i < getOpCode().getSourceCount(); i++) {
@@ -218,8 +176,8 @@ public class Op extends Instr {
 		return result.toString();
 	}
 
-	/** Returns the string representation of the target operands. */
-	String toTargetString() {
+	/** @return the string representation of the target operands. */
+	public String toTargetString() {
 		StringBuilder result = new StringBuilder();
 		boolean first = true;
 		for (int i = getOpCode().getSourceCount(); i < getOpCode()

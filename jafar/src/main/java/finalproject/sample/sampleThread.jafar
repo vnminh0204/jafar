@@ -1,0 +1,28 @@
+Program sampleThread;
+
+shared int a;
+shared int b;
+shared int c;
+{
+    a := 0;
+    parbegin:
+    {
+        b := 0;
+        while (b<5) : {
+            lock();
+            b := b +1;
+            a := a + 1;
+            unlock();
+        }
+    }
+    {
+        c := 0;
+        while (c<5) : {
+            lock();
+            c := c +1;
+            a := a - 1;
+            unlock();
+        }
+    }
+    parend;
+}

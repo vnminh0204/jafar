@@ -39,12 +39,12 @@ public enum OpCode {
 	Store(1, REG, ADDR),
 
 	/**
-	 * push value from register to stack
+	 * Push value from register to stack memory
 	 */
 	Push(0, REG),
 
 	/**
-	 * put top of the stack to r and adapts stack pointer
+	 * Pop top of the stack to r and adapts stack pointer
 	 */
 	Pop(0, REG),
 
@@ -92,6 +92,7 @@ public enum OpCode {
 	/** The operand types. */
 	private final List<Operand.Type> sig;
 
+	/** Constructs a opcode with a given sourceCount and arguments. */
 	private OpCode(int sourceCount, Operand.Type... sig) {
 		this.sourceSig = new ArrayList<>(sourceCount);
 		for (int i = 0; i < sourceCount; i++) {
@@ -134,15 +135,5 @@ public enum OpCode {
 		return this.targetSig;
 	}
 
-	/** Returns the {@link OpCode} for a given string, if any. */
-	public static OpCode parse(String code) {
-		return codeMap.get(code);
-	}
 
-	private static final Map<String, OpCode> codeMap = new HashMap<>();
-	static {
-		for (OpCode op : values()) {
-			codeMap.put(op.name(), op);
-		}
-	}
 }

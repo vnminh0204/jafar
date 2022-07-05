@@ -19,5 +19,7 @@ int x,a;
         b := (11 == x);
         check := b and false;
         y := a;
+        print(b);
     }
+    print(x);
 }

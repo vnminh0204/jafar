@@ -1,0 +1,8 @@
+Program arr4;
+
+shared int[2][2] x;
+shared int y;
+{
+    x:= [[1,3],[5,7]];
+    y:= x[0][1];
+}
