@@ -232,7 +232,7 @@ prog0 = [
     , Nop 
     , Load (DirAddr 3) regA 
     , Push regA 
-    , Load (ImmValue 10) regA 
+    , Load (ImmValue 7) regA 
     , Push regA 
     , Pop regB 
     , Pop regA 

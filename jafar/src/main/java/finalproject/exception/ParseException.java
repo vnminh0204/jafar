@@ -22,4 +22,10 @@ public class ParseException extends Exception {
 			System.out.println("File " + filename + ", " +error);
 		}
 	}
+	/** Prints all error messages to stdout, line by line. */
+	public void print() {
+		for (String error : getMessages()) {
+			System.out.println(error);
+		}
+	}
 }

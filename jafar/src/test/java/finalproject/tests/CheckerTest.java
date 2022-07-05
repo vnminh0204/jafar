@@ -36,7 +36,7 @@ public class CheckerTest {
 		checkFail("funcErr4");
 		checkFail("funcErr5");
 		checkFail("funcErr6");
-		check(parse("fib"));
+		check(parse("fibFunc"));
 	}
 
 	@Test
