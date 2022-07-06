@@ -1,0 +1,8 @@
+Program sharedMissuseErr3;
+
+shared int x;
+
+{
+    int x;
+    x := 3;
+}

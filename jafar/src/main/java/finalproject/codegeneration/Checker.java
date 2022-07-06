@@ -23,6 +23,8 @@ public class Checker extends JAFARBaseListener {
 	private SymbolTable symbolTable;
 	/** List of errors collected in the latest call of {@link #check}. */
 	private List<String> errors;
+	/** MAX number of sub threads*/
+	private final int MAX_THREADS = 5;
 
 	/** Runs this checker on a given parse tree,
 	 * and returns the checker result.
@@ -172,6 +174,9 @@ public class Checker extends JAFARBaseListener {
 
 	@Override
 	public void enterThreadBlock(ThreadBlockContext ctx) {
+		if (result.getNoThreads() >= MAX_THREADS) {
+			addError(ctx, "MAX_THREADS (6) reached, please reduce number of threads");
+		}
 		int newThreadId = result.createNewThread();
 		int parentId = result.getThreadId(ctx.parent);
 		result.setParentID(newThreadId, parentId);

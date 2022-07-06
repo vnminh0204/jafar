@@ -1,0 +1,17 @@
+Program threadCreationErr1;
+
+shared int x;
+{
+    x := 0;
+    parbegin:
+    {
+        parbegin:
+        {x := 0;}
+        {x := 0;}
+        {x := 0;}
+        parend;
+    }
+    {x := 0;}
+    {x := 0;}
+    parend;
+}

@@ -1,0 +1,30 @@
+Program nonLock;
+
+shared int balance;
+shared int a;
+shared int i;
+shared int j;
+
+{
+    balance := 0;
+
+    parbegin:
+    {
+        i := 0;
+        while (i < 15): {
+            balance := balance + 10;
+            i := i + 1;
+        }
+    }
+
+    {
+        j := 0;
+        while (j < 15): {
+            balance := balance - 5;
+            j := j + 1;
+        }
+    }
+
+    parend;
+    print(balance);
+}

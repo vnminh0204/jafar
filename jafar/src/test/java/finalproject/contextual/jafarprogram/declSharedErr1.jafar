@@ -1,0 +1,8 @@
+Program declSharedErr1;
+
+int x;
+shared int i;
+
+{
+
+}

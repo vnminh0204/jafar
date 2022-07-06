@@ -1,0 +1,7 @@
+Program nonSharedErr;
+
+shared int i;
+
+{
+    i := true;
+}
