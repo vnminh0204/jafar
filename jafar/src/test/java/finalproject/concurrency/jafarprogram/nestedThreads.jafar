@@ -1,4 +1,4 @@
-Program sampleThread;
+Program nestedThreads;
 
 shared int a;
 shared int b;

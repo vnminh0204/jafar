@@ -1,0 +1,12 @@
+Program modSimple;
+
+
+{
+    print(6 mod 5);
+    print(7 mod 5);
+    print(8 mod 5);
+    print(9 mod 5);
+    print(10 mod 5);
+    print(13 mod 6);
+    print(21 mod 8);
+}

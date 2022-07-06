@@ -1,0 +1,11 @@
+Program divSimple;
+{
+    print(100/2);
+    print(99/2);
+    print(17/17);
+    print(91/14);
+    print(60/12);
+    print(121/11);
+    print(0/87);
+    print(15/16);
+}
