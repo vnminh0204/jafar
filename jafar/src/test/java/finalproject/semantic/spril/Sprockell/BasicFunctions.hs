@@ -18,7 +18,7 @@ regPC         = regbankSize + 1                      -- register for program cou
 regbankSize   =  8   :: Int
 localMemSize  = 50   :: Int
 
-shMemSize     =  48   :: Int
+shMemSize     =  25   :: Int
 channelDelay  =  4   :: Int
 
 

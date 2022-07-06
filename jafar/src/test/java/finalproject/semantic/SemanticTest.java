@@ -22,22 +22,56 @@ public class SemanticTest {
     }
 
     @Test
-    public void testNumDaysFebruary() throws IOException, ParseException {
-//        String result = haskell.buildAndRunJafar(filename);
-//        System.out.println("RESULT: \n" +result);
-//        Program prog = compile("gcd");
-    }
-
-    @Test
-    public void testFunction() throws IOException, ParseException {
-        // the 7th Fibonacci number is 21
-        String result = haskell.buildAndRunJafar("fibFunc");
-        String expectedResult = "Sprockell 0 says 21\n";
+    public void testGCD() throws IOException, ParseException {
+        String result = haskell.buildAndRunJafar("gcd");
+        String expectedResult = "Sprockell 0 says 12\n"; //12 is gcd(60,36)
         assertEquals(expectedResult, result);
     }
 
-    @Test (timeout = 1000)
-    public void testSomething() {
-        while (true);
+    @Test
+    public void testArraySort() throws IOException, ParseException {
+        String result = haskell.buildAndRunJafar("arrSort");
+        //sort array [11,3,8,7,1]
+        String expectedResult = "Sprockell 0 says 1\n" +
+                "Sprockell 0 says 3\n" +
+                "Sprockell 0 says 7\n" +
+                "Sprockell 0 says 8\n" +
+                "Sprockell 0 says 11\n"; //array after sorting is [1,3,7,8,11]
+        assertEquals(expectedResult, result);
     }
+
+    @Test
+    public void testNumDaysFebruary() throws IOException, ParseException {
+        String result = haskell.buildAndRunJafar("numDaysFebruary");
+        String expectedResult = "Sprockell 0 says 29\n" + //year 2020
+                "Sprockell 0 says 28\n" + //year 2021
+                "Sprockell 0 says 28\n" + //year 2022
+                "Sprockell 0 says 28\n" + //year 2023
+                "Sprockell 0 says 29\n"; //year 2024
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testFibFunction() throws IOException, ParseException {
+        String result = haskell.buildAndRunJafar("fibFunc");
+        String expectedResult = "Sprockell 0 says 21\n"; // the 7th Fibonacci number is 21
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testPrime() throws IOException, ParseException {
+        // the 7th Fibonacci number is 21
+        String result = haskell.buildAndRunJafar("prime");
+        String expectedResult = "Sprockell 0 says 2\n" + // 2 | 12 => 12 is not prime
+                "Sprockell 0 says 1\n" + // 7 is prime
+                "Sprockell 0 says 7\n" + // 7 | 77 => 77 is not prime
+                "Sprockell 0 says 1\n" + // 23 is prime
+                "Sprockell 0 says 5\n"; // 35 is not prime
+        assertEquals(expectedResult, result);
+    }
+
+//    @Test (timeout = 1000)
+//    public void testSomething() {
+//        while (true);
+//    }
 }

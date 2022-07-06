@@ -1,0 +1,27 @@
+Program prime;
+
+func isPrime(int x): int {
+    bool stop;
+    int res,i;
+    i := 2;
+    stop := false;
+    while ((!stop) and (i*i < x)): {
+        stop := (i * (x/i)) == x;
+        i := i + 1;
+    }
+
+    if (stop): {
+        res:=i-1;
+    } else {
+        res:=1;
+    }
+    return res;
+}
+
+{
+    print(isPrime(12));
+    print(isPrime(7));
+    print(isPrime(77));
+    print(isPrime(23));
+    print(isPrime(35));
+}

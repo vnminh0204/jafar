@@ -1,16 +1,19 @@
 Program fib;
 
 func numsDaysFeb(int year): int {
-    int res1;
-    if (n <= 1): {
-        res1 := 1;
+    int res;
+    if ((year mod 4) != 0): {
+        res := 28;
     } else {
-         res1 := fib(n-2) + fib(n-1);
+         res := 29;
     }
-    return res1;
+    return res;
 }
 
 {
-    result := fib(7);
-    print(result);
+    print(numsDaysFeb(2020));
+    print(numsDaysFeb(2021));
+    print(numsDaysFeb(2022));
+    print(numsDaysFeb(2023));
+    print(numsDaysFeb(2024));
 }
