@@ -1,0 +1,4 @@
+Program divByZero;
+{
+    print(5/0);
+}

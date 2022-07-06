@@ -1,4 +1,4 @@
-package finalproject.codegeneration;
+package finalproject.compilation;
 
 import finalproject.exception.ErrorListener;
 import finalproject.exception.ParseException;

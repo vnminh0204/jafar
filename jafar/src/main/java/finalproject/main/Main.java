@@ -1,7 +1,6 @@
 package finalproject.main;
 
-import finalproject.codegeneration.Compiler;
-import finalproject.codegeneration.HaskellFileGenerator;
+import finalproject.compilation.HaskellFileGenerator;
 import finalproject.exception.ParseException;
 
 import java.io.IOException;

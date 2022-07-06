@@ -1,0 +1,9 @@
+Program divByZero;
+{
+    int a,b;
+    a := 5;
+    b := 11;
+    print(b/a);
+    print(a/0);
+    print(b);
+}

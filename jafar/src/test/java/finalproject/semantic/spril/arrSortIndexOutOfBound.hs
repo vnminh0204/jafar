@@ -3,7 +3,7 @@ import Sprockell
 
 prog0 :: [Instruction]
 prog0 = [
-    Load (ImmValue 9) regF 
+    Load (ImmValue 8) regF 
     , Jump (Abs 2) 
     , Nop 
     , Load (ImmValue 1) regA 
@@ -49,7 +49,7 @@ prog0 = [
     , Pop regA 
     , Pop regD 
     , Store regA (IndAddr regD) 
-    , Jump (Abs 245) 
+    , Jump (Abs 223) 
     , Nop 
     , Load (ImmValue 8) regA 
     , Push regA 
@@ -59,9 +59,9 @@ prog0 = [
     , Pop regA 
     , Load (ImmValue 4) regB 
     , Compute Gt regA regB regB 
-    , Branch regB (Abs 281) 
+    , Branch regB (Abs 259) 
     , Compute Lt regA reg0 regB 
-    , Branch regB (Abs 281) 
+    , Branch regB (Abs 259) 
     , Load (ImmValue 1) regB 
     , Compute Mul regB regA regA 
     , Compute Add regA regD regD 
@@ -85,24 +85,83 @@ prog0 = [
     , Pop regA 
     , Pop regD 
     , Store regA (IndAddr regD) 
-    , Load (ImmValue 9) regA 
+    , Jump (Abs 141) 
+    , Nop 
+    , Load (ImmValue 0) regE 
+    , Push regE 
+    , Load (DirAddr 6) regA 
     , Push regA 
     , Load (ImmValue 1) regA 
     , Push regA 
+    , Pop regB 
     , Pop regA 
-    , Pop regD 
-    , Store regA (IndAddr regD) 
-    , Jump (Abs 183) 
-    , Nop 
+    , Compute Add regA regB regA 
+    , Push regA 
+    , Pop regA 
+    , Load (ImmValue 4) regB 
+    , Compute Gt regA regB regB 
+    , Branch regB (Abs 259) 
+    , Compute Lt regA reg0 regB 
+    , Branch regB (Abs 259) 
+    , Pop regE 
+    , Load (ImmValue 1) regB 
+    , Compute Mul regB regA regA 
+    , Compute Add regA regE regE 
+    , Push regE 
+    , Load (ImmValue 1) regA 
+    , Pop regE 
+    , Compute Add regA regE regE 
+    , Push regE 
     , Load (ImmValue 0) regD 
     , Load (DirAddr 6) regA 
     , Push regA 
     , Pop regA 
     , Load (ImmValue 4) regB 
     , Compute Gt regA regB regB 
-    , Branch regB (Abs 281) 
+    , Branch regB (Abs 259) 
     , Compute Lt regA reg0 regB 
-    , Branch regB (Abs 281) 
+    , Branch regB (Abs 259) 
+    , Load (ImmValue 1) regB 
+    , Compute Mul regB regA regA 
+    , Compute Add regA regD regD 
+    , Load (ImmValue 1) regA 
+    , Compute Add regA regD regD 
+    , Load (IndAddr regD) regD 
+    , Push regD 
+    , Pop regA 
+    , Pop regD 
+    , Store regA (IndAddr regD) 
+    , Load (ImmValue 6) regA 
+    , Push regA 
+    , Load (DirAddr 6) regA 
+    , Push regA 
+    , Load (ImmValue 1) regA 
+    , Push regA 
+    , Pop regB 
+    , Pop regA 
+    , Compute Sub regA regB regA 
+    , Push regA 
+    , Pop regA 
+    , Pop regD 
+    , Store regA (IndAddr regD) 
+    , Nop 
+    , Load (DirAddr 6) regA 
+    , Push regA 
+    , Load (ImmValue 0) regA 
+    , Push regA 
+    , Pop regB 
+    , Pop regA 
+    , Compute GtE regA regB regA 
+    , Push regA 
+    , Load (ImmValue 0) regD 
+    , Load (DirAddr 6) regA 
+    , Push regA 
+    , Pop regA 
+    , Load (ImmValue 4) regB 
+    , Compute Gt regA regB regB 
+    , Branch regB (Abs 259) 
+    , Compute Lt regA reg0 regB 
+    , Branch regB (Abs 259) 
     , Load (ImmValue 1) regB 
     , Compute Mul regB regA regA 
     , Compute Add regA regD regD 
@@ -116,87 +175,6 @@ prog0 = [
     , Pop regA 
     , Compute Gt regA regB regA 
     , Push regA 
-    , Pop regA 
-    , Compute Equal regA reg0 regA 
-    , Branch regA (Abs 174) 
-    , Load (ImmValue 0) regE 
-    , Push regE 
-    , Load (DirAddr 6) regA 
-    , Push regA 
-    , Load (ImmValue 1) regA 
-    , Push regA 
-    , Pop regB 
-    , Pop regA 
-    , Compute Add regA regB regA 
-    , Push regA 
-    , Pop regA 
-    , Load (ImmValue 4) regB 
-    , Compute Gt regA regB regB 
-    , Branch regB (Abs 281) 
-    , Compute Lt regA reg0 regB 
-    , Branch regB (Abs 281) 
-    , Pop regE 
-    , Load (ImmValue 1) regB 
-    , Compute Mul regB regA regA 
-    , Compute Add regA regE regE 
-    , Push regE 
-    , Load (ImmValue 1) regA 
-    , Pop regE 
-    , Compute Add regA regE regE 
-    , Push regE 
-    , Load (ImmValue 0) regD 
-    , Load (DirAddr 6) regA 
-    , Push regA 
-    , Pop regA 
-    , Load (ImmValue 4) regB 
-    , Compute Gt regA regB regB 
-    , Branch regB (Abs 281) 
-    , Compute Lt regA reg0 regB 
-    , Branch regB (Abs 281) 
-    , Load (ImmValue 1) regB 
-    , Compute Mul regB regA regA 
-    , Compute Add regA regD regD 
-    , Load (ImmValue 1) regA 
-    , Compute Add regA regD regD 
-    , Load (IndAddr regD) regD 
-    , Push regD 
-    , Pop regA 
-    , Pop regD 
-    , Store regA (IndAddr regD) 
-    , Load (ImmValue 6) regA 
-    , Push regA 
-    , Load (DirAddr 6) regA 
-    , Push regA 
-    , Load (ImmValue 1) regA 
-    , Push regA 
-    , Pop regB 
-    , Pop regA 
-    , Compute Sub regA regB regA 
-    , Push regA 
-    , Pop regA 
-    , Pop regD 
-    , Store regA (IndAddr regD) 
-    , Jump (Abs 182) 
-    , Nop 
-    , Load (ImmValue 9) regA 
-    , Push regA 
-    , Load (ImmValue 0) regA 
-    , Push regA 
-    , Pop regA 
-    , Pop regD 
-    , Store regA (IndAddr regD) 
-    , Nop 
-    , Nop 
-    , Load (DirAddr 6) regA 
-    , Push regA 
-    , Load (ImmValue 0) regA 
-    , Push regA 
-    , Pop regB 
-    , Pop regA 
-    , Compute GtE regA regB regA 
-    , Push regA 
-    , Load (DirAddr 9) regA 
-    , Push regA 
     , Pop regB 
     , Pop regA 
     , Compute And regA regB regA 
@@ -204,7 +182,7 @@ prog0 = [
     , Pop regA 
     , Load (ImmValue 1) regB 
     , Compute Equal regA regB regA 
-    , Branch regA (Abs 90) 
+    , Branch regA (Abs 83) 
     , Load (ImmValue 0) regE 
     , Push regE 
     , Load (DirAddr 6) regA 
@@ -218,9 +196,9 @@ prog0 = [
     , Pop regA 
     , Load (ImmValue 4) regB 
     , Compute Gt regA regB regB 
-    , Branch regB (Abs 281) 
+    , Branch regB (Abs 259) 
     , Compute Lt regA reg0 regB 
-    , Branch regB (Abs 281) 
+    , Branch regB (Abs 259) 
     , Pop regE 
     , Load (ImmValue 1) regB 
     , Compute Mul regB regA regA 

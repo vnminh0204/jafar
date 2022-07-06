@@ -1,4 +1,4 @@
-package finalproject.codegeneration;
+package finalproject.compilation;
 
 import finalproject.grammar.JAFARBaseVisitor;
 import finalproject.grammar.JAFARLexer;
@@ -94,6 +94,8 @@ public class Generator extends JAFARBaseVisitor<Op> {
 		}
 	}
 
+
+
 	@Override public Op visitIndexExpr(JAFARParser.IndexExprContext ctx) {
 		Program pCtx = getProgramByNode(ctx);
 		String arrId = ctx.arrayID().ID().getText();
@@ -105,6 +107,7 @@ public class Generator extends JAFARBaseVisitor<Op> {
 			for (JAFARParser.ExprContext index :ctx.expr()) {
 				visit(index);
 				emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA)); // index value
+				generateIndexOutOfBoundCheck(pCtx,arrayType.getNumElems()-1, new Reg(Reg.Type.regA));
 				int elemSize = arrayType.getElemType().size();
 				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, elemSize), new Reg(Reg.Type.regB)); //regB store elemSize
 				emit(pCtx, OpCode.Compute, new Operator(Mul), new Reg(Reg.Type.regB), new Reg(Reg.Type.regA), new Reg(Reg.Type.regA));
@@ -141,6 +144,7 @@ public class Generator extends JAFARBaseVisitor<Op> {
 			for (JAFARParser.ExprContext index :ctx.expr()) {
 				visit(index);
 				emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA)); // index value
+				generateIndexOutOfBoundCheck(pCtx,arrayType.getNumElems()-1, new Reg(Reg.Type.regA));
 				int elemSize = arrayType.getElemType().size();
 				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, elemSize), new Reg(Reg.Type.regB)); //regB store elemSize
 				emit(pCtx, OpCode.Compute, new Operator(Mul), new Reg(Reg.Type.regB), new Reg(Reg.Type.regA), new Reg(Reg.Type.regA));
@@ -242,6 +246,7 @@ public class Generator extends JAFARBaseVisitor<Op> {
 			for (JAFARParser.ExprContext index :ctx.expr()) {
 				visit(index);
 				emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA)); // index value
+				generateIndexOutOfBoundCheck(pCtx,arrayType.getNumElems()-1, new Reg(Reg.Type.regA));
 				emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regE)); // current sum index value in array
 				int elemSize = arrayType.getElemType().size();
 				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, elemSize), new Reg(Reg.Type.regB)); //regB store elemSize
@@ -276,6 +281,7 @@ public class Generator extends JAFARBaseVisitor<Op> {
 			for (JAFARParser.ExprContext index :ctx.expr()) {
 				visit(index);
 				emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA)); // index value
+				generateIndexOutOfBoundCheck(pCtx,arrayType.getNumElems()-1, new Reg(Reg.Type.regA));
 				emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regE)); // current sum index value in array
 				int elemSize = arrayType.getElemType().size();
 				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, elemSize), new Reg(Reg.Type.regB)); //regB store elemSize
@@ -886,7 +892,6 @@ public class Generator extends JAFARBaseVisitor<Op> {
 				break;
 			default:
 				assert false;
-				operator = null;
 		}
 
 		return null;
@@ -1103,4 +1108,20 @@ public class Generator extends JAFARBaseVisitor<Op> {
 		return programs.get(checkResult.getThreadId(ctx));
 	}
 
+	/**
+	 * Generate SPRIL code to check index out of bound
+	 * @param upperBound :  the upper bound of the array
+	 * @param pCtx : the current generating program
+	 * @param index : register where index value is stored
+	 */
+	public void generateIndexOutOfBoundCheck(Program pCtx, int upperBound,  Reg index) {
+		String endProgLab = pCtx.getEndLabel();
+		// index > upperBound -> EndProg
+		emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, upperBound), new Reg(Reg.Type.regB));
+		emit(pCtx, OpCode.Compute, new Operator(Gt), index, new Reg(Reg.Type.regB), new Reg(Reg.Type.regB));
+		emit(pCtx, OpCode.Branch, new Reg(Reg.Type.regB), new Target(Target.TargetType.Abs, endProgLab));
+		// index < 0 -> EndProg
+		emit(pCtx, OpCode.Compute, new Operator(Lt), index, new Reg(Reg.Type.reg0), new Reg(Reg.Type.regB));
+		emit(pCtx, OpCode.Branch, new Reg(Reg.Type.regB), new Target(Target.TargetType.Abs, endProgLab));
+	}
 }

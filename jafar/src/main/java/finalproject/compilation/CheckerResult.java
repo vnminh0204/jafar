@@ -1,4 +1,4 @@
-package finalproject.codegeneration;
+package finalproject.compilation;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;

@@ -1,4 +1,4 @@
-package finalproject.codegeneration;
+package finalproject.compilation;
 
 /** Jafar data type. */
 abstract public class Type {

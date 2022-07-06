@@ -1,6 +1,6 @@
 package finalproject.concurrency;
 
-import finalproject.codegeneration.HaskellFileGenerator;
+import finalproject.compilation.HaskellFileGenerator;
 import finalproject.exception.ParseException;
 import org.junit.Before;
 import org.junit.Test;

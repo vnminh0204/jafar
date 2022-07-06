@@ -4,7 +4,7 @@ import Sprockell
 prog0 :: [Instruction]
 prog0 = [
     Load (ImmValue 10) regF 
-    , Jump (Abs 127) 
+    , Jump (Abs 142) 
     , Nop 
     , Load (ImmValue 6) regA 
     , Compute Add regF regA regA 
@@ -14,7 +14,7 @@ prog0 = [
     , Pop regA 
     , Pop regD 
     , Store regA (IndAddr regD) 
-    , Jump (Abs 81) 
+    , Jump (Abs 96) 
     , Nop 
     , Load (ImmValue 0) regE 
     , Push regE 
@@ -23,6 +23,11 @@ prog0 = [
     , Load (IndAddr regA) regA 
     , Push regA 
     , Pop regA 
+    , Load (ImmValue 2) regB 
+    , Compute Gt regA regB regB 
+    , Branch regB (Abs 303) 
+    , Compute Lt regA reg0 regB 
+    , Branch regB (Abs 303) 
     , Pop regE 
     , Load (ImmValue 1) regB 
     , Compute Mul regB regA regA 
@@ -39,6 +44,11 @@ prog0 = [
     , Load (IndAddr regA) regA 
     , Push regA 
     , Pop regA 
+    , Load (ImmValue 2) regB 
+    , Compute Gt regA regB regB 
+    , Branch regB (Abs 303) 
+    , Compute Lt regA reg0 regB 
+    , Branch regB (Abs 303) 
     , Load (ImmValue 1) regB 
     , Compute Mul regB regA regA 
     , Compute Add regA regD regD 
@@ -53,6 +63,11 @@ prog0 = [
     , Load (IndAddr regA) regA 
     , Push regA 
     , Pop regA 
+    , Load (ImmValue 2) regB 
+    , Compute Gt regA regB regB 
+    , Branch regB (Abs 303) 
+    , Compute Lt regA reg0 regB 
+    , Branch regB (Abs 303) 
     , Load (ImmValue 1) regB 
     , Compute Mul regB regA regA 
     , Compute Add regA regD regD 
@@ -235,7 +250,7 @@ prog0 = [
     , Compute Sub regD regB regD 
     , Load (ImmValue 8) regB 
     , Compute Add regF regB regF 
-    , Load (ImmValue 237) regA 
+    , Load (ImmValue 252) regA 
     , Load (ImmValue (-4)) regB 
     , Compute Add regF regB regB 
     , Store regA (IndAddr regB) 
