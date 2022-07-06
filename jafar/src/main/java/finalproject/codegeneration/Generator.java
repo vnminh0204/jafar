@@ -850,16 +850,28 @@ public class Generator extends JAFARBaseVisitor<Op> {
 		switch (ctx.multOp().getStart().getType()) {
 			case JAFARLexer.STAR:
 				operator = new Operator(Mul);
+				emit(pCtx, OpCode.Compute, operator, new Reg(Reg.Type.regA), new Reg(Reg.Type.regB), new Reg(Reg.Type.regA));
+				emit(pCtx, OpCode.Push, new Reg(Reg.Type.regA));
 				break;
-//			case JAFARLexer.SLASH:
-//				opCode = OpCode.div;
-//				break;
+			case JAFARLexer.SLASH:
+				String body = pCtx.getNewLabel();
+				String cond = pCtx.getNewLabel();
+				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, 0), new Reg(Reg.Type.regC));
+				emit(pCtx, OpCode.Jump, new Target(Target.TargetType.Abs, cond));
+				emit(pCtx, body, OpCode.Nop);
+				emit(pCtx, OpCode.Compute, new Operator(Sub), new Reg(Reg.Type.regA), new Reg(Reg.Type.regB), new Reg(Reg.Type.regA));
+				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, 1), new Reg(Reg.Type.regD));
+				emit(pCtx, OpCode.Compute, new Operator(Add), new Reg(Reg.Type.regC), new Reg(Reg.Type.regD), new Reg(Reg.Type.regC));
+				emit(pCtx, cond, OpCode.Nop);
+				emit(pCtx, OpCode.Compute, new Operator(GtE), new Reg(Reg.Type.regA), new Reg(Reg.Type.regB), new Reg(Reg.Type.regD));
+				emit(pCtx, OpCode.Branch, new Reg(Reg.Type.regD), new Target(Target.TargetType.Abs, body));
+				emit(pCtx, OpCode.Push, new Reg(Reg.Type.regC));
+				break;
 			default:
 				assert false;
 				operator = null;
 		}
-		emit(pCtx, OpCode.Compute, operator, new Reg(Reg.Type.regA), new Reg(Reg.Type.regB), new Reg(Reg.Type.regA));
-		emit(pCtx, OpCode.Push, new Reg(Reg.Type.regA));
+
 		return null;
 	}
 

@@ -75,7 +75,7 @@ arrayID: ID;
 prfOp: MINUS | NOT;
 
 /** Multiplicative operator. */
-multOp: STAR;
+multOp: STAR | SLASH | MOD;
 
 /** Additive operator. */
 plusOp: PLUS | MINUS;
@@ -121,6 +121,7 @@ PARBEGIN:P A R B E G I N;
 PAREND:  P A R E N D;
 LOCK: L O C K;
 UNLOCK: U N L O C K;
+MOD: M O D;
 ASS:    ':=';
 COLON:  ':';
 COMMA:  ',';
