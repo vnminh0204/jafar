@@ -87,7 +87,9 @@ public class Generator extends JAFARBaseVisitor<Op> {
 		this.labels = new ParseTreeProperty<>();
 		tree.accept(this);
 		for (Program p : this.programs) {
-			emit(p, OpCode.EndProg);
+			String endProgLabel = p.getEndLabel();
+//			System.out.println(endProgLabel);
+			emit(p, endProgLabel, OpCode.EndProg);
 			p.convert();
 		}
 	}
@@ -842,6 +844,8 @@ public class Generator extends JAFARBaseVisitor<Op> {
 	@Override
 	public Op visitMultExpr(JAFARParser.MultExprContext ctx) {
 		Program pCtx = getProgramByNode(ctx);
+		String endProgLab = pCtx.getEndLabel();
+		System.out.println(endProgLab);
 		visit(ctx.expr(0));
 		visit(ctx.expr(1));
 		emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regB));
@@ -854,6 +858,8 @@ public class Generator extends JAFARBaseVisitor<Op> {
 				emit(pCtx, OpCode.Push, new Reg(Reg.Type.regA));
 				break;
 			case JAFARLexer.SLASH:
+				emit(pCtx, OpCode.Compute, new Operator(Equal), new Reg(Reg.Type.regB), new Reg(Reg.Type.reg0), new Reg(Reg.Type.regD));
+				emit(pCtx, OpCode.Branch, new Reg(Reg.Type.regD), new Target(Target.TargetType.Abs, endProgLab));
 				String body = pCtx.getNewLabel();
 				String cond = pCtx.getNewLabel();
 				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, 0), new Reg(Reg.Type.regC));
@@ -868,6 +874,8 @@ public class Generator extends JAFARBaseVisitor<Op> {
 				emit(pCtx, OpCode.Push, new Reg(Reg.Type.regC));
 				break;
 			case JAFARLexer.MOD:
+				emit(pCtx, OpCode.Compute, new Operator(LtE), new Reg(Reg.Type.regB), new Reg(Reg.Type.reg0), new Reg(Reg.Type.regD));
+				emit(pCtx, OpCode.Branch, new Reg(Reg.Type.regD), new Target(Target.TargetType.Abs, endProgLab));
 				String bodyMod = pCtx.getNewLabel();
 				String condMod = pCtx.getNewLabel();
 				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, 0), new Reg(Reg.Type.regC));

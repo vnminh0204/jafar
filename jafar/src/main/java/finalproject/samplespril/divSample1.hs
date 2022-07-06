@@ -15,7 +15,7 @@ prog0 = [
     , Store regA (IndAddr regD) 
     , Load (ImmValue 2) regA 
     , Push regA 
-    , Load (ImmValue 3) regA 
+    , Load (ImmValue 2) regA 
     , Push regA 
     , Pop regA 
     , Pop regD 
@@ -28,15 +28,17 @@ prog0 = [
     , Push regA 
     , Pop regB 
     , Pop regA 
+    , Compute Equal regB reg0 regD 
+    , Branch regD (Abs 44) 
     , Load (ImmValue 0) regC 
-    , Jump (Abs 31) 
+    , Jump (Abs 33) 
     , Nop 
     , Compute Sub regA regB regA 
     , Load (ImmValue 1) regD 
     , Compute Add regC regD regC 
     , Nop 
     , Compute GtE regA regB regD 
-    , Branch regD (Abs 27) 
+    , Branch regD (Abs 29) 
     , Push regC 
     , Pop regA 
     , Pop regD 

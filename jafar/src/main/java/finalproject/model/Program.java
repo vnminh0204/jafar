@@ -28,6 +28,9 @@ public class Program {
 	/** Program's thread id */
 	private int tid;
 
+	/** EndProg label */
+	private final String endLabel = "End Label";
+
 	/** Creates a program with an initially empty instruction list. */
 	public Program(int tid) {
 		this.instrList = new ArrayList<>();
@@ -133,6 +136,11 @@ public class Program {
 	/** Get current line number */
 	public int getLineNum() {
 		return this.lineNum;
+	}
+
+	/** Get program end label name */
+	public String getEndLabel() {
+		return endLabel;
 	}
 
 	/** Pretty print, in form of "prog1" "prog2" .. to make it suitable with SPRIL" */
