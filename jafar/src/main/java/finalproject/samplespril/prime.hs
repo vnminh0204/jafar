@@ -8,7 +8,7 @@ prog0 = [
     , Nop 
     , Load (ImmValue 1) regA 
     , Push regA 
-    , Load (ImmValue 12) regA 
+    , Load (ImmValue 77) regA 
     , Push regA 
     , Pop regA 
     , Pop regD 

@@ -103,7 +103,6 @@ public class Checker extends JAFARBaseListener {
 		this.result.setFuncOffSetData(funcID, this.symbolTable.getScopeOffsetInfo());
 		this.result.setFuncTypeData(funcID, this.symbolTable.getScopeTypeInfo());
 		HashMap<String, Integer> check = this.symbolTable.getScopeOffsetInfo();
-		System.out.println("CHECKER: Func " + funcID + "scope info" + check);
 		this.symbolTable.closeScope();
 		this.symbolTable.setStartFuncName(null);
 		setType(ctx,returnType);
@@ -256,7 +255,6 @@ public class Checker extends JAFARBaseListener {
 				return;
 			}
 			boolean fresh = this.symbolTable.put(id, type);
-			System.out.println("ID: " + id + " " + type );
 			if (!fresh) {
 				addError(idNode.getSymbol(),"Variable ’%s ’ already defined in this scope -- exitVar", id);
 				return;
@@ -271,7 +269,6 @@ public class Checker extends JAFARBaseListener {
 		TerminalNode idNode = ctx.ID();
 		String id = idNode.getText();
 		boolean fresh = this.result.putSharedVar(id, type);
-		System.out.println(id + " " + type + " " + this.result.getSharedOffset(id));
 		if (!fresh) {
 			addError(idNode.getSymbol(),"Variable ’%s ’ already defined as shared variable", id);
 			return;
@@ -394,7 +391,6 @@ public class Checker extends JAFARBaseListener {
 				exprType = ((Type.Array) exprType).getElemType();
 			}
 			setType(ctx, exprType);
-			System.out.println("CHECKER array type :" + exprType.toString());
 			setOffset(ctx, this.symbolTable.getOffSet(arrayID));
 		}
 	}

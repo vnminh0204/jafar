@@ -30,11 +30,14 @@ public class SemanticTest {
 
     @Test
     public void testFunction() throws IOException, ParseException {
-        HaskellFileGenerator haskell = HaskellFileGenerator.instance();
         // the 7th Fibonacci number is 21
         String result = haskell.buildAndRunJafar("fibFunc");
-        System.out.println("ASDAS" + result);
         String expectedResult = "Sprockell 0 says 21\n";
         assertEquals(expectedResult, result);
+    }
+
+    @Test (timeout = 1000)
+    public void testSomething() {
+        while (true);
     }
 }

@@ -3,7 +3,7 @@ Program prime;
 int x, i;
 bool stop;
 {
-    x := 12;
+    x := 77;
     i := 2;
     stop := false;
     while ((!stop) and (i*i < x)): {
