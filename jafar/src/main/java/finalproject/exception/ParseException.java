@@ -23,9 +23,11 @@ public class ParseException extends Exception {
 		}
 	}
 	/** Prints all error messages to stdout, line by line. */
-	public void print() {
+	public String print() {
+		String err = "";
 		for (String error : getMessages()) {
-			System.out.println(error);
+			err = err + error;
 		}
+		return err;
 	}
 }
