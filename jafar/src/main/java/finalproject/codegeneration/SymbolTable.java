@@ -84,13 +84,13 @@ public class SymbolTable {
 				if (offsetInMem + type.size() > this.maxOffSet) {
 					this.maxOffSet = offsetInMem + type.size();
 				}
-				System.out.println("Id " + id +" scope" + this.offsets.size() + " localoffset " + offsetInScope + ", memOffSet" + offsetInMem);
+//				System.out.println("Id " + id +" scope" + this.offsets.size() + " localoffset " + offsetInScope + ", memOffSet" + offsetInMem);
 			} else {
 				this.types.peek().put(id, type);
 				int offsetInScope = this.size.pop();
 				this.offsets.peek().put(id, offsetInScope);
 				this.size.push(offsetInScope +  type.size());
-				System.out.println("Id " + id +" in func '" + this.startFuncName + "' scope " + this.offsets.size() + " localoffset " + offsetInScope);
+//				System.out.println("Id " + id +" in func '" + this.startFuncName + "' scope " + this.offsets.size() + " localoffset " + offsetInScope);
 			}
 		}
 		return result;

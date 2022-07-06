@@ -1,15 +1,15 @@
-# PP Final Project: Maven boilerplate project
+# PP Final Project: Jafar programming language project
 
-This folder contains a boilerplate project for Java & Maven, which includes:
+This folder contains a project for Jafar programming language, which includes:
 
 - JUnit integration
 - ANTLR integration
-- Example grammar of the "Hello" language (which allows zero or more repetitions of "Hello")
-- Example test of the "Hello" language
+- Grammar of the JAFAR language
+- Code generation of the JAFAR language
+- JUNIT Test of the JAFAR language
 
-Intellij integration is also possible.
 
-The rest of this document gives a brief explanation of maven, antlr 4, and junit 4. For more information we refer you to the documentation of the respective tools.
+The rest of this document gives a brief explanation of how to run the project. For more information we refer you to the documentation of the respective tools.
 
 ## Prerequisites
 
@@ -23,7 +23,8 @@ To test if you have these tools set up properly, run the following two commands 
 - For maven: `mvn --version`
 - For java: `javac --version`
 
-If these commands print sensible outputs (e.g. "version so and so"), this boilerplate project should work fine. Otherwise, you will have to install these tools either manually or using your operating system's package manager.
+If these commands print sensible outputs (e.g. "version so and so"), this project should work fine. Otherwise, you will have to install these tools either manually or using your operating system's package manager.
+
 
 ## Compiling
 
@@ -35,16 +36,50 @@ mvn compile
 
 This first generates parsers for any grammars in `src/main/antlr4`. Then it compiles code in the `src/main/java` directory.
 
+>Note: The generated files might not be marked as "Generated Sources Root" (take a look at IntelliJ FAQ)
+
+## Set up run file
+To set up the file you want to run, you have to navigate to the `main` method of the class `Main`, located in the `src/main/java/finalproject/main`
+
+In the `main` method you will have 3 option to set up the run
+
+**Option 1: Set string "filename":**
+
+You can choose to run any file provided in `src/main/java/finalproject/sample` by setting the "filename" (without.jafar). 
+
+`Example: filename = "fibFunc"`
+
+**Option 2: Set string "jafarContent":**
+
+You can choose to run your own Jafar program by putting the content in "jafarContent".
+
+`Example: jafarContent = "Program main; int i; {{i:=i+3;} print(i);}"`
+
+It will put the code content into `src/main/java/finalproject/sample/main.jafar` and execute it
+
+Note: To run this option you need to set string "filename" as empty
+
+**Option 3: Set run file as parameter:**
+
+It's similar to option 1 but you have set the filename as program arguments 
+
+Note: To run this option you need to set string "filename" as empty
+
 ## Running
 
-In a terminal, run:
+Before running command make sure the `target/generated-sources/antlr4` is marked as Generated Sources Root (In our case we use IntelliJ FAQ workaround 2)
+
+There are 2 options to run the Main Class
+
+**Option 1: Running manually:**
+
+Navigate to the `main` method of the class `Main`, located in the `src/main/java/finalproject/main` and click on run button to run it manually
+
+**Option 2: In a terminal, run:**
 
 ```
 mvn exec:java
 ```
-
-This runs the `main` method of the class `Main`, located in the `src/main/java/finalproject/main`.
-
 Note: `exec` does not invoke `compile`, so if changes were made to the code, `compile` needs to be invoked before `exec`. These commands can also be combined:
 
 ```
@@ -53,7 +88,25 @@ mvn compile exec:java
 
 `mvn exec:java` is part of the maven-exec plugin. For more information about e.g. passing arguments to the main class, we refer you to the plugin documentation.
 
+## Running result
+
+After running the file, the file will be first converted to SPRIL instructions which are located in `src/main/java/finalproject/samplespril`, then those instructions will be executed by Sprockell with the final result is located in `src/main/java/finalproject/sampleoutput`
+The final result also will be printed on the console/terminal
+
+Example: If you choose to run as option 2, the `main.jafar` file will be converted to `main.hs` in `samplespril` and the final result will be in `main_result.txt` in `sampleoutput`
 ## Tests
+
+All the tests can be run automatically.
+
+There are 2 options to run the tests.
+
+**Option 1: Run a specific test case with "Run" button:**
+
+Navigate to these test files located in the `src/test/java/finalproject`
+
+In here you can choose to run any of concurrency/contextual/semantic or syntax test as you want.
+
+**Option 2: Run all the test  with terminal:**
 
 In a terminal, run:
 

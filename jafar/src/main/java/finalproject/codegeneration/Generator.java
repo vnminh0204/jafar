@@ -88,13 +88,11 @@ public class Generator extends JAFARBaseVisitor<Op> {
 		tree.accept(this);
 		for (Program p : this.programs) {
 			String endProgLabel = p.getEndLabel();
-//			System.out.println(endProgLabel);
 			emit(p, endProgLabel, OpCode.EndProg);
 			p.convert();
 		}
 	}
 
-	//	START ARRAY indexExpr == arrayTarget
 	@Override public Op visitIndexExpr(JAFARParser.IndexExprContext ctx) {
 		Program pCtx = getProgramByNode(ctx);
 		String arrId = ctx.arrayID().ID().getText();
@@ -113,8 +111,6 @@ public class Generator extends JAFARBaseVisitor<Op> {
 
 				if (arrayType.getElemType() instanceof Type.Array) {
 					arrayType = (Type.Array) arrayType.getElemType();
-				} else {
-					System.out.println("GENERATOR need child type check");
 				}
 			}
 
@@ -150,8 +146,6 @@ public class Generator extends JAFARBaseVisitor<Op> {
 				emit(pCtx, OpCode.Compute, new Operator(Add), new Reg(Reg.Type.regA), new Reg(Reg.Type.regD), new Reg(Reg.Type.regD));
 				if (arrayType.getElemType() instanceof Type.Array) {
 					arrayType = (Type.Array) arrayType.getElemType();
-				} else {
-					System.out.println("GENERATOR need child type check");
 				}
 			}
 			if (checkResult.isShared(arrId)) {
@@ -169,8 +163,6 @@ public class Generator extends JAFARBaseVisitor<Op> {
 		}
 		return null;
 	}
-
-
 
 	@Override public Op visitArrayExpr(JAFARParser.ArrayExprContext ctx) {
 		for (JAFARParser.ExprContext index : ctx.expr()) {
@@ -848,7 +840,6 @@ public class Generator extends JAFARBaseVisitor<Op> {
 	public Op visitMultExpr(JAFARParser.MultExprContext ctx) {
 		Program pCtx = getProgramByNode(ctx);
 		String endProgLab = pCtx.getEndLabel();
-		System.out.println(endProgLab);
 		visit(ctx.expr(0));
 		visit(ctx.expr(1));
 		emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regB));
