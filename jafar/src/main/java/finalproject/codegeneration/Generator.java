@@ -49,6 +49,7 @@ public class Generator extends JAFARBaseVisitor<Op> {
 	private final int BEGINZONE = 0;
 	private final int ENDZONE = 6;
 	private final int LOCKZONE = 12;
+	// shared mem actually start from 18 as we reserve 6 location for lock.
 
 
 	/** Generates SPRIL code for a given parse tree,

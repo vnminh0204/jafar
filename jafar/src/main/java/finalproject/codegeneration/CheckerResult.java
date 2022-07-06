@@ -51,7 +51,8 @@ public class CheckerResult {
 	/** Constructor for Result with initilized start shared memory offset and number of threads */
 	public CheckerResult() {
 		this.noThreads = 0;
-		this.sharedAddress = 17;
+		// shared address start from 18 since we reserve first 18 location for threading and locking operations
+		this.sharedAddress = 18;
 	}
 
 	/**
