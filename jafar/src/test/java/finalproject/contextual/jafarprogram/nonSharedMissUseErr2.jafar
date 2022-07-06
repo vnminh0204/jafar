@@ -1,0 +1,17 @@
+Program nonSharedMissUseErr2;
+
+shared int y;
+
+
+{
+    parbegin:
+    {
+        int x;
+        x := 2;
+    }
+    {
+        int x;
+        x := 3;
+    }
+    parend;
+}

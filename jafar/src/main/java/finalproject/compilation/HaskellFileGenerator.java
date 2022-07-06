@@ -243,7 +243,8 @@ public class HaskellFileGenerator {
      */
     public static void main(String[] args) throws IOException, ParseException {
         HaskellFileGenerator hs = new HaskellFileGenerator();
-        hs.genHaskellFrom("arrSort");
+        //hs.genHaskellFrom("arrSort");
+        System.out.println(hs.buildAndRunJafar("nonLock"));
     }
 
 }

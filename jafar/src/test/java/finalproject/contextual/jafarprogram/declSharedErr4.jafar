@@ -1,0 +1,6 @@
+Program declSharedErr4;
+
+shared int x, y;
+
+{
+}

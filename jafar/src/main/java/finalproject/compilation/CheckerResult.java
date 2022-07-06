@@ -40,8 +40,7 @@ public class CheckerResult {
 	/** Current number of Threads*/
 	private int noThreads;
 
-	/** MAX number of threads*/
-	private final int MAX_THREADS = 6;
+
 
 	/** Adds an association from function to its data offset. */
 	public void setFuncTypeData(String funcID, LinkedHashMap<String, Type> scopeInfo) {
@@ -134,9 +133,6 @@ public class CheckerResult {
 	 * @return current thread number after increased
 	 */
 	public int createNewThread() {
-		if (this.noThreads >= MAX_THREADS) {
-			System.out.println("max thread reached");
-		}
 		this.noThreads++;
 		return this.noThreads;
 	}

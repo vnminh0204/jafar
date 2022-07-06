@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class ConcurrencyTest {
     private final String JAFAR_DIR ="src/test/java/finalproject/concurrency/jafarprogram";
@@ -50,4 +51,11 @@ public class ConcurrencyTest {
         assertEquals(result, expectedResult);
     }
 
+    @Test
+    public void testNonLock() throws IOException, ParseException {
+        String result = haskell.buildAndRunJafar("nonLock");
+        String expectedResult = "Sprockell 0 says 75\n";
+        System.out.println(result);
+        assertNotEquals(result, expectedResult);
+    }
 }
