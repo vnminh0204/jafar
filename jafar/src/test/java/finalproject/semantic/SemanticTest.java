@@ -64,6 +64,16 @@ public class SemanticTest {
     }
 
     @Test
+    public void testVectorAddition() throws IOException, ParseException {
+        String result = haskell.buildAndRunJafar("vectorAddition");
+        String expectedResult = "Sprockell 0 says 11\n" +
+                "Sprockell 0 says 7\n" +
+                "Sprockell 0 says 20\n";
+        // [9,3,5] + [2,4,15] = [11,7,20]
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     public void testFibbonacciFunctionRecursion() throws IOException, ParseException {
         String result = haskell.buildAndRunJafar("fibFunc");
         String expectedResult = "Sprockell 0 says 21\n"; // the 7th Fibonacci number is 21
