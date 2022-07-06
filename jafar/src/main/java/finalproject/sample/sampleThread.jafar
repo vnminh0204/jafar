@@ -25,4 +25,6 @@ shared int c;
         }
     }
     parend;
+
+    print(a);
 }

@@ -243,7 +243,7 @@ public class HaskellFileGenerator {
      */
     public static void main(String[] args) throws IOException, ParseException {
         HaskellFileGenerator hs = new HaskellFileGenerator();
-        System.out.println(hs.buildAndRunJafar("prime"));
+        System.out.println(hs.buildAndRunJafar("banking"));
     }
 
 }

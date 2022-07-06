@@ -43,6 +43,11 @@ public class ConcurrencyTest {
         assertEquals(check, true);
     }
 
-
+    @Test
+    public void testBanking() throws IOException, ParseException {
+        String result = haskell.buildAndRunJafar("banking");
+        String expectedResult = "Sprockell 0 says 250\n";
+        assertEquals(result, expectedResult);
+    }
 
 }

@@ -1,0 +1,45 @@
+Program banking;
+
+shared int balance;
+shared int a;
+shared int i;
+shared int j;
+shared int k;
+
+{
+    balance := 0;
+
+    parbegin:
+    {
+        i := 0;
+        while (i < 10): {
+            lock();
+            balance := balance + 10;
+            i := i + 1;
+            unlock();
+        }
+    }
+
+    {
+        j := 0;
+        while (j < 10): {
+            lock();
+            balance := balance - 5;
+            j := j + 1;
+            unlock();
+        }
+    }
+
+    {
+        k := 0;
+        while (k < 10): {
+            lock();
+            balance := balance + 20;
+            k := k + 1;
+            unlock();
+        }
+
+    }
+    parend;
+    print(balance);
+}
