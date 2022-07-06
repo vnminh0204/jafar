@@ -36,6 +36,49 @@ public class SemanticTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    public void testDivSimple() throws IOException, ParseException {
+        String result = haskell.buildAndRunJafar("divSimple");
+        String expectedResult = "Sprockell 0 says 2\n";
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testModSimple() throws IOException, ParseException {
+        String result = haskell.buildAndRunJafar("modSimple");
+        String expectedResult = "Sprockell 0 says 0\n";
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testPeterson() throws IOException, ParseException {
+        String result = haskell.buildAndRunJafar("peterson");
+        StringBuilder builder = new StringBuilder();
+        builder.append("Sprockell 0 says 0").append("\n");
+        for (int i = 1; i <= 5; i++){
+            builder.append("Sprockell 1 says ").append(i).append("\n");
+        }
+        for (int i = 6; i <= 10; i++){
+            builder.append("Sprockell 2 says ").append(i).append("\n");
+        }
+        String expectedResult = builder.toString();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testNestedThreads() throws IOException, ParseException {
+        String result = haskell.buildAndRunJafar("nestedThreads");
+        boolean check = result.contains("19") && result.contains("68") && result.contains("106");
+        assertEquals(check, true);
+    }
+
+    @Test
+    public void testWhileLoop() throws IOException, ParseException {
+        String result = haskell.buildAndRunJafar("prime");
+        String expectedResult = "Sprockell 0 says 7\n";
+        assertEquals(result, expectedResult);
+    }
+
     @Test (timeout = 1000)
     public void testSomething() {
         while (true);

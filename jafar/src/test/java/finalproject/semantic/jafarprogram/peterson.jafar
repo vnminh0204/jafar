@@ -1,0 +1,45 @@
+program peterson;
+shared int a;
+shared int turn;
+
+shared bool flag1;
+shared bool flag2;
+
+{
+    flag1 := false;
+    flag2 := false;
+    a := 0;
+    print(a);
+    parbegin:
+    {
+        flag2 := true;
+        turn := 0;
+        while (flag1 and (turn == 0)): {
+            turn := 0;
+        }
+
+        while (a<5): {
+            a := a + 1;
+            print(a);
+        }
+
+        flag2 := false;
+    }
+
+    {
+            flag1 := true;
+            turn := 1;
+            while (flag2 and (turn == 1)): {
+                turn := 1;
+            }
+
+            while (a<10): {
+                a := a + 1;
+                print(a);
+            }
+
+            flag1 := false;
+    }
+    parend;
+
+}

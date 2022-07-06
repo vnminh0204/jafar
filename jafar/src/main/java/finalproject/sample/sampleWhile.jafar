@@ -1,4 +1,4 @@
-Program sampleif;
+Program sampleWhile;
 
 bool x;
 
