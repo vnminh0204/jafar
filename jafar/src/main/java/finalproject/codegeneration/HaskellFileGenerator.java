@@ -36,12 +36,12 @@ public class HaskellFileGenerator {
     /**
      * In and out source folder and format extension of target file
      */
-    private final static String BASE_DIR = "src/main/java/finalproject/sample";
-    // need to change out to st else to make it compilable.
-    private final static String BASE_DIR_OUT = "src/main/java/finalproject/sprockell/src";
+    private static String JAFAR_DIR = "src/main/java/finalproject/sample";
+    private static String HASKELL_DIR = "src/main/java/finalproject/samplespril";
+    private static String OUTPUT_DIR = "src/main/java/finalproject/sampleoutput";
     private final static String EXT = ".jafar";
     private final static String EXT_OUT = ".hs";
-    private final static String RUN_OUT = "src/main/java/finalproject/runResult";
+
     /**
      * Initialize a new HaskellFileGenerator
      */
@@ -52,6 +52,25 @@ public class HaskellFileGenerator {
     }
 
     /**
+     * Change JAFAR_DIR
+     */
+    public void setJafarDir(String newDir) {
+        this.JAFAR_DIR = newDir;
+    }
+    /**
+     * Change HASKELL_DIR
+     */
+    public void setHaskellDir(String newDir) {
+        this.HASKELL_DIR = newDir;
+    }
+    /**
+     * Change OUTPUT_DIR
+     */
+    public void setOutputDir(String newDir) {
+        this.OUTPUT_DIR = newDir;
+    }
+
+    /**
      * compile a file from source folder to a program instance
      * @param filename : file name
      * @return program instance generated from the file
@@ -59,7 +78,7 @@ public class HaskellFileGenerator {
      * @throws ParseException
      */
     public Program compile (String filename) throws IOException, ParseException {
-        return this.compiler.compile(new File(BASE_DIR, filename + EXT));
+        return this.compiler.compile(new File(JAFAR_DIR, filename + EXT));
     }
 
     /**
@@ -70,7 +89,7 @@ public class HaskellFileGenerator {
      * @throws ParseException
      */
     public ArrayList<Program> compileMultiple (String filename) throws IOException, ParseException {
-        return this.compiler.compileMultiple(new File(BASE_DIR, filename + EXT));
+        return this.compiler.compileMultiple(new File(JAFAR_DIR, filename + EXT));
     }
 
     /**
@@ -157,7 +176,7 @@ public class HaskellFileGenerator {
      * @throws IOException
      */
     public void writeJafar (String fileContent, String filename) throws IOException {
-        PrintWriter writer = new PrintWriter(new File(BASE_DIR, filename + ".jafar"));
+        PrintWriter writer = new PrintWriter(new File(JAFAR_DIR, filename + ".jafar"));
         writer.println(fileContent);
         writer.flush();
         writer.close();
@@ -170,7 +189,7 @@ public class HaskellFileGenerator {
      * @throws IOException
      */
     public void write (String fileContent, String filename) throws IOException {
-        PrintWriter writer = new PrintWriter(new File(BASE_DIR_OUT, filename + EXT_OUT));
+        PrintWriter writer = new PrintWriter(new File(HASKELL_DIR, filename + EXT_OUT));
         writer.println(fileContent);
         writer.flush();
         writer.close();
@@ -191,7 +210,7 @@ public class HaskellFileGenerator {
     public String buildAndRunJafar(String filename) throws IOException, ParseException {
         genHaskellFrom(filename);
         ProcessBuilder builder = new ProcessBuilder("ghci", filename + ".hs");
-        builder.directory(new File(BASE_DIR_OUT));
+        builder.directory(new File(HASKELL_DIR));
         Process process = builder.start();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         PrintStream writer = new PrintStream(process.getOutputStream());
@@ -212,7 +231,7 @@ public class HaskellFileGenerator {
             }
 
         }
-        PrintWriter fileWriter = new PrintWriter(new File(RUN_OUT, filename + "_result.txt"));
+        PrintWriter fileWriter = new PrintWriter(new File(OUTPUT_DIR, filename + "_result.txt"));
         fileWriter.println(sb);
         fileWriter.flush();
         fileWriter.close();

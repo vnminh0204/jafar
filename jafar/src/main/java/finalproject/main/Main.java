@@ -19,7 +19,7 @@ public class Main {
         Compiler compiler = Compiler.instance();
         HaskellFileGenerator haskell = HaskellFileGenerator.instance();
         //files are inside src/main/java/finalproject/sample
-        String filename = "fibFunc";  //TODO add the name of file you want to run Ex: "fibFunc" without.jafar
+        String filename = "arrSort";  //TODO add the name of file you want to run Ex: "fibFunc" without.jafar
 
         if (filename.length() != 0) {
             //Compile file src/main/java/finalproject/sample/[filename].jafar

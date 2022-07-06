@@ -1,0 +1,13 @@
+Program sum;
+
+func add(int x,y):int {
+    int sum;
+    sum := x+y;
+    return sum;
+}
+
+{
+    int x;
+    x:=add(15,50);
+    print(x);
+}

@@ -1,0 +1,17 @@
+Program sum;
+
+func sum(int n):int {
+    int res;
+    if (n == 1): {
+        res:= 1;
+    } else {
+        res:= n + sum(n-1);
+    }
+    return res;
+}
+
+{
+    int x;
+    x:=sum(5);
+    print(x);
+}

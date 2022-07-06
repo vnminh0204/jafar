@@ -1,0 +1,16 @@
+Program sum;
+
+int sum;
+
+func add(int x,y):void {
+    sum := x+y;
+    return;
+}
+
+{
+    int a,x;
+    a := 24;
+    x := 73;
+    add(a,x);
+    print(sum);
+}
