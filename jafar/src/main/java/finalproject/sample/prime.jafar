@@ -1,0 +1,19 @@
+Program prime;
+
+int x, i;
+bool stop;
+{
+    x := 12;
+    i := 2;
+    stop := false;
+    while ((!stop) and (i*i < x)): {
+        stop := (i * (x/i)) == x;
+        i := i + 1;
+    }
+
+    if (stop): {
+        print(i-1);
+    } else {
+        print(stop);
+    }
+}

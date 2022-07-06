@@ -412,7 +412,6 @@ public class Generator extends JAFARBaseVisitor<Op> {
 				}
 			}
 		} else {
-//			JAFARParser.ExprContext exprContext = ctx.expr();
 			if (ctx.expr() instanceof JAFARParser.IdExprContext) {
 				JAFARParser.IdExprContext idExpr = (JAFARParser.IdExprContext) ctx.expr();
 				String id = idExpr.ID().getText();
@@ -430,6 +429,10 @@ public class Generator extends JAFARBaseVisitor<Op> {
 					emit(pCtx, OpCode.WriteInstr, new Reg(Reg.Type.regA), new Address(Address.Type.numberIO, -1));
 					return null;
 				}
+			} else {
+				visit(ctx.expr());
+				emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA));
+				emit(pCtx, OpCode.WriteInstr, new Reg(Reg.Type.regA), new Address(Address.Type.numberIO, -1));
 			}
 
 		}

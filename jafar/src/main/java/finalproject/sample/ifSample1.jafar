@@ -1,0 +1,11 @@
+Program ifSample1;
+
+bool i;
+{
+    i := true;
+    if (i == true): {
+        print(2);
+    } else {
+        print(3);
+    }
+}
