@@ -1,4 +1,4 @@
-package finalproject.tests;
+package finalproject.contextual;
 
 import finalproject.codegeneration.Compiler;
 import finalproject.codegeneration.CheckerResult;
@@ -11,11 +11,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 @SuppressWarnings("javadoc")
-public class CheckerTest {
+public class ContextualTest {
 	private final static String BASE_DIR = "src/main/java/finalproject/sample";
 	private final static String EXT = ".jafar";
 	private final Compiler compiler = Compiler.instance();
@@ -120,12 +119,7 @@ public class CheckerTest {
 	}
 
 	@Test
-	public void testGCD() throws IOException, ParseException {
-		check(parse("gcd"));
-	}
-
-	@Test
-	public void testScope() throws IOException, ParseException {
+	public void testNestedScope() throws IOException, ParseException {
 		check(parse("scope1"));
 		check(parse("scope2"));
 	}
@@ -150,12 +144,12 @@ public class CheckerTest {
 		checkFail("typeErr3");
 	}
 
-	private void checkFail(String filename) throws IOException {
+	private void checkFail(String filename, String expectedError) throws IOException {
 		try {
 			check(parse(filename));
 			fail(filename + " shouldn't check but did");
 		} catch (ParseException exc) {
-			exc.print(filename);
+			assertTrue((exc.print(filename).contains(expectedError)));
 		}
 	}
 

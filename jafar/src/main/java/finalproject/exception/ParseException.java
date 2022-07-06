@@ -17,10 +17,12 @@ public class ParseException extends Exception {
 	}
 
 	/** Prints all error messages to stdout, line by line. */
-	public void print(String filename) {
+	public String print(String filename) {
+		String err = "";
 		for (String error : getMessages()) {
-			System.out.println("File " + filename + ", " +error);
+			err = err + "File " + filename + ", " +error + "\n";
 		}
+		return err;
 	}
 	/** Prints all error messages to stdout, line by line. */
 	public String print() {
