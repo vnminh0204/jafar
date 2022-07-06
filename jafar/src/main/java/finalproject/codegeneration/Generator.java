@@ -867,6 +867,20 @@ public class Generator extends JAFARBaseVisitor<Op> {
 				emit(pCtx, OpCode.Branch, new Reg(Reg.Type.regD), new Target(Target.TargetType.Abs, body));
 				emit(pCtx, OpCode.Push, new Reg(Reg.Type.regC));
 				break;
+			case JAFARLexer.MOD:
+				String bodyMod = pCtx.getNewLabel();
+				String condMod = pCtx.getNewLabel();
+				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, 0), new Reg(Reg.Type.regC));
+				emit(pCtx, OpCode.Jump, new Target(Target.TargetType.Abs, condMod));
+				emit(pCtx, bodyMod, OpCode.Nop);
+				emit(pCtx, OpCode.Compute, new Operator(Sub), new Reg(Reg.Type.regA), new Reg(Reg.Type.regB), new Reg(Reg.Type.regA));
+				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, 1), new Reg(Reg.Type.regD));
+				emit(pCtx, OpCode.Compute, new Operator(Add), new Reg(Reg.Type.regC), new Reg(Reg.Type.regD), new Reg(Reg.Type.regC));
+				emit(pCtx, condMod, OpCode.Nop);
+				emit(pCtx, OpCode.Compute, new Operator(GtE), new Reg(Reg.Type.regA), new Reg(Reg.Type.regB), new Reg(Reg.Type.regD));
+				emit(pCtx, OpCode.Branch, new Reg(Reg.Type.regD), new Target(Target.TargetType.Abs, bodyMod));
+				emit(pCtx, OpCode.Push, new Reg(Reg.Type.regA));
+				break;
 			default:
 				assert false;
 				operator = null;
