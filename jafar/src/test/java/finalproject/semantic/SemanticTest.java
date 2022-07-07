@@ -194,12 +194,12 @@ public class SemanticTest {
         assertEquals(expectedResult1, result1); // call print(6 mod 0); will terminate program instead of print anything
     }
 
-    @Test (timeout = 2000)
-    public void testInfiniteLoop() throws IOException, ParseException {
-        String result1 = haskell.buildAndRunJafar("infiniteLoop");
-        String expectedResult1 = "";
-        assertEquals(expectedResult1, result1); // call print(6 mod 0); will terminate program instead of print anything
-    }
+//    @Test (timeout = 2000)
+//    public void testInfiniteLoop() throws IOException, ParseException {
+//        String result1 = haskell.buildAndRunJafar("infiniteLoop");
+//        String expectedResult1 = "";
+//        assertEquals(expectedResult1, result1); // call print(6 mod 0); will terminate program instead of print anything
+//    }
 
 
 }

@@ -135,11 +135,11 @@ public class ContextualTest {
 	@Test
 	public void testFunctionReturnType() throws IOException, ParseException {
 		checkFail("funcReturn1", "expecting {BOOLEAN, INTEGER, VOID}"); // function expect return type to be declared
-		checkFail("funcReturn2", "Function ’add’ expects return value");
-		checkFail("funcReturn3", "Function ’add’ expected return type 'Integer' but actual is 'Boolean'");
-		checkFail("funcReturn4", "Cannot call function with return type ’Integer ’ without assignment");
+		checkFail("funcReturn2", "Function 'add' expects return value");
+		checkFail("funcReturn3", "Function 'add' expected return type 'Integer' but actual is 'Boolean'");
+		checkFail("funcReturn4", "Cannot call function with return type 'Integer ' without assignment");
 		checkFail("procedure1", "Expected type 'Integer' but found 'Void'");
-		checkFail("procedure2", "Function ’add ’ of type VOID shoudln't return value");
+		checkFail("procedure2", "Function 'add' of type VOID shoudln't return value");
 	}
 
 	@Test
@@ -201,8 +201,8 @@ public class ContextualTest {
 
 	@Test
 	public void testDeclarationErr() throws IOException, ParseException {
-		checkFail("decErr1", "Variable ’x ’ already defined in this scope");
-		checkFail("decErr2", "Variable ’y ’ not declared");
+		checkFail("decErr1", "Variable 'x ' already defined in this scope");
+		checkFail("decErr2", "Variable 'y ' not declared");
 		checkFail("decErr3", "Variable 'y' not declared");
 		checkFail("decErr4", "Variable 'y' not declared");
 	}
@@ -216,7 +216,7 @@ public class ContextualTest {
 		checkFail("declSharedErr4", "mismatched input ',' expecting ';'");
 		checkFail("sharedMissuseErr1", "extraneous input '}'");
 		checkFail("sharedMissuseErr2", "Expected type 'Integer' but found 'Boolean'");
-		checkFail("sharedMissuseErr3", "Variable ’x ’ already defined as shared variable");
+		checkFail("sharedMissuseErr3", "Variable 'x ' already defined as shared variable");
 	}
 
 	@Test

@@ -62,7 +62,7 @@ public class Checker extends JAFARBaseListener {
 
 		boolean fresh = this.symbolTable.put(funcID, returnType);
 		if (!fresh) {
-			addError(ctx,"Function ’%s ’ already defined in this scope", funcID);
+			addError(ctx,"Function '%s ' already defined in this scope", funcID);
 		}
 		if (ctx.params() == null) {
 			this.symbolTable.setParamType(funcID, new ArrayList<>());
@@ -93,13 +93,13 @@ public class Checker extends JAFARBaseListener {
 		Type returnType = this.getType(ctx.type());
 
 		if ((returnType.equals(Type.VOID)) &&(ctx.expr() != null)) {
-			addError(ctx,"Function ’%s ’ of type VOID shoudln't return value", funcID);
+			addError(ctx,"Function '%s' of type VOID shoudln't return value", funcID);
 		}
 		if ((!(returnType.equals(Type.VOID))) && (ctx.expr() == null)) {
-			addError(ctx,"Function ’%s’ expects return value", funcID);
+			addError(ctx,"Function '%s' expects return value", funcID);
 		} else if (getType(ctx.expr()) != null) {
 			if ((!(returnType.equals(Type.VOID))) && (!getType(ctx.expr()).equals(returnType))) {
-				addError(ctx, "Function ’%s’ expected return type '%s' but actual is '%s'", funcID, returnType, getType(ctx.expr()));
+				addError(ctx, "Function '%s' expected return type '%s' but actual is '%s'", funcID, returnType, getType(ctx.expr()));
 			}
 		}
 
@@ -119,11 +119,11 @@ public class Checker extends JAFARBaseListener {
 		setType(ctx, returnType);
 
 		if (returnType != Type.VOID) {
-			addError(ctx, "Cannot call function with return type ’%s ’ without assignment", returnType);
+			addError(ctx, "Cannot call function with return type '%s ' without assignment", returnType);
 		} else {
 			ArrayList<Type> funcParams = this.symbolTable.paramsType(funcID);
 			if (funcParams.size() != ctx.expr().size()) {
-				addError(ctx, "Function ’%s ’ is called with NOT matched number of parameters", funcID);
+				addError(ctx, "Function '%s ' is called with NOT matched number of parameters", funcID);
 			} else {
 				for (int i = 0; i < funcParams.size(); i++) {
 					Type expectedParamType = funcParams.get(i);
@@ -140,7 +140,7 @@ public class Checker extends JAFARBaseListener {
 		ArrayList<Type> funcParams = this.symbolTable.paramsType(funcID);
 		if ((funcParams != null) && (ctx.expr() != null)) {
 			if (funcParams.size() != ctx.expr().size()) {
-				addError(ctx, "Function ’%s' is called with NOT matched number of parameters", funcID);
+				addError(ctx, "Function '%s' is called with NOT matched number of parameters", funcID);
 			} else {
 				for (int i = 0; i < funcParams.size(); i++) {
 					Type expectedParamType = funcParams.get(i);
@@ -200,7 +200,7 @@ public class Checker extends JAFARBaseListener {
 		if (type == null) {
 			type = result.getSharedType(id);
 			if (type == null) {
-				addError(ctx, " Variable ’%s ’ not declared ", id);
+				addError(ctx, " Variable '%s ' not declared ", id);
 				return;
 			}
 			int offset = result.getSharedOffset(id);
@@ -258,12 +258,12 @@ public class Checker extends JAFARBaseListener {
 		for ( TerminalNode idNode : ctx.ID()) {
 			String id = idNode.getText();
 			if (result.isShared(id)) {
-				addError(idNode.getSymbol(),"Variable ’%s ’ already defined as shared variable -- exitVar", id);
+				addError(idNode.getSymbol(),"Variable '%s ' already defined as shared variable -- exitVar", id);
 				return;
 			}
 			boolean fresh = this.symbolTable.put(id, type);
 			if (!fresh) {
-				addError(idNode.getSymbol(),"Variable ’%s ’ already defined in this scope -- exitVar", id);
+				addError(idNode.getSymbol(),"Variable '%s ' already defined in this scope -- exitVar", id);
 				return;
 			}
 		}
@@ -277,11 +277,11 @@ public class Checker extends JAFARBaseListener {
 		String id = idNode.getText();
 		boolean fresh = this.result.putSharedVar(id, type);
 		if (!fresh) {
-			addError(idNode.getSymbol(),"Variable ’%s ’ already defined as shared variable", id);
+			addError(idNode.getSymbol(),"Variable '%s ' already defined as shared variable", id);
 			return;
 		}
 		if (symbolTable.isDeclared(id)) {
-			addError(idNode.getSymbol(),"Variable ’%s ’ already defined in this scope", id);
+			addError(idNode.getSymbol(),"Variable '%s ' already defined in this scope", id);
 			return;
 		}
 	}
@@ -327,7 +327,7 @@ public class Checker extends JAFARBaseListener {
 		if (arrayType == null) {
 			arrayType = result.getSharedType(id);
 			if (arrayType == null) {
-				addError(ctx, " Array ’%s ’ not declared ", id);
+				addError(ctx, " Array '%s ' not declared ", id);
 				return;
 			}
 			if (ctx.expr().size() > ((Type.Array) arrayType).getNumDimens()) {

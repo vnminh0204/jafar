@@ -88,7 +88,7 @@ public class SyntaxTest {
         pass("shared int fact; func factorial(int x) : void {int n; n := 1; while(n<=x) : {fact :=fact*n; n:=n+1;} return;} { factorial(4); print(fact); }");
         fails("func add : void {return;} {int x; x:=1;}","line 1:9 - mismatched input ':' expecting '('line 1:17 - mismatched input 'return' expecting {BEGIN, BOOLEAN, INTEGER, VOID, IF, PRINT, WHILE, PARBEGIN, LOCK, UNLOCK, ID}"); // function should have paranthesis
         fails("func add : {return;} {int x; x:=1;}","line 1:9 - mismatched input ':' expecting '('line 1:12 - mismatched input 'return' expecting {BEGIN, BOOLEAN, INTEGER, VOID, IF, PRINT, WHILE, PARBEGIN, LOCK, UNLOCK, ID}"); // does not have return type
-        fails("func add(int x,y):int {return (x+y); return (y+x);} {int x; x:= add(3,5);}","line 1:37 - mismatched input 'return' expecting {AND, OR, '==', '>=', '>', '<=', '<', '-', '!=', '+', ')', '*'}");
+        fails("func add(int x,y):int {return (x+y); return (y+x);} {int x; x:= add(3,5);}","line 1:37 - mismatched input 'return' expecting {AND, OR, MOD, '==', '>=', '>', '<=', '<', '-', '!=', '+', ')', '/', '*'}");
         fails("func add : int {} {int x; x:=1;}","line 1:9 - mismatched input ':' expecting '('line 1:16 - extraneous input '}' expecting {BEGIN, BOOLEAN, INTEGER, VOID, IF, PRINT, WHILE, PARBEGIN, LOCK, UNLOCK, ID}line 1:32 - extraneous input '<EOF>' expecting {BEGIN, END, IF, PRINT, WHILE, PARBEGIN, LOCK, UNLOCK, ID}");
         assertEquals( "int",Objects.requireNonNull(checkSyntax("func add(int x,y):int {return (x+y);} {int x; x:= add(3,5);}")).getChild(0).getChild(6).getText());
     }
@@ -108,7 +108,7 @@ public class SyntaxTest {
             assert false;
         } catch (ParseException e) {
             assert true;
-            assertEquals(e.print(),exp);
+            assertEquals(exp, e.print());
         }
     }
 
