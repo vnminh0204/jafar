@@ -127,7 +127,7 @@ prog0 = [
     , Pop regA 
     , Pop regD 
     , Store regA (IndAddr regD) 
-    , Jump (Abs 333) 
+    , Jump (Abs 351) 
     , Nop 
     , Load (ImmValue 18) regA 
     , Push regA 
@@ -136,7 +136,7 @@ prog0 = [
     , Pop regA 
     , Pop regD 
     , Store regA (IndAddr regD) 
-    , Jump (Abs 307) 
+    , Jump (Abs 325) 
     , Nop 
     , Load (ImmValue 19) regA 
     , Push regA 
@@ -145,7 +145,7 @@ prog0 = [
     , Pop regA 
     , Pop regD 
     , Store regA (IndAddr regD) 
-    , Jump (Abs 281) 
+    , Jump (Abs 299) 
     , Nop 
     , Load (ImmValue 0) regE 
     , Push regE 
@@ -154,9 +154,9 @@ prog0 = [
     , Pop regA 
     , Load (ImmValue 1) regB 
     , Compute Gt regA regB regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
     , Compute Lt regA reg0 regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
     , Pop regE 
     , Load (ImmValue 2) regB 
     , Compute Mul regB regA regA 
@@ -167,9 +167,9 @@ prog0 = [
     , Pop regA 
     , Load (ImmValue 1) regB 
     , Compute Gt regA regB regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
     , Compute Lt regA reg0 regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
     , Pop regE 
     , Load (ImmValue 1) regB 
     , Compute Mul regB regA regA 
@@ -180,82 +180,100 @@ prog0 = [
     , Compute Add regA regE regE 
     , Push regE 
     , Load (ImmValue 0) regD 
+    , Push regD 
     , Load (DirAddr 17) regA 
     , Push regA 
     , Pop regA 
     , Load (ImmValue 1) regB 
     , Compute Gt regA regB regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
     , Compute Lt regA reg0 regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
+    , Pop regD 
     , Load (ImmValue 2) regB 
     , Compute Mul regB regA regA 
     , Compute Add regA regD regD 
+    , Push regD 
     , Load (DirAddr 18) regA 
     , Push regA 
     , Pop regA 
     , Load (ImmValue 1) regB 
     , Compute Gt regA regB regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
     , Compute Lt regA reg0 regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
+    , Pop regD 
     , Load (ImmValue 1) regB 
     , Compute Mul regB regA regA 
     , Compute Add regA regD regD 
+    , Push regD 
+    , Pop regD 
     , Load (ImmValue 13) regA 
     , Compute Add regA regD regD 
     , Load (IndAddr regD) regD 
     , Push regD 
     , Load (ImmValue 0) regD 
+    , Push regD 
     , Load (DirAddr 17) regA 
     , Push regA 
     , Pop regA 
     , Load (ImmValue 1) regB 
     , Compute Gt regA regB regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
     , Compute Lt regA reg0 regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
+    , Pop regD 
     , Load (ImmValue 3) regB 
     , Compute Mul regB regA regA 
     , Compute Add regA regD regD 
+    , Push regD 
     , Load (DirAddr 19) regA 
     , Push regA 
     , Pop regA 
     , Load (ImmValue 2) regB 
     , Compute Gt regA regB regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
     , Compute Lt regA reg0 regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
+    , Pop regD 
     , Load (ImmValue 1) regB 
     , Compute Mul regB regA regA 
     , Compute Add regA regD regD 
+    , Push regD 
+    , Pop regD 
     , Load (ImmValue 1) regA 
     , Compute Add regA regD regD 
     , Load (IndAddr regD) regD 
     , Push regD 
     , Load (ImmValue 0) regD 
+    , Push regD 
     , Load (DirAddr 19) regA 
     , Push regA 
     , Pop regA 
     , Load (ImmValue 2) regB 
     , Compute Gt regA regB regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
     , Compute Lt regA reg0 regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
+    , Pop regD 
     , Load (ImmValue 2) regB 
     , Compute Mul regB regA regA 
     , Compute Add regA regD regD 
+    , Push regD 
     , Load (DirAddr 18) regA 
     , Push regA 
     , Pop regA 
     , Load (ImmValue 1) regB 
     , Compute Gt regA regB regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
     , Compute Lt regA reg0 regB 
-    , Branch regB (Abs 365) 
+    , Branch regB (Abs 383) 
+    , Pop regD 
     , Load (ImmValue 1) regB 
     , Compute Mul regB regA regA 
     , Compute Add regA regD regD 
+    , Push regD 
+    , Pop regD 
     , Load (ImmValue 7) regA 
     , Compute Add regA regD regD 
     , Load (IndAddr regD) regD 

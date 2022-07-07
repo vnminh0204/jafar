@@ -104,20 +104,23 @@ public class Generator extends JAFARBaseVisitor<Op> {
 			arrayType = (Type.Array) this.checkResult.getFuncTypeData(this.currentFuncDecl).get(arrId);
 
 			emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, 0), new Reg(Reg.Type.regD)); //regD store final array index offset
+			emit(pCtx, OpCode.Push, new Reg(Reg.Type.regD));
 			for (JAFARParser.ExprContext index :ctx.expr()) {
 				visit(index);
 				emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA)); // index value
+
 				generateIndexOutOfBoundCheck(pCtx,arrayType.getNumElems()-1, new Reg(Reg.Type.regA));
+				emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regD));
 				int elemSize = arrayType.getElemType().size();
 				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, elemSize), new Reg(Reg.Type.regB)); //regB store elemSize
 				emit(pCtx, OpCode.Compute, new Operator(Mul), new Reg(Reg.Type.regB), new Reg(Reg.Type.regA), new Reg(Reg.Type.regA));
 				emit(pCtx, OpCode.Compute, new Operator(Add), new Reg(Reg.Type.regA), new Reg(Reg.Type.regD), new Reg(Reg.Type.regD));
-
+				emit(pCtx, OpCode.Push, new Reg(Reg.Type.regD));
 				if (arrayType.getElemType() instanceof Type.Array) {
 					arrayType = (Type.Array) arrayType.getElemType();
 				}
 			}
-
+			emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regD));
 			LinkedHashMap<String, Integer> funcOffSetData = this.checkResult.getFuncOffSetData(this.currentFuncDecl);
 			int idOffSetINFuncScope = funcOffSetData.get(arrId);
 			emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, -funcOffSetData.size() + idOffSetINFuncScope), new Reg(Reg.Type.regB));
@@ -141,18 +144,22 @@ public class Generator extends JAFARBaseVisitor<Op> {
 				arrStartOffSet = this.checkResult.getOffset(ctx);
 			}
 			emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, 0), new Reg(Reg.Type.regD)); //regD store final array index offset
+			emit(pCtx, OpCode.Push, new Reg(Reg.Type.regD));
 			for (JAFARParser.ExprContext index :ctx.expr()) {
 				visit(index);
 				emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA)); // index value
 				generateIndexOutOfBoundCheck(pCtx,arrayType.getNumElems()-1, new Reg(Reg.Type.regA));
+				emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regD));
 				int elemSize = arrayType.getElemType().size();
 				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, elemSize), new Reg(Reg.Type.regB)); //regB store elemSize
 				emit(pCtx, OpCode.Compute, new Operator(Mul), new Reg(Reg.Type.regB), new Reg(Reg.Type.regA), new Reg(Reg.Type.regA));
 				emit(pCtx, OpCode.Compute, new Operator(Add), new Reg(Reg.Type.regA), new Reg(Reg.Type.regD), new Reg(Reg.Type.regD));
+				emit(pCtx, OpCode.Push, new Reg(Reg.Type.regD));
 				if (arrayType.getElemType() instanceof Type.Array) {
 					arrayType = (Type.Array) arrayType.getElemType();
 				}
 			}
+			emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regD));
 			if (checkResult.isShared(arrId)) {
 				emit(pCtx, OpCode.ReadInstr, new Address(Address.Type.DirAddr, arrStartOffSet));
 				emit(pCtx, OpCode.Receive, new Reg(Reg.Type.regA));
