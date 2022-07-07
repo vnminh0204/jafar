@@ -1,0 +1,11 @@
+Program prefix;
+
+int x;
+bool y;
+
+{
+    int a;
+    bool b;
+    a := (-b);
+    b := !y;
+}

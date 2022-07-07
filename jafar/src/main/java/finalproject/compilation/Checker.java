@@ -97,8 +97,10 @@ public class Checker extends JAFARBaseListener {
 		}
 		if ((!(returnType.equals(Type.VOID))) && (ctx.expr() == null)) {
 			addError(ctx,"Function ’%s’ expects return value", funcID);
-		} else if ((!(returnType.equals(Type.VOID))) && (!getType(ctx.expr()).equals(returnType))) {
-			addError(ctx,"Function ’%s’ expected return type '%s' but actual is '%s'", funcID, returnType, getType(ctx.expr()));
+		} else if (getType(ctx.expr()) != null) {
+			if ((!(returnType.equals(Type.VOID))) && (!getType(ctx.expr()).equals(returnType))) {
+				addError(ctx, "Function ’%s’ expected return type '%s' but actual is '%s'", funcID, returnType, getType(ctx.expr()));
+			}
 		}
 
 

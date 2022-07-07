@@ -1,0 +1,9 @@
+Program basic;
+
+bool x, y;
+
+{
+    x := True;
+    y := x;
+
+}

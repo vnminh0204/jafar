@@ -1,0 +1,11 @@
+Program arr1;
+
+int[2] x;
+
+{
+    int i;
+    x[0] := 1;
+    x[i] := 2;
+    i := x[0];
+    i := x[i];
+}

@@ -1,0 +1,12 @@
+Program prefix;
+
+int x;
+int[2] y;
+
+{
+    bool check;
+    check := x <= y;
+    check := x < y;
+    check := x > y;
+    check := x >= y;
+}

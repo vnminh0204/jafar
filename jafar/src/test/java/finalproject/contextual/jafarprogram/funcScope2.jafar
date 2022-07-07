@@ -1,13 +1,13 @@
-Program funcErr2;
+Program funcScope2;
 
-int x,
-bool a;
+int x,a;
 
 func add(int x,y; bool check):int {
-    return ;
+    return b;
 }
-//expected return value
+
 {
+    int b;
     x:= 5;
     a:= add(x,(1+1), False);
 }

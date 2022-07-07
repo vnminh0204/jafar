@@ -1,0 +1,14 @@
+Program prefix;
+
+int x,y;
+int[2] z,s;
+bool a,b;
+bool[2] c,d;
+
+{
+    bool check;
+    check := x == y;
+    check := z == s;
+    check := a == b;
+    check := c == d;
+}

@@ -1,0 +1,12 @@
+Program funcErr1;
+
+int x,a;
+
+func add(int x,y; bool check): {
+    return x;
+}
+//expected return type is declared
+{
+    x:= 5;
+    a:= add(x,(1+1), False);
+}

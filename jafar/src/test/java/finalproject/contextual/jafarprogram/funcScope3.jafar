@@ -1,0 +1,15 @@
+Program funcScope2;
+
+int x,a;
+
+func add(int x,y; bool check):int {
+    int sum;
+    sum := x+y;
+    return sum;
+}
+
+{
+    int b;
+    x:= 5;
+    a:= add(x,(1+1), False);
+}

@@ -1,9 +1,9 @@
-Program funcErr1;
+Program funcScope1;
 
 int x,a;
 
 func add(int x,y; bool check):int {
-    return ;
+    return a;
 }
 //expected return value
 {

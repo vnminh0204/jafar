@@ -1,0 +1,13 @@
+Program gcd;
+
+int x, y,ans;
+
+{
+    x := 1;
+    y := 1;
+    ans:=True + y;
+    ans:=x - y;
+    ans:=x * y;
+    ans:=x / y;
+    ans:=x mod y;
+}

@@ -1,0 +1,16 @@
+Program gcd;
+
+int x, y;
+
+{
+    int[2] a;
+    x:= 60;
+    y:=1;
+
+    if a: {
+        x := x-y;
+    } else {
+        y := y-x;
+    }
+
+}

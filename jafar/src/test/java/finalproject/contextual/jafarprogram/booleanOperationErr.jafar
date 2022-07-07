@@ -1,0 +1,10 @@
+Program gcd;
+
+bool x, y,ans;
+
+{
+    x := True;
+    y := False;
+    ans:= 1 and y;
+    ans:= x or 2;
+}

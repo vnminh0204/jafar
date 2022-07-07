@@ -20,6 +20,7 @@ public class ParseException extends Exception {
 	public String print(String filename) {
 		String err = "";
 		for (String error : getMessages()) {
+//			System.out.println(error);
 			err = err + "File " + filename + ", " +error + "\n";
 		}
 		return err;
