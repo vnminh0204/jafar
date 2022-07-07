@@ -1,22 +1,41 @@
 Program banking;
 
-shared int i,j,k;
 shared int[3] a;
+shared int i,j, k;
 
 {
-    a:= [1,12,1];
-    print(a);
+    a := [0,11,35];
+
     parbegin:
     {
         i := 0;
-        while (i < 2): {
+        while (i < 10): {
             lock();
             a[0] := a[0] + 10;
-
             i := i + 1;
             unlock();
         }
-        print(a);
+    }
+
+    {
+        j := 0;
+        while (j < 10): {
+            lock();
+            a[0] := a[0] - 5;
+            j := j + 1;
+            unlock();
+        }
+    }
+
+    {
+        k := 0;
+        while (k < 10): {
+            lock();
+            a[0] := a[0] + 20;
+            k := k + 1;
+            unlock();
+        }
+
     }
     parend;
     print(a);

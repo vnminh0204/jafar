@@ -160,16 +160,18 @@ public class Generator extends JAFARBaseVisitor<Op> {
 				}
 			}
 			emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regD));
-			if (checkResult.isShared(arrId)) {
-				emit(pCtx, OpCode.ReadInstr, new Address(Address.Type.DirAddr, arrStartOffSet));
-				emit(pCtx, OpCode.Receive, new Reg(Reg.Type.regA));
-			} else {
-				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, arrStartOffSet), new Reg(Reg.Type.regA));
-			}
+
+			emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, arrStartOffSet), new Reg(Reg.Type.regA));
+
 			emit(pCtx, OpCode.Compute, new Operator(Add), new Reg(Reg.Type.regA), new Reg(Reg.Type.regD), new Reg(Reg.Type.regD));
 			Type finalType = this.checkResult.getType(ctx);
 			if (!(finalType instanceof Type.Array)) {
-				emit(pCtx, OpCode.Load, new Address(Address.Type.IndAddr, new Reg(Reg.Type.regD)), new Reg(Reg.Type.regD)); //return value instead of offset
+				if (checkResult.isShared(arrId)) {
+					emit(pCtx, OpCode.ReadInstr, new Address(Address.Type.IndAddr, new Reg(Reg.Type.regD)));
+					emit(pCtx, OpCode.Receive, new Reg(Reg.Type.regD));
+				} else {
+					emit(pCtx, OpCode.Load, new Address(Address.Type.IndAddr, new Reg(Reg.Type.regD)), new Reg(Reg.Type.regD)); //return value instead of offset
+				}
 			}
 			emit(pCtx, OpCode.Push, new Reg(Reg.Type.regD));
 		}
@@ -299,12 +301,8 @@ public class Generator extends JAFARBaseVisitor<Op> {
 					arrayType = (Type.Array) arrayType.getElemType();
 				}
 			}
-			if (checkResult.isShared(arrId)) {
-				emit(pCtx, OpCode.ReadInstr, new Address(Address.Type.DirAddr, arrStartOffSet));
-				emit(pCtx, OpCode.Receive, new Reg(Reg.Type.regA));
-			} else {
-				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, arrStartOffSet), new Reg(Reg.Type.regA));
-			}
+			emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, arrStartOffSet), new Reg(Reg.Type.regA));
+
 			emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regE)); // final index value in array
 			emit(pCtx, OpCode.Compute, new Operator(Add), new Reg(Reg.Type.regA), new Reg(Reg.Type.regE), new Reg(Reg.Type.regE));
 			emit(pCtx, OpCode.Push, new Reg(Reg.Type.regE));
@@ -350,13 +348,19 @@ public class Generator extends JAFARBaseVisitor<Op> {
 		{
 
 			visit(ctx.expr());
+			String assignID;
+			if (assignExpr instanceof JAFARParser.IndexExprContext) {
+				assignID = ((JAFARParser.IndexExprContext) assignExpr).arrayID().ID().getText();
+			} else {
+				assignID = ((JAFARParser.IdExprContext) assignExpr).ID().getText();
+			}
 			emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA)); //regA store array[index]'s offset
 			emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regD)); // target offset
 			for (int i = assignType.size() - 1; i >= 0; i--) {
 				emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, i), new Reg(Reg.Type.regB)); //regB will store iteration value
 				emit(pCtx, OpCode.Compute, new Operator(Add), new Reg(Reg.Type.regB), new Reg(Reg.Type.regA), new Reg(Reg.Type.regA)); // update A(assign) offset based on inter value B
 				emit(pCtx, OpCode.Compute, new Operator(Add), new Reg(Reg.Type.regB), new Reg(Reg.Type.regD), new Reg(Reg.Type.regD)); // update E(target) offset based on inter value B
-				if (checkResult.isShared(targetID)) {
+				if (checkResult.isShared(assignID)) {
 					emit(pCtx, OpCode.ReadInstr, new Address(Address.Type.IndAddr, new Reg(Reg.Type.regA)));
 					emit(pCtx, OpCode.Receive, new Reg(Reg.Type.regC));
 				} else {
@@ -397,9 +401,20 @@ public class Generator extends JAFARBaseVisitor<Op> {
 			boolean isStackCase = (exprContext instanceof JAFARParser.ArrayExprContext) || (exprContext instanceof JAFARParser.FuncExprContext);
 			if (isOffsetCase) {
 				visit(ctx.expr());
+				String id;
+				if (exprContext instanceof JAFARParser.IndexExprContext) {
+					id  = ((JAFARParser.IndexExprContext) exprContext).arrayID().ID().getText();
+				} else {
+					id = ((JAFARParser.IdExprContext) exprContext).ID().getText();
+				}
 				emit(pCtx, OpCode.Pop, new Reg(Reg.Type.regA)); //regA is offset at the start of array
 				for (int i = 0; i < exprType.size(); i++) {
-					emit(pCtx, OpCode.Load, new Address(Address.Type.IndAddr, new Reg(Reg.Type.regA)), new Reg(Reg.Type.regB)); //regD will store array value at offset (regA)
+					if (checkResult.isShared(id)) {
+						emit(pCtx, OpCode.ReadInstr, new Address(Address.Type.IndAddr, new Reg(Reg.Type.regA)));
+						emit(pCtx, OpCode.Receive, new Reg(Reg.Type.regB));
+					} else {
+						emit(pCtx, OpCode.Load, new Address(Address.Type.IndAddr, new Reg(Reg.Type.regA)), new Reg(Reg.Type.regB)); //regD will store array value at offset (regA)
+					}
 					emit(pCtx, OpCode.WriteInstr, new Reg(Reg.Type.regB), new Address(Address.Type.numberIO, -1));
 					emit(pCtx, OpCode.Load, new Address(Address.Type.ImmValue, 1), new Reg(Reg.Type.regB));
 					emit(pCtx, OpCode.Compute, new Operator(Add), new Reg(Reg.Type.regA), new Reg(Reg.Type.regB), new Reg(Reg.Type.regA)); // update A offset based on inter value
