@@ -14,7 +14,7 @@ body
 decl: (var SEMI)+                  #varDecl //int x,y; bool check;
     ;
 
-sharedDecl: SHARED type ID SEMI
+sharedDecl: SHARED type ID (COMMA ID)* SEMI
     ;
 /** Function declaration. */
 func: FUNC ID LPAR (params)? RPAR COLON type BEGIN (decl)* (stat)* RETURN (expr)? SEMI END #funcDecl // func add(int x,y):int {return (x+y);}

@@ -273,16 +273,17 @@ public class Checker extends JAFARBaseListener {
 	@Override
 	public void exitSharedDecl(SharedDeclContext ctx) {
 		Type type = getType(ctx.type());
-		TerminalNode idNode = ctx.ID();
-		String id = idNode.getText();
-		boolean fresh = this.result.putSharedVar(id, type);
-		if (!fresh) {
-			addError(idNode.getSymbol(),"Variable '%s ' already defined as shared variable", id);
-			return;
-		}
-		if (symbolTable.isDeclared(id)) {
-			addError(idNode.getSymbol(),"Variable '%s ' already defined in this scope", id);
-			return;
+		for (TerminalNode idNode : ctx.ID()) {
+			String id = idNode.getText();
+			boolean fresh = this.result.putSharedVar(id, type);
+			if (!fresh) {
+				addError(idNode.getSymbol(), "Variable '%s ' already defined as shared variable", id);
+				return;
+			}
+			if (symbolTable.isDeclared(id)) {
+				addError(idNode.getSymbol(), "Variable '%s ' already defined in this scope", id);
+				return;
+			}
 		}
 	}
 
