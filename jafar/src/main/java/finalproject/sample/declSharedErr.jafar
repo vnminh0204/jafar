@@ -1,8 +1,0 @@
-Program nonSharedErr;
-
-int x;
-shared int i;
-
-{
-
-}

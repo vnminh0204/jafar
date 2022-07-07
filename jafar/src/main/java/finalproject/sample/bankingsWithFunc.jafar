@@ -1,42 +1,31 @@
 Program banking;
 
-shared int[3] a;
-shared int i,j, k;
+shared int balance,i, j, k;
+
+func add(int amount):void {
+    balance := balance + amount;
+    return;
+}
 
 {
-    a := [0,11,35];
-
+    balance := 0;
     parbegin:
     {
         i := 0;
-        while (i < 10): {
+        while (i < 2): {
             lock();
-            a[0] := a[0] + 10;
-            i := i + 1;
+            add(10);
             unlock();
         }
     }
-
     {
         j := 0;
         while (j < 10): {
             lock();
-            a[0] := a[0] - 5;
-            j := j + 1;
+            add(-5);
             unlock();
         }
-    }
-
-    {
-        k := 0;
-        while (k < 10): {
-            lock();
-            a[0] := a[0] + 20;
-            k := k + 1;
-            unlock();
-        }
-
     }
     parend;
-    print(a);
+    print(balance);
 }

@@ -1,7 +1,10 @@
 Program declSharedErr2;
 
-int x;
-
 {
-    shared int i;
+    parbegin:
+    {
+        shared int i;
+    }
+    {}
+    parend;
 }

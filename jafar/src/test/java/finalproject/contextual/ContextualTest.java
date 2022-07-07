@@ -212,7 +212,6 @@ public class ContextualTest {
 		// extraneous input 'shared' since we can only declare shared on top of program.
 		checkFail("declSharedErr1", "extraneous input 'shared'");
 		checkFail("declSharedErr2", "extraneous input 'shared'");
-		checkFail("declSharedErr3", "extraneous input 'shared'");
 		check(parse("declShared1"));
 		checkFail("sharedMissuseErr1", "extraneous input '}'");
 		checkFail("sharedMissuseErr2", "Expected type 'Integer' but found 'Boolean'");

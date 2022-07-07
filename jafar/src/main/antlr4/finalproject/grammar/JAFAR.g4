@@ -7,7 +7,7 @@ program
 
 /** Body of a program. */
 body
-    : sharedDecl* decl* func* block
+    : (sharedDecl|decl)* func* block
     ;
 
 /** Variable declaration block. */
@@ -66,7 +66,7 @@ expr: prfOp expr        #prfExpr
     | FALSE             #falseExpr
     | LSQ (expr (COMMA expr)*)? RSQ  #arrayExpr // [1,2,3] // [[1,2],[2,3]]
     | arrayID (LSQ expr RSQ)+   #indexExpr // a[1][2][3][4] given int [5][5][5][5]
-    | ID LPAR (expr (COMMA expr)*)? RPAR #funcExpr
+    | ID LPAR (expr (COMMA expr)*)? RPAR #funcExpr // sum(12,x);
     ;
 
 arrayID: ID;

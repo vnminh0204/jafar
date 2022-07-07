@@ -1,8 +1,7 @@
-Program declSharedErr1;
+Program declSharedErr2;
 
 int x;
-shared int i;
 
 {
-
+    shared int i;
 }
