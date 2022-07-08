@@ -91,24 +91,6 @@ public class SemanticTest {
         assertEquals(expectedResult, result);
     }
 
-
-    @Test
-    public void testFibSeq() throws IOException, ParseException {
-        String result = haskell.buildAndRunJafar("fibSeq");
-        //initialize array with [1,1,0,0,0,0,0,0,0,0,0,0] to calculate first 10th Fibonacci number
-        String expectedResult = "Sprockell 0 says 1\n" +
-                "Sprockell 0 says 1\n" +
-                "Sprockell 0 says 2\n" +
-                "Sprockell 0 says 3\n" +
-                "Sprockell 0 says 5\n" +
-                "Sprockell 0 says 8\n" +
-                "Sprockell 0 says 13\n" +
-                "Sprockell 0 says 21\n" +
-                "Sprockell 0 says 34\n" +
-                "Sprockell 0 says 55\n";
-        assertEquals(expectedResult, result);
-    }
-
     @Test
     public void testArrayIndexOutOfBound() throws IOException, ParseException {
         String result1 = haskell.buildAndRunJafar("arrSortIndexOutOfBound");
@@ -146,7 +128,8 @@ public class SemanticTest {
     @Test
     public void testFibbonacciFunctionRecursion() throws IOException, ParseException {
         String result = haskell.buildAndRunJafar("fibFunc");
-        String expectedResult = "Sprockell 0 says 21\n"; // the 7th Fibonacci number is 21
+        String expectedResult = "Sprockell 0 says 8\n" +
+                "Sprockell 0 says 21\n";
         assertEquals(expectedResult, result);
     }
 
@@ -194,7 +177,7 @@ public class SemanticTest {
         assertEquals(expectedResult1, result1); // call print(6 mod 0); will terminate program instead of print anything
     }
 
-//    @Test (timeout = 2000)
+//    @Test (timeout = 5000)
 //    public void testInfiniteLoop() throws IOException, ParseException {
 //        String result1 = haskell.buildAndRunJafar("infiniteLoop");
 //        String expectedResult1 = "";

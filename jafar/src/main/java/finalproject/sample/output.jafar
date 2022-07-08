@@ -1,8 +1,0 @@
-Program basic;
-
-int x;
-
-{
-    x := 17;
-    print(x);
-}

@@ -13,6 +13,6 @@ func fib(int n): int {
 }
 
 {
-    result := fib(7);
-    print(result);
+    print(fib(5));
+    print(fib(7));
 }
