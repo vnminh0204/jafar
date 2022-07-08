@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 import java.util.Objects;
 public class SyntaxTest {
     @Test
-    public void bracketTest(){
+    public void commentTest(){
         String bigstring = " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, " +
                 "pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. " +
                 "Donec scelerisque sollicitudin enim eu venenatis. Duis tincidunt laoreet ex, " +
