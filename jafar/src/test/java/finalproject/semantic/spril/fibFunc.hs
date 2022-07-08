@@ -109,9 +109,7 @@ prog0 = [
     , Load (IndAddr regB) regB 
     , Jump (Ind regB) 
     , Nop 
-    , Load (ImmValue 1) regA 
-    , Push regA 
-    , Load (ImmValue 7) regA 
+    , Load (ImmValue 5) regA 
     , Push regA 
     , Load (ImmValue 3) regB 
     , Compute Add regF regB regB 
@@ -119,7 +117,7 @@ prog0 = [
     , Store regA (IndAddr regB) 
     , Load (ImmValue 4) regB 
     , Compute Add regF regB regF 
-    , Load (ImmValue 121) regA 
+    , Load (ImmValue 119) regA 
     , Load (ImmValue (-2)) regB 
     , Compute Add regF regB regB 
     , Store regA (IndAddr regB) 
@@ -132,10 +130,27 @@ prog0 = [
     , Load (ImmValue (-4)) regB 
     , Compute Add regF regB regF 
     , Pop regA 
-    , Pop regD 
-    , Store regA (IndAddr regD) 
-    , Load (DirAddr 1) regA 
+    , WriteInstr regA numberIO 
+    , Load (ImmValue 7) regA 
     , Push regA 
+    , Load (ImmValue 3) regB 
+    , Compute Add regF regB regB 
+    , Pop regA 
+    , Store regA (IndAddr regB) 
+    , Load (ImmValue 4) regB 
+    , Compute Add regF regB regF 
+    , Load (ImmValue 141) regA 
+    , Load (ImmValue (-2)) regB 
+    , Compute Add regF regB regB 
+    , Store regA (IndAddr regB) 
+    , Jump (Abs 2) 
+    , Nop 
+    , Load (ImmValue (-3)) regB 
+    , Compute Add regF regB regB 
+    , Load (IndAddr regB) regA 
+    , Push regA 
+    , Load (ImmValue (-4)) regB 
+    , Compute Add regF regB regF 
     , Pop regA 
     , WriteInstr regA numberIO 
     , EndProg 

@@ -50,24 +50,28 @@ prog0 = [
     , Pop regA 
     , Pop regD 
     , Store regA (IndAddr regD) 
-    , Jump (Abs 76) 
+    , Jump (Abs 80) 
     , Nop 
     , Load (ImmValue 2) regA 
     , Push regA 
     , Load (DirAddr 2) regA 
     , Push regA 
     , Load (ImmValue 0) regD 
+    , Push regD 
     , Load (DirAddr 1) regA 
     , Push regA 
     , Pop regA 
     , Load (ImmValue 3) regB 
     , Compute Gt regA regB regB 
-    , Branch regB (Abs 93) 
+    , Branch regB (Abs 97) 
     , Compute Lt regA reg0 regB 
-    , Branch regB (Abs 93) 
+    , Branch regB (Abs 97) 
+    , Pop regD 
     , Load (ImmValue 1) regB 
     , Compute Mul regB regA regA 
     , Compute Add regA regD regD 
+    , Push regD 
+    , Pop regD 
     , Load (ImmValue 3) regA 
     , Compute Add regA regD regD 
     , Load (IndAddr regD) regD 
