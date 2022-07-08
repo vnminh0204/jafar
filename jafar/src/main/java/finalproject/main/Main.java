@@ -6,6 +6,10 @@ import finalproject.exception.ParseException;
 import java.io.IOException;
 
 // run command mvn exec:java
+
+/**
+ * Used to generate, compile and run Jafar file
+ */
 public class Main {
     public static void main(String[] args) throws ParseException, IOException {
         System.out.println("Hello, Programming Paradigms");

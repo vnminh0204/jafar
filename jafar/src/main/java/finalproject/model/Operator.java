@@ -1,6 +1,8 @@
 package finalproject.model;
 
 public class Operator extends Operand{
+
+    /** Type of Operator */
     private Type type;
 
     /**

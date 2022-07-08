@@ -71,7 +71,7 @@ public class HaskellFileGenerator {
     }
 
     /**
-     * compile a file from source folder to a program instance
+     * Compile a file from source folder to a program instance
      * @param filename : file name
      * @return program instance generated from the file
      * @throws IOException
@@ -82,7 +82,7 @@ public class HaskellFileGenerator {
     }
 
     /**
-     * compile a file from source folder to program instances
+     * Compile a file from source folder to program instances
      * @param filename : file name
      * @return list of program instances generated from the file
      * @throws IOException
@@ -207,6 +207,14 @@ public class HaskellFileGenerator {
     }
 
     //reference: https://stackoverflow.com/questions/54904549/simple-haskell-script-with-java
+
+    /**
+     * Compile, Generate haskell file and run a Jafar file, result in a String represents result of the Jafar program
+     * @param filename Name of Jafar file, located in JAFAR_DIR
+     * @return Run results from executing JAFAR file
+     * @throws IOException
+     * @throws ParseException
+     */
     public String buildAndRunJafar(String filename) throws IOException, ParseException {
         genHaskellFrom(filename);
         ProcessBuilder builder = new ProcessBuilder("ghci", filename + ".hs");

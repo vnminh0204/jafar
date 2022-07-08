@@ -55,14 +55,14 @@ public class CheckerResult {
 	}
 
 	/**
-	 * @param maxOffSet current highest offset
+	 * @param maxOffSet Current highest offset
 	 * Update max offset */
 	public void setMaxOffset(int maxOffSet) {
 		this.maxOffSet = maxOffSet;
 	}
 
 	/**
-	 * @return current highest offset */
+	 * @return Current highest offset */
 	public int getMaxOffset() {
 		return this.maxOffSet;
 	}
@@ -189,10 +189,6 @@ public class CheckerResult {
 
 	/** Check if a variable is shared variable */
 	public boolean isShared(String id) {
-		return this.sharedOffset.containsKey(id);
-	}
-
-	public boolean isDeclared(String id) {
 		return this.sharedOffset.containsKey(id);
 	}
 
