@@ -223,11 +223,12 @@ public class ContextualTest {
 	}
 
 	@Test
-	public void testSharedVarible() throws IOException, ParseException {
+	public void testSharedVariable() throws IOException, ParseException {
 		// extraneous input 'shared' since we can only declare shared on top of program.
 		checkFail("declSharedErr1", "extraneous input 'shared'");
 		checkFail("declSharedErr2", "extraneous input 'shared'");
 		check(parse("declShared1"));
+		check(parse("sharedArray"));
 		checkFail("sharedMissuseErr1", "extraneous input '}'");
 		checkFail("sharedMissuseErr2", "Expected type 'Integer' but found 'Boolean'");
 		checkFail("sharedMissuseErr3", "Variable 'x ' already defined as shared variable");

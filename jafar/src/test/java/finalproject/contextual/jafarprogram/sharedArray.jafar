@@ -1,0 +1,16 @@
+Program sharedArray;
+
+shared int[3] a;
+
+{
+    parbegin:
+    {
+        a[0] := 1;
+        a[1] := 2;
+    }
+    {
+        a[2] := 3;
+    }
+    parend;
+    print(a);
+}
