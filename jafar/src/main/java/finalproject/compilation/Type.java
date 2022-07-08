@@ -136,16 +136,6 @@ abstract public class Type {
 		}
 
 		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + this.elemType.hashCode();
-			result = prime * result + this.lower;
-			result = prime * result + this.upper;
-			return result;
-		}
-
-		@Override
 		public boolean equals(Object obj) {
 			if (this == obj) {
 				return true;

@@ -12,7 +12,7 @@ public class Main {
         HaskellFileGenerator haskell = HaskellFileGenerator.instance();
 
         //TODO set the name of any files in "src/main/java/finalproject/sample"
-        String filename = "bankingsWithFunc";
+        String filename = "vectorAddition";
 
         if (filename.length() != 0) {
             String result = haskell.buildAndRunJafar(filename);

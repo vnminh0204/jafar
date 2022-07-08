@@ -31,8 +31,7 @@ public class Generator extends JAFARBaseVisitor<Op> {
 	protected CheckerResult checkResult;
 
 
-	/** Association of statement nodes to labels. */
-	protected ParseTreeProperty<Label> labels;
+
 
 	/** The program being built. */
 	protected Program prog;
@@ -85,7 +84,6 @@ public class Generator extends JAFARBaseVisitor<Op> {
 		this.prog = new Program(0);
 		this.programs.set(0, this.prog);
 		this.checkResult = checkResult;
-		this.labels = new ParseTreeProperty<>();
 		tree.accept(this);
 		for (Program p : this.programs) {
 			String endProgLabel = p.getEndLabel();

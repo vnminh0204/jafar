@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-/** Class holding the results of the Simple Jafar checker. */
+/** Class holding the results of the Jafar checker. */
 public class CheckerResult {
 	/** Mapping from function to parameter. */
 	private final HashMap<String,Integer> numParams = new HashMap<>();

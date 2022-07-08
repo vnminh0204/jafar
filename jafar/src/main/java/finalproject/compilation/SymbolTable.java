@@ -66,6 +66,7 @@ public class SymbolTable {
 
 	/** Declares an identifier with a given type in the deepest scope level, if the identifier
 	 * is not yet in this scope.
+	 * If the variable is function it needs to calculate offset based on local scope instead of memory offset
 	 * @return <code>true</code> if the identifier was added into this cope;
 	 * <code>false</code> if it was already declared in this cope.
 	 */
@@ -162,6 +163,12 @@ public class SymbolTable {
 		return res;
 	}
 
+	/**
+	 * Check if the identifier is declared in current scope
+	 * @param id: identifier
+	 * @return <code>true</code> if the identifier is in current cope;
+	 * <code>false</code> if it is not in this cope.
+	 */
 	public boolean isDeclared(String id) {
 		return this.types.peek().containsKey(id);
 	}

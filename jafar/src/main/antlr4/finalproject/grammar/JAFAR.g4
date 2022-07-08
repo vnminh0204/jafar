@@ -7,14 +7,14 @@ program
 
 /** Body of a program. */
 body
-    : (sharedDecl|decl)* func* block
+    : (sharedDecl|decl)* func* block // int x,a; share bool y; func add(int g,h):void{return;} {}
     ;
 
 /** Variable declaration block. */
 decl: (var SEMI)+                  #varDecl //int x,y; bool check;
     ;
 
-sharedDecl: SHARED type ID (COMMA ID)* SEMI
+sharedDecl: SHARED type ID (COMMA ID)* SEMI //shared int x,y; shared bool[1][2] check;
     ;
 /** Function declaration. */
 func: FUNC ID LPAR (params)? RPAR COLON type BEGIN (decl)* (stat)* RETURN (expr)? SEMI END #funcDecl // func add(int x,y):int {return (x+y);}
@@ -29,7 +29,7 @@ var : type ID (COMMA ID)* //int x,y
 
 /** Grouped sequence of statements. */
 block
-    : BEGIN (decl)* (stat)+ END //{ a:=b; x:= x+1;}
+    : BEGIN (decl)* (stat)+ END //{int a,x,b; a:=b; x:= x+1;}
     ;
 
 threadBlock
@@ -41,25 +41,25 @@ stat: target ASS expr SEMI                  #assStat // x:= 1;
     | WHILE expr COLON block                #whileStat // while (a == b): {}
     | block                                 #blockStat //{@block content}
     | PARBEGIN COLON (threadBlock)+ PAREND SEMI      #threadStat // parbegin: {@thread1block} {@thread2block} parend;
-    | LOCK LPAR RPAR SEMI           #lockStat
-    | UNLOCK LPAR RPAR SEMI         #unlockStat
+    | LOCK LPAR RPAR SEMI           #lockStat // lock();
+    | UNLOCK LPAR RPAR SEMI         #unlockStat // unlock();
     | PRINT LPAR expr RPAR SEMI             #outStat // print(x);
     | ID LPAR (expr (COMMA expr)*)? RPAR SEMI #funcStat // funcname(x,1,True);
     ;
 
 /** Target of an assignment. */
 target
-    : ID               #idTarget
+    : ID               #idTarget // a,x
     | arrayID (LSQ expr RSQ)+ #arrayTarget // a[0][1] := x;
     ;
 
 /** Expression. */
-expr: prfOp expr        #prfExpr
-    | expr multOp expr  #multExpr
-    | expr plusOp expr  #plusExpr
-    | expr compOp expr  #compExpr
-    | expr boolOp expr  #boolExpr
-    | LPAR expr RPAR    #parExpr
+expr: prfOp expr        #prfExpr // (-1) (!x)
+    | expr multOp expr  #multExpr // a/b, a*b, a mod b
+    | expr plusOp expr  #plusExpr // a+b, a-b
+    | expr compOp expr  #compExpr // a<=b, a<b, a==b, a>b, a>=b, [1,2,3] == x[i]
+    | expr boolOp expr  #boolExpr // a and b, a or b
+    | LPAR expr RPAR    #parExpr // (1+2)
     | ID                #idExpr
     | NUM               #numExpr
     | TRUE              #trueExpr
