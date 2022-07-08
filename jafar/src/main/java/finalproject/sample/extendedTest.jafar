@@ -1,0 +1,59 @@
+Program extendedTest;
+
+
+int[3][3] a;
+int result;
+
+func isPrime(int x): bool {
+    int i;
+    bool stop;
+    i := 2;
+    stop := false;
+    while ((!stop) and (i*i < x)): {
+        stop := (i * (x/i)) == x;
+        i := i + 1;
+    }
+    return !stop;
+}
+
+func gcd(int x; int y): int {
+    while x != y :
+    {
+        if x > y: {
+            x := x-y;
+        } else {
+            y := y-x;
+        }
+    }
+    return x;
+}
+
+func sum(int x; int y): void {
+    result := x + y;
+    return;
+}
+
+
+{
+    result := 0;
+    a[0] := [5,6,7];
+    {
+        int i;
+        a[0] := [2,3,5];
+        a[1] := [5,6,7];
+        print(a);
+        i := 0;
+        while (i < 3): {
+            if (isPrime(a[0][i]) and (gcd(a[0][i], a[1][i]) == 1)): {
+                // adding a[0][i] and a[1][i] to the result
+                sum(result, a[0][i] * a[1][i]);
+            }
+            i := i + 1;
+        }
+        print(result);
+    }
+    a[2] := [132,12,321];
+    // a[2] := [11,1,2001];
+    print(a);
+    print(a[0] == a[1]);
+}
