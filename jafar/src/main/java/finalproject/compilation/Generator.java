@@ -42,7 +42,7 @@ public class Generator extends JAFARBaseVisitor<Op> {
 	/** Constant variables indicate at which address of Shared memory, the wait begin, wait end and wait lock start
 	 * BEGIN : 0 -> 5
 	 * END : 6 -> 11
-	 * LOCK : 12 -> 16
+	 * LOCK : 12 -> 17
 	 * THEY ARE USED FOR CONCURRENCY IMPLEMENTATION.
 	 * */
 	private final int BEGINZONE = 0;
