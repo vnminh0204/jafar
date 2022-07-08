@@ -16,7 +16,7 @@ public class Main {
         HaskellFileGenerator haskell = HaskellFileGenerator.instance();
 
         //TODO set the name of any files in "src/main/java/finalproject/sample"
-        String filename = "vectorAddition";
+        String filename = "matrixMultiplication";
 
         if (filename.length() != 0) {
             String result = haskell.buildAndRunJafar(filename);

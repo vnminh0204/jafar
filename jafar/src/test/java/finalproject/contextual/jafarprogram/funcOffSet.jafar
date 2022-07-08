@@ -14,10 +14,10 @@ func fib(int n): int {
 }
 
 func sum():void {
-    int a,b;
-    a:=1;
+    bool[3] a;
+    int b;
+    a:=[True,False,True];
     b:=7;
-    result:=a+b;
     return;
 }
 

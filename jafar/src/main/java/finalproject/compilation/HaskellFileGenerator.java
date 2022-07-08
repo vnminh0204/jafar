@@ -74,8 +74,8 @@ public class HaskellFileGenerator {
      * Compile a file from source folder to a program instance
      * @param filename : file name
      * @return program instance generated from the file
-     * @throws IOException
-     * @throws ParseException
+     * @throws IOException : IO error
+     * @throws ParseException : Parse error
      */
     public Program compile (String filename) throws IOException, ParseException {
         return this.compiler.compile(new File(JAFAR_DIR, filename + EXT));
@@ -85,8 +85,8 @@ public class HaskellFileGenerator {
      * Compile a file from source folder to program instances
      * @param filename : file name
      * @return list of program instances generated from the file
-     * @throws IOException
-     * @throws ParseException
+     * @throws IOException : IO error
+     * @throws ParseException : Parse error
      */
     public ArrayList<Program> compileMultiple (String filename) throws IOException, ParseException {
         return this.compiler.compileMultiple(new File(JAFAR_DIR, filename + EXT));
@@ -96,8 +96,8 @@ public class HaskellFileGenerator {
      * Generate a single String represent single-program SPRIL code.
      * @param filename source file name
      * @return A string represent haskell code
-     * @throws IOException
-     * @throws ParseException
+     * @throws IOException : IO error
+     * @throws ParseException : Parse error
      */
     public String generateHaskellContent (String filename) throws IOException, ParseException {
         Program p = this.compile(filename);
@@ -118,8 +118,8 @@ public class HaskellFileGenerator {
      * Generate a single String represent single-program SPRIL code.
      * @param p input program
      * @return A string represent haskell code
-     * @throws IOException
-     * @throws ParseException
+     * @throws IOException : IO error
+     * @throws ParseException : Parse error
      */
     public String generateHaskellContent (Program p) throws IOException, ParseException {
         StringBuilder builder = new StringBuilder();
@@ -139,8 +139,8 @@ public class HaskellFileGenerator {
      * Generate a single String represent multi-program SPRIL code.
      * @param filename source file name
      * @return A string represent haskell code
-     * @throws IOException
-     * @throws ParseException
+     * @throws IOException : IO error
+     * @throws ParseException : Parse error
      */
     public String generateMultiProgHaskellContent (String filename) throws IOException, ParseException {
         ArrayList<Program> ps = this.compileMultiple(filename);
@@ -173,7 +173,7 @@ public class HaskellFileGenerator {
      * Write a string to a file, create if not exists
      * @param fileContent A string represent the content of file
      * @param filename A string represent the file name
-     * @throws IOException
+     * @throws IOException : IO error
      */
     public void writeJafar (String fileContent, String filename) throws IOException {
         PrintWriter writer = new PrintWriter(new File(JAFAR_DIR, filename + ".jafar"));
@@ -186,7 +186,7 @@ public class HaskellFileGenerator {
      * Write a string to a file, create if not exists
      * @param fileContent A string represent the content of file
      * @param filename A string represent the file name
-     * @throws IOException
+     * @throws IOException : IO error
      */
     public void write (String fileContent, String filename) throws IOException {
         PrintWriter writer = new PrintWriter(new File(HASKELL_DIR, filename + EXT_OUT));
@@ -198,8 +198,8 @@ public class HaskellFileGenerator {
     /**
      *  Generate a new SPROCKELL .hs program from a .jafar file
      * @param filename Name of the file
-     * @throws IOException
-     * @throws ParseException
+     * @throws IOException : IO error
+     * @throws ParseException : Parse error
      */
     public void genHaskellFrom(String filename) throws IOException, ParseException {
         String content = generateMultiProgHaskellContent(filename);
@@ -212,8 +212,8 @@ public class HaskellFileGenerator {
      * Compile, Generate haskell file and run a Jafar file, result in a String represents result of the Jafar program
      * @param filename Name of Jafar file, located in JAFAR_DIR
      * @return Run results from executing JAFAR file
-     * @throws IOException
-     * @throws ParseException
+     * @throws IOException : IO error
+     * @throws ParseException : Parse error
      */
     public String buildAndRunJafar(String filename) throws IOException, ParseException {
         genHaskellFrom(filename);

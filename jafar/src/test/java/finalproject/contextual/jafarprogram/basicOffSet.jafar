@@ -1,0 +1,11 @@
+Program basic;
+
+int x;
+int[3] a;
+bool y;
+
+{
+    x := 0;
+    y := true;
+    a := [1,2,3];
+}

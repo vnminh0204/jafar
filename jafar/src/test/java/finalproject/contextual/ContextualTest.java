@@ -34,7 +34,7 @@ public class ContextualTest {
 		assertEquals(Type.BOOL, result.getType(assX.getChild(0)));
 		assertEquals(Type.BOOL, result.getType(assX.getChild(2)));
 		checkFail("typeErr1", "Expected type 'Integer' but found 'Boolean'");
-		checkFail("typeErr2", "Expected type 'Boolean' but found 'Integer'");
+		checkFail("typeErr2", "Expected type 'Integer' but found 'Boolean'");
 		checkFail("typeErr3", "Expected type 'Integer' but found 'Boolean'");
 	}
 
@@ -72,6 +72,17 @@ public class ContextualTest {
 		Type indexXi = result.getType(body.getChild(3).getChild(0).getChild(2));
 		assertEquals(Type.INT, indexXi);
 		checkFail("arrIndexError1", "Index is not of type INT");
+	}
+
+	@Test
+	public void testArrayIndexOffset() throws IOException, ParseException {
+		ParseTree tree = parse("arrOffSet");
+		CheckerResult result = check(tree);
+		ParseTree body = tree.getChild(3).getChild(1);
+		int indexX110 = result.getOffset(body.getChild(3).getChild(2));
+		assertEquals(1, indexX110); //all identifier array accessing even with index should return the offset of parent array's 1st element
+		int indexX121 = result.getOffset(body.getChild(4).getChild(0));
+		assertEquals(1, indexX121);
 	}
 
 	@Test
@@ -130,6 +141,8 @@ public class ContextualTest {
 		checkFail("funcScope2", "Variable 'b' not declared"); // NOT able to access variable declared in lower scope
 		check(parse("funcScope3")); // able to return variable declared inside function
 		check(parse("funcScope4")); // able to return function's parameter
+		checkFail("funcScope5", "Function 'add ' already defined in this scope");
+		checkFail("funcScope6", "Variable 'sum' not declared"); // shouldn't able to access variable declared in different function
 	}
 
 	@Test
@@ -154,19 +167,21 @@ public class ContextualTest {
 		LinkedHashMap<String, Integer> actual2 = result.getFuncOffSetData("sum");
 		LinkedHashMap<String, Integer> expected2 = new LinkedHashMap<>();
 		expected2.put("a", 1);
-		expected2.put("b", 2);
+		expected2.put("b", 4);
 		assertEquals(actual2, expected2);
 	}
 
 	@Test
 	public void testBasicOffsetsInScope() throws IOException, ParseException {
-		ParseTree tree = parse("basicType1");
+		ParseTree tree = parse("basicOffSet");
 		CheckerResult result = check(tree);
 		ParseTree body = tree.getChild(3).getChild(1);
 		ParseTree assX = body.getChild(1);
 		assertEquals(1, result.getOffset(assX.getChild(0)));
+		ParseTree assZ = body.getChild(3);
+		assertEquals(2, result.getOffset(assZ.getChild(0)));
 		ParseTree assY = body.getChild(2);
-		assertEquals(2, result.getOffset(assY.getChild(0)));
+		assertEquals(5, result.getOffset(assY.getChild(0)));
 	}
 
 	@Test

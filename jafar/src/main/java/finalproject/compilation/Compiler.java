@@ -15,14 +15,11 @@ import java.util.ArrayList;
 public class Compiler {
 	/** The singleton instance of this class. */
 	private final static Compiler instance = new Compiler();
-	/** Debug flag. */
-	private final static boolean SHOW = true;
 
 	/** Returns the singleton instance of this class. */
 	public static Compiler instance() {
 		return instance;
 	}
-
 
 	/** The fixed checker of this compiler. {@link Checker} */
 	private final Checker checker;

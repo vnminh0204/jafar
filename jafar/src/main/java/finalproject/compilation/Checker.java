@@ -12,7 +12,6 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /** Class to type check and calculate flow entries and variable offsets. */
@@ -24,7 +23,7 @@ public class Checker extends JAFARBaseListener {
 	/** List of errors collected in the latest call of {@link #check}. */
 	private List<String> errors;
 	/** MAX number of sub threads*/
-	private final int MAX_THREADS = 5;
+	private static final int MAX_THREADS = 5;
 
 	/** Runs this checker on a given parse tree,
 	 * and returns the checker result.
@@ -48,7 +47,7 @@ public class Checker extends JAFARBaseListener {
 	@Override public void enterFuncDecl(JAFARParser.FuncDeclContext ctx) {
 		String funcID = ctx.ID().getText();
 		int typeToken = ctx.type().getStart().getType();
-		Type returnType = null;
+		Type returnType;
 		switch (typeToken) {
 			case JAFARLexer.BOOLEAN:
 				returnType = Type.BOOL;
@@ -106,7 +105,6 @@ public class Checker extends JAFARBaseListener {
 
 		this.result.setFuncOffSetData(funcID, this.symbolTable.getScopeOffsetInfo());
 		this.result.setFuncTypeData(funcID, this.symbolTable.getScopeTypeInfo());
-		HashMap<String, Integer> check = this.symbolTable.getScopeOffsetInfo();
 		this.symbolTable.closeScope();
 		this.symbolTable.setStartFuncName(null);
 		setType(ctx,returnType);
@@ -168,8 +166,7 @@ public class Checker extends JAFARBaseListener {
 	public void enterEveryRule(ParserRuleContext ctx) {
 		int threadId = 0;
 		if (ctx.parent != null) {
-			int t = result.getThreadId(ctx.parent);
-			threadId = t;
+			threadId = result.getThreadId(ctx.parent);
 		}
 		result.setThreadId(ctx, threadId);
 	}
@@ -291,8 +288,6 @@ public class Checker extends JAFARBaseListener {
 		checkType(ctx.expr(), Type.BOOL);
 	}
 
-	// Override the listener methods for the statement nodes
-
 	@Override
 	public void exitIdExpr(IdExprContext ctx) {
 		String id = ctx.ID().getText();
@@ -406,10 +401,9 @@ public class Checker extends JAFARBaseListener {
 	@Override public void exitArrayExpr(JAFARParser.ArrayExprContext ctx) {
 		Type expectedElemType = getType(ctx.expr(0));
 		for (ExprContext arrayElem : ctx.expr()) {
-			Type actualType = getType(arrayElem);
 			if (!getType(arrayElem).equals(expectedElemType)) {
 				addError(ctx, "Array is declared with elements are not of the same type");
-			};
+			}
 		}
 		setType(ctx, new Type.Array(ctx.expr().size(), expectedElemType));
 	}

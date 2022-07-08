@@ -30,9 +30,6 @@ public class Generator extends JAFARBaseVisitor<Op> {
 	/** The outcome of the checker phase. */
 	protected CheckerResult checkResult;
 
-
-
-
 	/** The program being built. */
 	protected Program prog;
 

@@ -3,9 +3,5 @@ Program typeErr2;
 int x;
 
 {
-    if (1+2): {
-        x := 0;
-    } else {
-        x := 1;
-    }
+    x := 1 == 2;
 }

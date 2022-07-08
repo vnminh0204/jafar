@@ -1,0 +1,11 @@
+Program divmod;
+int x,y,ans;
+{
+    x:=5;
+    y:=2;
+    ans:=x/y;
+    ans:= 12/5;
+    ans:=3 mod y;
+    ans:= x mod y;
+}
+

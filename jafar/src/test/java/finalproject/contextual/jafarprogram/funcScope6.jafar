@@ -1,0 +1,17 @@
+Program funcScope2;
+
+int x,a;
+
+func add1():int {
+    int sum;
+    return x;
+}
+
+func add(int x,y; bool check):int {
+    return sum;
+}
+
+{
+    int b;
+    b:=1;
+}
