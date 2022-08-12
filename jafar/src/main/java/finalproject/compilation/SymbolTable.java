@@ -6,7 +6,7 @@ import java.util.*;
 public class SymbolTable {
 	/** Current size of this scope (in bytes).
 	 * Used to calculate offsets of newly declared variables. */
-	private final Stack<Integer> size;
+	private final Stack<Integer> scopeMaxOffset;
 	/** Map from declared variables to their types. */
 	private final Stack<LinkedHashMap<String, Type>> types;
 	/** Map from declared variables to their offset within the allocation
@@ -27,8 +27,8 @@ public class SymbolTable {
 		this.types.push(new LinkedHashMap<>());
 		this.offsets = new Stack<>();
 		this.offsets.push(new LinkedHashMap<>());
-		this.size = new Stack<>();
-		this.size.push(1);
+		this.scopeMaxOffset = new Stack<>();
+		this.scopeMaxOffset.push(1);
 		this.functionsParamType = new LinkedHashMap<>();
 		this.startFuncName = null;
 		this.maxOffSet = 0;
@@ -48,14 +48,14 @@ public class SymbolTable {
 	public void openScope() {
 		types.push(new LinkedHashMap<>());
 		offsets.push(new LinkedHashMap<>());
-		size.push(1);
+		scopeMaxOffset.push(1);
 	}
 
 	/** Close the current scope with all its information. */
 	public void closeScope() {
 		types.pop();
 		offsets.pop();
-		size.pop();
+		scopeMaxOffset.pop();
 	}
 
 	/** @return highest occupied offset in memory
@@ -75,22 +75,22 @@ public class SymbolTable {
 		if (result) {
 			if (this.startFuncName == null) {
 				this.types.peek().put(id, type);
-				int offsetInScope = this.size.pop();
+				int offsetInScope = this.scopeMaxOffset.pop();
 				int offsetInMem = offsetInScope;
-				for (int i =0; i < this.size.size(); i++) {
-					offsetInMem += (this.size.get(i)-1);
+				for (int i = 0; i < this.scopeMaxOffset.size(); i++) {
+					offsetInMem += (this.scopeMaxOffset.get(i)-1);
 				}
 				this.offsets.peek().put(id, offsetInMem);
-				this.size.push(offsetInScope +  type.size());
+				this.scopeMaxOffset.push(offsetInScope +  type.size());
 				if (offsetInMem + type.size() > this.maxOffSet) {
 					this.maxOffSet = offsetInMem + type.size();
 				}
 //				System.out.println("Id " + id +" scope" + this.offsets.size() + " localoffset " + offsetInScope + ", memOffSet" + offsetInMem);
 			} else {
 				this.types.peek().put(id, type);
-				int offsetInScope = this.size.pop();
+				int offsetInScope = this.scopeMaxOffset.pop();
 				this.offsets.peek().put(id, offsetInScope);
-				this.size.push(offsetInScope +  type.size());
+				this.scopeMaxOffset.push(offsetInScope +  type.size());
 //				System.out.println("Id " + id +" in func '" + this.startFuncName + "' scope " + this.offsets.size() + " localoffset " + offsetInScope);
 			}
 		}

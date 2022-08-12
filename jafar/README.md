@@ -32,6 +32,8 @@ With the given 32 it still works but for example the fibFunc will only works wit
 In order to support six concurrent threads, we also extend the shared memory from 8 to 48 cells. For detailed reasons and design, please visit our Project Report. 
 
 
+In order to support six concurrent threads, locking and shared variables we also extended the shared memory from 8 to 48 cells. For detailed information, please visit our Project Report.
+
 ## Compiling
 
 In a terminal, run:
