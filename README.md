@@ -1,92 +1,163 @@
 # PP-Project_22
+The project of University of Twente's Programming Paradigms module consists of the development of a complete compiler for
+a Jafar language. The target machine for compilation is a realistic, though non-existent processor called SPROCKELL, for which a hardware-level simulator is provided in HASKELL. The corresponding machine language is called SPRIL
 
 
+# Team members:
+- Vo Nhat Minh
+- Andrea Onofei
+- Tran Duc Duc
 
-## Getting started
+# PP Final Project: Jafar programming language project
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+This folder contains a project for Jafar programming language, which includes:
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+- JUnit integration
+- ANTLR integration
+- Grammar of the JAFAR language
+- Code generation of the JAFAR language
+- JUNIT Test of the JAFAR language
 
-## Add your files
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+The rest of this document gives a brief explanation of how to run the project. For more information we refer you to the documentation of the respective tools.
+
+## Prerequisites
+
+Make sure you have installed:
+
+- Maven. Preferably version 3.8 or later.
+- A Java version. Preferably 11 or 17.
+
+To test if you have these tools set up properly, run the following two commands in the command line:
+
+- For maven: `mvn --version`
+- For java: `javac --version`
+
+If these commands print sensible outputs (e.g. "version so and so"), this project should work fine. Otherwise, you will have to install these tools either manually or using your operating system's package manager.
+
+## Memory extension
+You can change the memory in BasicFunctions.hs which is located in all [sample]spril/Sprockell package.
+For the testing purpose, we need to extend the local memory from 32 to 50 to test with function recursion and multi-dimensional array features
+With the given 32 it still works but for example the fibFunc will only works with input smaller than 5 and multi-dimensional arrays should have less than 10 elements
+In order to support six concurrent threads, we also extend the shared memory from 8 to 48 cells. For detailed reasons and design, please visit our Project Report. 
+
+
+In order to support six concurrent threads, locking and shared variables we also extended the shared memory from 8 to 48 cells. For detailed information, please visit our Project Report.
+
+## Compiling
+
+In a terminal, run:
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.utwente.nl/s2482266/pp-project_22.git
-git branch -M main
-git push -uf origin main
+mvn compile
 ```
 
-## Integrate with your tools
+This first generates parsers for any grammars in `src/main/antlr4`. Then it compiles code in the `src/main/java` directory.
 
-- [ ] [Set up project integrations](https://gitlab.utwente.nl/s2482266/pp-project_22/-/settings/integrations)
+>Note: The generated files might not be marked as "Generated Sources Root" (take a look at IntelliJ FAQ)
 
-## Collaborate with your team
+## Set up run file
+To set up the file you want to run, you have to navigate to the `main` method of the class `Main`, located in the `src/main/java/finalproject/main`
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+In the `main` method you will have 3 option to set up the run
 
-## Test and Deploy
+**Option 1: Set string "filename":**
 
-Use the built-in continuous integration in GitLab.
+You can choose to run any file provided in `src/main/java/finalproject/sample` by setting the "filename" (without.jafar). 
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+`Example: filename = "fibFunc"`
 
-***
+**Option 2: Set string "jafarContent":**
 
-# Editing this README
+You can choose to run your own Jafar program by putting the content in "jafarContent".
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+`Example: jafarContent = "Program main; int i; {{i:=i+3;} print(i);}"`
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+It will put the code content into `src/main/java/finalproject/sample/main.jafar` and execute it
 
-## Name
-Choose a self-explaining name for your project.
+Note: To run this option you need to set string "filename" as empty
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+**Option 3: Set run file as parameter:**
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+It's similar to option 1 but you have set the filename as program arguments 
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Note: To run this option you need to set string "filename" as empty
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+## Running
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Before running command make sure the `target/generated-sources/antlr4` is marked as Generated Sources Root (In our case we use IntelliJ FAQ workaround 2)
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+There are 2 options to run the Main Class
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+**Option 1: Running manually:**
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Navigate to the `main` method of the class `Main`, located in the `src/main/java/finalproject/main` and click on run button to run it manually
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+**Option 2: In a terminal, run:**
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+```
+mvn exec:java
+```
+Note: `exec` does not invoke `compile`, so if changes were made to the code, `compile` needs to be invoked before `exec`. These commands can also be combined:
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+```
+mvn compile exec:java
+```
 
-## License
-For open source projects, say how it is licensed.
+`mvn exec:java` is part of the maven-exec plugin. For more information about e.g. passing arguments to the main class, we refer you to the plugin documentation.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## Running result
+
+After running the file, the file will be first converted to SPRIL instructions which are located in `src/main/java/finalproject/samplespril`, then those instructions will be executed by Sprockell with the final result is located in `src/main/java/finalproject/sampleoutput`
+The final result also will be printed on the console/terminal
+
+Example: If you choose to run as option 2, the `main.jafar` file will be converted to `main.hs` in `samplespril` and the final result will be in `main_result.txt` in `sampleoutput`
+## Tests
+
+All the tests can be run automatically.
+
+There are 2 options to run the tests.
+
+**Option 1: Run a specific test case with "Run" button:**
+
+Navigate to these test files located in the `src/test/java/finalproject`
+
+In here you can choose to run any of concurrency/contextual/semantic or syntax test as you want.
+
+**Option 2: Run all the test  with terminal:**
+
+In a terminal, run:
+
+```
+mvn test
+```
+
+This will run all test classes in the `src/test/java` directory which have names ending with "Test".
+
+## Intellij Integration
+
+The project can be imported into intellij by opening the `pom.xml` file in intellij. Then on the right there will be a "Maven" pane. If the "Maven" pane is not there, you might have opened the project directory; be sure to open _specifically the file_ with intellij.
+
+Open the "Maven" pane, and open the tree structure there until you find the "Lifecycle" section. Here you can double-click "compile" and "test" to compile and test your code.
+
+To run your main class, open the main class and click on the green arrow besides the main method. Note: you have to run the "compile" target in the maven pane before running the main class.
+
+To run your a specific test, open the test class and click the green arrows beside the test methods to run the individual tests. Note: you have to run the "test" target in the maven pane before running the individual tests.
+
+For more information on intellij's maven integration, we refer you to the intellij documentation.
+
+### IntelliJ FAQ
+
+#### IntelliJ is not recognizing the generated antlr parser classes
+
+This often happens on the initial import of the subproject. It happens because at the time of import the folder containing the generated antlr classes does not exist yet. To fix this, either refresh the project after compiling (workaround 1), or mark the directory manually (workaround 2).
+
+Workaround 1:
+
+1. Execute the `compile` target in the maven pane. Your project should compile without errors.
+2. Refresh the maven project by pressing the "Reload All Maven Projects" button in the top left of the Maven pane
+
+Workaround 2:
+
+4. In the IntelliJ "Project" pane, navigate to the `target/generated-sources/antlr4` folder
+5. Right click this `antlr4` folder, and click on "Mark Directory as > Generated Sources Root"
