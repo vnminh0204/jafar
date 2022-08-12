@@ -28,7 +28,9 @@ If these commands print sensible outputs (e.g. "version so and so"), this projec
 ## Memory extension
 You can change the memory in BasicFunctions.hs which is located in all [sample]spril/Sprockell package.
 For the testing purpose, we need to extend the local memory from 32 to 50 to test with function recursion and multi-dimensional array features
-With the given 32 it still works but for example the fibFunc will only works with input smaller than 5 and multi-dimensional arrays should have less than 10 elements.
+With the given 32 it still works but for example the fibFunc will only works with input smaller than 5 and multi-dimensional arrays should have less than 10 elements
+In order to support six concurrent threads, we also extend the shared memory from 8 to 48 cells. For detailed reasons and design, please visit our Project Report. 
+
 
 In order to support six concurrent threads, locking and shared variables we also extended the shared memory from 8 to 48 cells. For detailed information, please visit our Project Report.
 
