@@ -76,7 +76,7 @@ func sum(int x; int y): void {
 }
 ```
 
-# PP Final Project: Jafar programming language project
+# Project structure and dependencies
 
 This folder contains a project for Jafar programming language, which includes:
 
