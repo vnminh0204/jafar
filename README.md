@@ -2,11 +2,79 @@
 The project of University of Twente's Programming Paradigms module consists of the development of a complete compiler for
 a Jafar language. The target machine for compilation is a realistic, though non-existent processor called SPROCKELL, for which a hardware-level simulator is provided in HASKELL. The corresponding machine language is called SPRIL
 
+The syntax of our programming language - Jafar is reminiscent of languages Java, Pascal
+and Python. As the language from which it was inspired, it is a strongly typed language – we
+enforce firm restrictions on mixing different data types and values.
+On the features that we have implemented: we have all the mandatory elements: comments,
+basic types (integers and booleans), simple expressions and variables, basic statements, and
+concurrency.Moreover, we have implemented optional features: arrays,functions/procedures,
+and soft division.
+
 
 # Team members:
 - Vo Nhat Minh
 - Andrea Onofei
 - Tran Duc Duc
+
+# Jafar example:
+```
+int[3][3] a;
+int result;
+
+func isPrime(int x): bool {
+  int i;
+  bool stop;
+  i := 2;
+  stop := false;
+
+  while ((!stop) and (i*i < x)): {
+    stop := (i * (x/i)) == x;
+    i := i + 1;
+  }
+  return !stop;
+}
+
+func gcd(int x; int y): int {
+  while x != y :
+  {
+    if x > y: {
+      x := x-y;
+    } else {
+      y := y-x;
+    }
+  }
+  return x;
+}
+
+func sum(int x; int y): void {
+  result := x + y;
+  return;
+}
+
+{
+  result := 0;
+  a[0] := [5,6,7];
+  {
+    int i;
+    a[0] := [2,3,5];
+    a[1] := [5,6,7];
+    print(a);
+    i := 0;
+    while (i < 3): {
+      if (isPrime(a[0][i]) and (gcd(a[0][i], a[1][i]) == 1)): {
+        // adding a[0][i] and a[1][i] to the result
+        sum(result, a[0][i] * a[1][i]);
+      }
+      i := i + 1;
+    }
+    print(result);
+  }
+  // a[2] := [11,1,2001];
+  a[2] := [132,12,321];
+  print(a);
+  print(a[0] == a[1]);
+}
+```
 
 # PP Final Project: Jafar programming language project
 
